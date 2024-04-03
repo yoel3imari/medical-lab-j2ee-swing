@@ -7,7 +7,8 @@ package com.mycompany.medicallab;
 public class MedicalLab {
 
     public static void main(String[] args) {
-        return;
+        PatientsFrame patients = new PatientsFrame();
+        patients.show();
     }
 
 }
