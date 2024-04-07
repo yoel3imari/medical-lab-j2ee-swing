@@ -7,7 +7,6 @@ com/mycompany/medicallab/LoginFrame$1.class
 com/mycompany/medicallab/PatientForm$2.class
 com/mycompany/medicallab/PatientsFrame$3.class
 com/mycompany/medicallab/PatientForm$5.class
-com/mycompany/medicallab/TestFrame$4.class
 com/mycompany/medicallab/PatientsFrame$5.class
 com/mycompany/medicallab/TestFrame$3.class
 com/mycompany/medicallab/PatientForm$3.class
@@ -16,10 +15,8 @@ com/mycompany/medicallab/TestFrame$1.class
 com/mycompany/medicallab/TestFrame.class
 com/mycompany/medicallab/MedicalLab.class
 com/mycompany/medicallab/PatientsFrame.class
-com/mycompany/medicallab/TestFrame$6.class
 com/mycompany/medicallab/PatientForm$6.class
 com/mycompany/medicallab/PatientsFrame$4.class
-com/mycompany/medicallab/TestFrame$5.class
 com/mycompany/medicallab/LoginFrame$2.class
 com/mycompany/medicallab/PatientForm$1.class
 com/mycompany/medicallab/PatientsFrame$1.class
