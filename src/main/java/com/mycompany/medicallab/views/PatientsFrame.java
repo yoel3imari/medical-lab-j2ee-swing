@@ -59,6 +59,7 @@ public class PatientsFrame extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(254, 253, 237));
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(27, 60, 115));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/patient.png"))); // NOI18N
         jLabel1.setText("Patients");
         jLabel1.setToolTipText("");
@@ -97,7 +98,6 @@ public class PatientsFrame extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon("/home/yusef/WWW/PROJECTS/MedicalLab/src/main/resources/images/logo.png")); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Liberation Sans", 1, 20)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(27, 60, 115));
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/test.png"))); // NOI18N
         jLabel8.setText("Tests");
         jLabel8.setToolTipText("");

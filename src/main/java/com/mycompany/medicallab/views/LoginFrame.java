@@ -4,8 +4,6 @@
  */
 package com.mycompany.medicallab.views;
 
-import java.awt.Toolkit;
-
 /**
  *
  * @author yusef
@@ -17,6 +15,7 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     public LoginFrame() {
         initComponents();
+        this.setVisible(true);
         //setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("images/logo.png")));
     }
 
@@ -65,7 +64,6 @@ public class LoginFrame extends javax.swing.JFrame {
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 270, 50));
 
         jPasswordField1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        jPasswordField1.setText("jPasswordField1");
         jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 270, 50));
 
         jButton1.setBackground(new java.awt.Color(27, 60, 115));
