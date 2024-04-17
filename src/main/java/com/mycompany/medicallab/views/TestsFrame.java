@@ -15,6 +15,9 @@ public class TestsFrame extends javax.swing.JFrame {
      */
     public TestsFrame() {
         initComponents();
+        this.setTitle("Tests");
+        this.setVisible(true);
+        this.setResizable(false);
     }
 
     /**

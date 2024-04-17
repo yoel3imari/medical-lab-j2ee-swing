@@ -15,6 +15,9 @@ public class DashboardFrame extends javax.swing.JFrame {
      */
     public DashboardFrame() {
         initComponents();
+        this.setTitle("Dashboard");
+        this.setVisible(true);
+        this.setResizable(false);
     }
 
     /**
