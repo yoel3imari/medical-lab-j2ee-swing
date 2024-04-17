@@ -2,6 +2,7 @@ package com.mycompany.medicallab.dao;
 
 import com.mycompany.medicallab.utils.HibernateUtil;
 import com.mycompany.medicallab.models.Admin;
+import com.mycompany.medicallab.utils.JavaUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -15,11 +16,13 @@ public class AdminDao {
             Admin admin = query.uniqueResult();
 
             if (admin != null) {
-                // Compare entered password with the password retrieved from database
-                return admin.getPassword().equals(enteredPassword);
+                String storedPassword = admin.getPassword();
+
+                // Check if the entered password matches the stored password
+                return storedPassword != null && storedPassword.equals(enteredPassword);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            JavaUtil.fireError(e);
         }
         return false;
     }
