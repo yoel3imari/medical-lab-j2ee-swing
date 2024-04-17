@@ -20,6 +20,7 @@ com/mycompany/medicallab/views/PatientForm$1.class
 com/mycompany/medicallab/views/PatientsFrame$2.class
 com/mycompany/medicallab/views/TestForm$2.class
 com/mycompany/medicallab/views/PatientForm$2.class
+com/mycompany/medicallab/models/Admin.class
 com/mycompany/medicallab/views/LoginFrame$1.class
 com/mycompany/medicallab/views/LoginFrame.class
 com/mycompany/medicallab/views/AppointementForm$2.class

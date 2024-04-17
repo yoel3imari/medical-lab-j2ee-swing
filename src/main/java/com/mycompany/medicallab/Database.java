@@ -1,5 +1,7 @@
 package com.mycompany.medicallab;
 
+import com.mycompany.medicallab.utils.JavaUtil;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -20,22 +22,8 @@ public class Database {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(
-                    new JFrame("Connection Error"),
-                    "Error: " + e.getMessage(),
-                    "Database Error",
-                    JOptionPane.ERROR_MESSAGE
-            );
-        } catch (ClassNotFoundException nf) {
-            nf.printStackTrace();
-            JOptionPane.showMessageDialog(
-                    new JFrame("Connection Error"),
-                    "Error: " + nf.getMessage() + " Not Found",
-                    "Driver Error",
-                    JOptionPane.ERROR_MESSAGE
-            );
+        } catch (Exception e) {
+            JavaUtil.fireError(e);
         }
     }
 

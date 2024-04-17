@@ -1,13 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.medicallab.models;
 
-/**
- *
- * @author dev23
- */
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "admins")
 public class Admin {
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Column(name="username", unique = true, nullable = false)
+    private String username;
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    public Admin() {}
+
+    public String getPassword() {
+        return password;
+    }
 }
