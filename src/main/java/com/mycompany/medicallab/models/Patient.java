@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.util.Date;
 
 
@@ -25,7 +27,7 @@ public class Patient {
     @Column(name = "lName", length = 25)
     private String lName;
 
-    @Column(name = "cin", length = 12)
+    @Column(name = "cin", length = 12, unique = true)
     private String cin;
 
     @Column(name = "email", length = 50)
@@ -37,8 +39,10 @@ public class Patient {
     @Column(name = "gender", length = 6)
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
+    
+    //This annotation ensures that only the date portion of the Date object is stored in the database, without considering the time component.
     @Column(name = "birthdate")
+    @Temporal(TemporalType.DATE)
     private Date birthdate;
 
     // Getters and setters

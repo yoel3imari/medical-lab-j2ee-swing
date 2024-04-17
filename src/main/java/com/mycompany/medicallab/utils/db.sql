@@ -10,12 +10,14 @@ create table if not EXISTS admins (
 );
 
 create table if not EXISTS patients (
-    id int primary key AUTO_INCREMENT,
-    cin char(10) unique,
-    email char(50) DEFAULT null,
-    phone CHAR(30),
-    gender char(10),
-    birth date, 
+    id int AUTO_INCREMENT primary key ,
+    fName VARCHAR(25),
+    lName VARCHAR(25),
+    cin VARCHAR(12) unique,
+    email VARCHAR(50) DEFAULT null,
+    phone VARCHAR(10),
+    gender VARCHAR(6) CHECK (gender IN ('Male', 'Female')),
+    birthdate DATE
     created_at date default now(),
     updated_at date default now()
 );
@@ -33,7 +35,7 @@ create table if not EXISTS appointements (
     id int primary key AUTO_INCREMENT,
     id_patient int,
     day date,
-    houre char(6),
+    hour char(6),
     state char(10),
     created_at date default now(),
     updated_at date default now(),
