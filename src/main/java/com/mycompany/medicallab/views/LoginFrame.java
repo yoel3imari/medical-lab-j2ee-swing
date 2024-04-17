@@ -4,6 +4,9 @@
  */
 package com.mycompany.medicallab.views;
 
+import com.mycompany.medicallab.dao.AdminDao;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author yusef
@@ -32,8 +35,8 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        passwordInput = new javax.swing.JPasswordField();
+        submitBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -63,14 +66,19 @@ public class LoginFrame extends javax.swing.JFrame {
         });
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 270, 50));
 
-        jPasswordField1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 270, 50));
+        passwordInput.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        jPanel1.add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 270, 50));
 
-        jButton1.setBackground(new java.awt.Color(27, 60, 115));
-        jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(254, 253, 237));
-        jButton1.setText("Login");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 130, 50));
+        submitBtn.setBackground(new java.awt.Color(27, 60, 115));
+        submitBtn.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        submitBtn.setForeground(new java.awt.Color(254, 253, 237));
+        submitBtn.setText("Login");
+        submitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(submitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 130, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,6 +100,22 @@ public class LoginFrame extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
+        char[] passwordChars = passwordInput.getPassword();
+        String enteredPassword = new String(passwordChars);
+        
+        if( !enteredPassword.isEmpty() ) {
+            AdminDao dao = new AdminDao();
+            if( dao.validateAdminPassword(enteredPassword) ) {
+                DashboardFrame dashboard = new DashboardFrame();
+            } else {
+                JOptionPane.showMessageDialog(this, "Access denied. Incorrect password.");
+            }
+        }
+        
+        passwordInput.setText("");
+    }//GEN-LAST:event_submitBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,11 +153,12 @@ public class LoginFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField passwordInput;
+    private javax.swing.JButton submitBtn;
     // End of variables declaration//GEN-END:variables
+
 }

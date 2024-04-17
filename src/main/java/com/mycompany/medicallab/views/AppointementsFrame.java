@@ -15,6 +15,9 @@ public class AppointementsFrame extends javax.swing.JFrame {
      */
     public AppointementsFrame() {
         initComponents();
+        this.setTitle("Appointements");
+        this.setVisible(true);
+        this.setResizable(false);
     }
 
     /**

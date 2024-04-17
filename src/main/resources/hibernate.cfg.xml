@@ -6,9 +6,20 @@
     <session-factory>
         <!-- Database connection properties -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/swinglab</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/medicallab</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password"></property>
+        <!-- Other Hibernate properties -->
+        
+        <property name="dialect">org.hibernate.dialect.H2Dialect</property>
+        
+        <property name="show_sql">true</property>
+        
+        <!-- Mapping configuration -->
+        <mapping class="com.mycompany.medicallab.models.Admin" />
+        <mapping class="com.mycompany.medicallab.models.Patient" />
+        <mapping class="com.mycompany.medicallab.models.Test" />
+        <mapping class="com.mycompany.medicallab.models.Appointement" />
         <!-- Other Hibernate properties -->
     </session-factory>
 </hibernate-configuration>

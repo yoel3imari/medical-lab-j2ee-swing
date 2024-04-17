@@ -9,9 +9,11 @@ import org.hibernate.query.Query;
 public class AdminDao {
 
     public boolean validateAdminPassword(String enteredPassword) {
+        System.out.println("password: " + enteredPassword);
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            // Create HQL query to retrieve the admin by username
-            Query<Admin> query = session.createQuery("FROM Admin WHERE username = :username", Admin.class);
+            session.beginTransaction();
+            
+            Query<Admin> query = session.createQuery("FROM Admin a WHERE username = :username", Admin.class);
             query.setParameter("username", "admin");
             Admin admin = query.uniqueResult();
 
@@ -21,6 +23,8 @@ public class AdminDao {
                 // Check if the entered password matches the stored password
                 return storedPassword != null && storedPassword.equals(enteredPassword);
             }
+            
+            session.getTransaction().commit();
         } catch (Exception e) {
             JavaUtil.fireError(e);
         }

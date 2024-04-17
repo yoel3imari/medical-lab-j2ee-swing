@@ -13,6 +13,9 @@ public class PatientsFrame extends javax.swing.JFrame {
     public PatientsFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setTitle("Patients");
+        this.setVisible(true);
+        this.setResizable(false);
     }
 
     /**
