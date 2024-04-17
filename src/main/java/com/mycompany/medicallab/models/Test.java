@@ -8,6 +8,10 @@ package com.mycompany.medicallab.models;
  *
  * @author yusef
  */
+//@Entity 
 public class Test {
+    private int id;
+    private String lable;
+    private Double price;
     
 }
