@@ -13,6 +13,8 @@ import jakarta.persistence.Id;
  *
  * @author yusef
  */
+
+
 @Entity
 public class Test {
     @Id
@@ -21,14 +23,21 @@ public class Test {
 
     private String label;
     private double price;
+    private int daysToGetResult;
+    private String description;
+    private String type;
+    // Add any other attributes as needed
 
     // Constructors, getters, and setters
     public Test() {
     }
 
-    public Test(String label, double price) {
+    public Test(String label, double price, int daysToGetResult, String description, String type) {
         this.label = label;
         this.price = price;
+        this.daysToGetResult = daysToGetResult;
+        this.description = description;
+        this.type = type;
     }
 
     // Getters and setters
@@ -54,6 +63,30 @@ public class Test {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getDaysToGetResult() {
+        return daysToGetResult;
+    }
+
+    public void setDaysToGetResult(int daysToGetResult) {
+        this.daysToGetResult = daysToGetResult;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
 

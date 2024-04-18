@@ -24,7 +24,8 @@ create table if not EXISTS tests (
     id int primary key AUTO_INCREMENT,
     label text,
     price decimal(8,2),
-    result_after int,
+    description TEXT, 
+    type VARCHAR(50),
     created_at date default now(),
     updated_at date default now()
 );
