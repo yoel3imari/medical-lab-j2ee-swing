@@ -98,7 +98,6 @@ public class PatientsFrame extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Noto Sans", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel6.setIcon(new javax.swing.ImageIcon("/home/yusef/WWW/PROJECTS/MedicalLab/src/main/resources/images/logo.png")); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Liberation Sans", 1, 20)); // NOI18N
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/test.png"))); // NOI18N
