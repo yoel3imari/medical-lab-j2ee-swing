@@ -1,10 +1,12 @@
 com/mycompany/medicallab/views/DashboardFrame$2.class
+com/mycompany/medicallab/views/LayoutFrame.class
 com/mycompany/medicallab/models/Test.class
 com/mycompany/medicallab/views/PatientForm$4.class
 com/mycompany/medicallab/views/AppointementForm.class
 com/mycompany/medicallab/views/TestsFrame$1.class
 com/mycompany/medicallab/views/TestsFrame.class
 com/mycompany/medicallab/models/Appointement.class
+com/mycompany/medicallab/views/LayoutFrame$1.class
 com/mycompany/medicallab/views/PatientForm$7.class
 com/mycompany/medicallab/views/AppointementsFrame.class
 com/mycompany/medicallab/views/PatientsFrame$3.class
@@ -18,8 +20,10 @@ com/mycompany/medicallab/views/TestsFrame$2.class
 com/mycompany/medicallab/utils/JavaUtil.class
 com/mycompany/medicallab/views/DashboardFrame.class
 com/mycompany/medicallab/views/PatientForm$1.class
+com/mycompany/medicallab/views/LayoutFrame$2.class
 com/mycompany/medicallab/views/PatientsFrame$2.class
 com/mycompany/medicallab/views/TestForm$2.class
+com/mycompany/medicallab/views/LayoutFrame$3.class
 com/mycompany/medicallab/views/PatientForm$2.class
 com/mycompany/medicallab/models/Admin.class
 com/mycompany/medicallab/views/LoginFrame$1.class
@@ -32,6 +36,7 @@ com/mycompany/medicallab/views/DashboardFrame$3.class
 com/mycompany/medicallab/views/PatientsFrame$1.class
 com/mycompany/medicallab/dao/AdminDao.class
 com/mycompany/medicallab/views/TestsFrame$3.class
+com/mycompany/medicallab/views/LayoutFrame$4.class
 com/mycompany/medicallab/MedicalLab.class
 com/mycompany/medicallab/views/PatientForm$3.class
 com/mycompany/medicallab/views/AppointementsFrame$1.class
