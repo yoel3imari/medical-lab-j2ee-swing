@@ -13,6 +13,7 @@ public class HibernateUtil {
             return new Configuration().configure().buildSessionFactory();
         } catch (Exception ex) {
             JavaUtil.fireError(ex);
+            System.exit(0);
             return null;
         }
     }

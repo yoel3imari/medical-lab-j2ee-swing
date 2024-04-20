@@ -4,6 +4,7 @@
  */
 package com.mycompany.medicallab.views;
 
+import com.mycompany.medicallab.utils.HibernateUtil;
 import com.mycompany.medicallab.utils.NavManager;
 import com.mycompany.medicallab.views.tabs.*;
 import java.awt.BorderLayout;
@@ -22,7 +23,9 @@ public class LayoutFrame extends javax.swing.JFrame {
      */
     public LayoutFrame() {
         initComponents();
-
+        setVisible(true);
+        setLocationRelativeTo(null);
+        
         nav = new NavManager();
 
         Component dashboard = new Dashboard();
@@ -168,7 +171,7 @@ public class LayoutFrame extends javax.swing.JFrame {
         appointementsLabel.setBackground(new java.awt.Color(254, 253, 237));
         appointementsLabel.setFont(new java.awt.Font("Liberation Sans", 1, 20)); // NOI18N
         appointementsLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/appointement.png"))); // NOI18N
-        appointementsLabel.setText("Appointements");
+        appointementsLabel.setText("Appointments");
         appointementsLabel.setToolTipText("");
         appointementsLabel.setIconTextGap(10);
         appointementsLabel.setMaximumSize(new java.awt.Dimension(200, 70));
@@ -256,6 +259,11 @@ public class LayoutFrame extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout.png"))); // NOI18N
         jLabel5.setText("Log out");
         jLabel5.setToolTipText("");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
         logout.add(jLabel5, new java.awt.GridBagConstraints());
 
         javax.swing.GroupLayout sidebarLayout = new javax.swing.GroupLayout(sidebar);
@@ -349,7 +357,7 @@ public class LayoutFrame extends javax.swing.JFrame {
     private void appointementsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_appointementsLabelMouseClicked
         // TODO add your handling code here:
         nav.setActive("appointements");
-        tabTitle.setText("Appointements");
+        tabTitle.setText("Appointments");
         tabContainer.removeAll();
         tabContainer.add(nav.getActive(), BorderLayout.CENTER);
     }//GEN-LAST:event_appointementsLabelMouseClicked
@@ -373,6 +381,14 @@ public class LayoutFrame extends javax.swing.JFrame {
         tabContainer.removeAll();
         tabContainer.add(nav.getActive(), BorderLayout.CENTER);
     }//GEN-LAST:event_testsLabelMouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+        dispose();
+        // HibernateUtil.shutdown();
+        LoginFrame login = new LoginFrame();
+        login.setVisible(true);
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
      * @param args the command line arguments

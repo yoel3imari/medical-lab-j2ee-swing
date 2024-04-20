@@ -108,13 +108,12 @@ public class LoginFrame extends javax.swing.JFrame {
         if( !enteredPassword.isEmpty() ) {
             AdminDao dao = new AdminDao();
             if( dao.validateAdminPassword(enteredPassword) ) {
-                DashboardFrame dashboard = new DashboardFrame();
+                dispose();
+                LayoutFrame layout = new LayoutFrame();
             } else {
                 JOptionPane.showMessageDialog(this, "Access denied. Incorrect password.");
             }
         }
-        
-        passwordInput.setText("");
     }//GEN-LAST:event_submitBtnActionPerformed
 
     /**
