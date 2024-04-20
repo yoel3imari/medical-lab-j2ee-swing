@@ -8,12 +8,12 @@ package com.mycompany.medicallab.views.tabs;
  *
  * @author yusef
  */
-public class Appointements extends javax.swing.JPanel {
+public class Appoint extends javax.swing.JPanel {
 
     /**
-     * Creates new form Appointements
+     * Creates new form Patients
      */
-    public Appointements() {
+    public Appoint() {
         initComponents();
     }
 
@@ -36,6 +36,7 @@ public class Appointements extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(254, 253, 237));
         setMaximumSize(new java.awt.Dimension(1080, 610));
         setMinimumSize(new java.awt.Dimension(1080, 610));
         setPreferredSize(new java.awt.Dimension(1080, 610));
@@ -43,9 +44,11 @@ public class Appointements extends javax.swing.JPanel {
         mainAppointements.setBackground(new java.awt.Color(254, 253, 237));
         mainAppointements.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
         mainAppointements.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        mainAppointements.setMaximumSize(new java.awt.Dimension(900, 32767));
-        mainAppointements.setMinimumSize(new java.awt.Dimension(900, 100));
-        mainAppointements.setPreferredSize(new java.awt.Dimension(900, 638));
+        mainAppointements.setMaximumSize(new java.awt.Dimension(900, 600));
+        mainAppointements.setMinimumSize(new java.awt.Dimension(900, 600));
+        mainAppointements.setPreferredSize(new java.awt.Dimension(900, 600));
+
+        jScrollPane1.setBackground(new java.awt.Color(254, 253, 237));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -70,6 +73,8 @@ public class Appointements extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+
+        jScrollPane2.setBackground(new java.awt.Color(254, 253, 237));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(1);
@@ -127,7 +132,7 @@ public class Appointements extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(mainAppointements, javax.swing.GroupLayout.PREFERRED_SIZE, 1085, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

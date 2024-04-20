@@ -1,7 +1,6 @@
 /home/yusef/WWW/PROJECTS/MedicalLab/src/main/java/com/mycompany/medicallab/views/forms/TestForm.java
 /home/yusef/WWW/PROJECTS/MedicalLab/src/main/java/com/mycompany/medicallab/views/forms/PatientForm.java
 /home/yusef/WWW/PROJECTS/MedicalLab/src/main/java/com/mycompany/medicallab/dao/AdminDao.java
-/home/yusef/WWW/PROJECTS/MedicalLab/src/main/java/com/mycompany/medicallab/views/tabs/Appointements.java
 /home/yusef/WWW/PROJECTS/MedicalLab/src/main/java/com/mycompany/medicallab/views/DashboardFrame.java
 /home/yusef/WWW/PROJECTS/MedicalLab/src/main/java/com/mycompany/medicallab/utils/HibernateUtil.java
 /home/yusef/WWW/PROJECTS/MedicalLab/src/main/java/com/mycompany/medicallab/utils/JavaUtil.java
@@ -16,6 +15,7 @@
 /home/yusef/WWW/PROJECTS/MedicalLab/src/main/java/com/mycompany/medicallab/views/tabs/Tests.java
 /home/yusef/WWW/PROJECTS/MedicalLab/src/main/java/com/mycompany/medicallab/models/Test.java
 /home/yusef/WWW/PROJECTS/MedicalLab/src/main/java/com/mycompany/medicallab/MedicalLab.java
+/home/yusef/WWW/PROJECTS/MedicalLab/src/main/java/com/mycompany/medicallab/views/tabs/Appoint.java
 /home/yusef/WWW/PROJECTS/MedicalLab/src/main/java/com/mycompany/medicallab/views/forms/AppointementForm.java
 /home/yusef/WWW/PROJECTS/MedicalLab/src/main/java/com/mycompany/medicallab/views/TestsFrame.java
 /home/yusef/WWW/PROJECTS/MedicalLab/src/main/java/com/mycompany/medicallab/utils/NavManager.java
