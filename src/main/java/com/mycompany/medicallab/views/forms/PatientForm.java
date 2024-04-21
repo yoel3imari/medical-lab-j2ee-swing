@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.medicallab.views;
+package com.mycompany.medicallab.views.forms;
 
 import com.mycompany.medicallab.dao.PatientDao;
 import com.mycompany.medicallab.models.Patient;
