@@ -40,7 +40,7 @@ public class PatientDao {
             query.executeUpdate();
             
             // another easy way of adding Patient without all the code above.
-            // also there is a similar way to do it for update and delete functions below 
+            // also there is a similar way to do it for update and delete functions bellow 
             //session.save(patient);
             commitTransaction(session);
         } catch (Exception e) {
