@@ -4,6 +4,11 @@
  */
 package com.mycompany.medicallab.views;
 
+import com.mycompany.medicallab.dao.PatientDao;
+import com.mycompany.medicallab.models.Patient;
+import com.mycompany.medicallab.models.Patient.Gender;
+import java.util.Date;
+
 /**
  *
  * @author yusef
@@ -28,22 +33,22 @@ public class PatientForm extends javax.swing.JFrame {
 
         jLabel5 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        textFName = new javax.swing.JTextField();
+        textLName = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        textCin = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        textPhone = new javax.swing.JTextField();
+        textEmail = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnAddPatient = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -57,19 +62,24 @@ public class PatientForm extends javax.swing.JFrame {
         jLabel10.setText("Last Name");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, -1, -1));
 
-        jTextField1.setColumns(1);
-        jTextField1.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jTextField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 175, 40));
-
-        jTextField2.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jTextField2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        textFName.setColumns(1);
+        textFName.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        textFName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
+        textFName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                textFNameActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 175, 40));
+        getContentPane().add(textFName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 175, 40));
+
+        textLName.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        textLName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
+        textLName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textLNameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(textLName, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 175, 40));
 
         jLabel11.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel11.setText("Gender");
@@ -99,40 +109,36 @@ public class PatientForm extends javax.swing.JFrame {
         jLabel12.setText("Identifier (CIN)");
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
 
-        jTextField3.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jTextField3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        textCin.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        textCin.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
+        textCin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                textCinActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 175, 40));
+        getContentPane().add(textCin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 175, 40));
 
         jLabel16.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel16.setText("Phone Number");
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, -1, -1));
 
-        jTextField5.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jTextField5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        textPhone.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        textPhone.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
+        textPhone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                textPhoneActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 175, 40));
+        getContentPane().add(textPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 175, 40));
 
-        jLabel13.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jLabel13.setText("Address");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, -1));
-
-        jTextField4.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jTextField4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        textEmail.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        textEmail.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
+        textEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                textEmailActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 368, 55));
+        getContentPane().add(textEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 368, 55));
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(161, 195, 152));
@@ -152,29 +158,44 @@ public class PatientForm extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(161, 195, 152));
-        jButton3.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(254, 253, 237));
-        jButton3.setText("Finis");
+        btnAddPatient.setBackground(new java.awt.Color(161, 195, 152));
+        btnAddPatient.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        btnAddPatient.setForeground(new java.awt.Color(254, 253, 237));
+        btnAddPatient.setText("Add");
+        btnAddPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddPatientActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        jLabel13.setText("Email");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(btnAddPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel13)))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(422, Short.MAX_VALUE)
+                .addContainerGap(330, Short.MAX_VALUE)
+                .addComponent(jLabel13)
+                .addGap(75, 75, 75)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAddPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
 
@@ -183,29 +204,55 @@ public class PatientForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void textLNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textLNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_textLNameActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void textCinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCinActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_textCinActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void textPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPhoneActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_textPhoneActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void textEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_textEmailActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void textFNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFNameActionPerformed
+
+    private void btnAddPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPatientActionPerformed
+        String fName = textFName.getText();
+        String lName = textLName.getText();
+        String gender = jComboBox1.getSelectedItem().toString();
+        Date birthdate = jDateChooser1.getDate();
+        String cin = textCin.getText();
+        String phone = textPhone.getText();
+        String email = textEmail.getText();
+        
+        Patient patient = new Patient();
+        patient.setfName(fName);
+        patient.setlName(lName);
+        patient.setGender(Gender.valueOf(gender));
+        patient.setBirthdate(birthdate);
+        patient.setCin(cin);
+        patient.setPhone(phone);
+        patient.setEmail(email);
+        
+        PatientDao patientDao = new PatientDao();
+        patientDao.savePatient(patient);
+    }//GEN-LAST:event_btnAddPatientActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,8 +290,8 @@ public class PatientForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddPatient;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
@@ -256,10 +303,10 @@ public class PatientForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField textCin;
+    private javax.swing.JTextField textEmail;
+    private javax.swing.JTextField textFName;
+    private javax.swing.JTextField textLName;
+    private javax.swing.JTextField textPhone;
     // End of variables declaration//GEN-END:variables
 }

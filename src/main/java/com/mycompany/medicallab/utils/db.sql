@@ -1,55 +1,55 @@
-create DATABASE if not EXISTS medicallab;
-use medicallab;
+CREATE DATABASE IF NOT EXISTS medicallab;
+USE medicallab;
 
-create table if not EXISTS admins (
-    id int primary key AUTO_INCREMENT,
-    username char(20) unique,
-    password char(20),
-    created_at date default now(),
-    updated_at date default now()
+CREATE TABLE IF NOT EXISTS admins (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username CHAR(20) UNIQUE,
+    password CHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-create table if not EXISTS patients (
-    id int AUTO_INCREMENT primary key ,
+CREATE TABLE IF NOT EXISTS patients (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     fName VARCHAR(25),
     lName VARCHAR(25),
-    cin VARCHAR(12) unique,
-    email VARCHAR(50) DEFAULT null,
+    cin VARCHAR(12) UNIQUE,
+    email VARCHAR(50) DEFAULT NULL,
     phone VARCHAR(10),
     gender VARCHAR(6) CHECK (gender IN ('Male', 'Female')),
-    birthdate DATE
-    created_at date default now(),
-    updated_at date default now()
+    birthdate DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-create table if not EXISTS tests (
-    id int primary key AUTO_INCREMENT,
-    label text,
-    price decimal(8,2),
-    result_after int,
-    created_at date default now(),
-    updated_at date default now()
+CREATE TABLE IF NOT EXISTS tests (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    label TEXT,
+    price DECIMAL(8,2),
+    result_after INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-create table if not EXISTS appointements (
-    id int primary key AUTO_INCREMENT,
-    id_patient int,
-    day date,
-    hour char(6),
-    state char(10),
-    created_at date default now(),
-    updated_at date default now(),
-    FOREIGN key (id_patient) REFERENCES patients(id)
+CREATE TABLE IF NOT EXISTS appointments (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_patient INT,
+    day DATE,
+    hour CHAR(6),
+    state CHAR(10),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_patient) REFERENCES patients(id)
 );
 
-create table if not EXISTS appointement_tests (
-    id int primary key AUTO_INCREMENT,
-    id_appointement int,
-    id_test int,
-    created_at date default now(),
-    updated_at date default now(),
-    FOREIGN key (id_appointement) REFERENCES appointements(id),
-    FOREIGN key (id_test) REFERENCES tests(id)
+CREATE TABLE IF NOT EXISTS appointment_tests (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_appointment INT,
+    id_test INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_appointment) REFERENCES appointments(id),
+    FOREIGN KEY (id_test) REFERENCES tests(id)
 );
 
 INSERT INTO admins (username, password) VALUES ('admin', '12345678');

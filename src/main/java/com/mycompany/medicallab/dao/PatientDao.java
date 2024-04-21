@@ -87,7 +87,7 @@ public class PatientDao {
     }
 
     public Patient getPatientById(Long id) {
-        String sql = "FROM Patient WHERE id = :id";
+        String sql = "FROM Patients WHERE id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
@@ -105,7 +105,7 @@ public class PatientDao {
     }
 
     public List<Patient> getAllPatients() {
-        String sql = "FROM Patient";
+        String sql = "FROM Patients";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
