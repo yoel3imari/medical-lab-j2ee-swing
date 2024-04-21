@@ -20,15 +20,16 @@ public class PatientDao {
     }
 
     public void savePatient(Patient patient) {
-        String sql =
-                "INSERT INTO patients (fName, lName, cin, email, phone, gender, birthdate) " 
+        // here notice that i did not enter the correct bale name which is patients but the model name Patient 
+        String hql =
+                "INSERT INTO Patient (fName, lName, cin, email, phone, gender, birthdate) " 
                 +
                 "VALUES (:fName, :lName, :cin, :email, :phone, :gender, :birthdate)";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
 
-            Query query = session.createQuery(sql)
+            Query query = session.createQuery(hql)
                     .setParameter("fName", patient.getfName())
                     .setParameter("lName", patient.getlName())
                     .setParameter("cin", patient.getCin())
@@ -37,7 +38,10 @@ public class PatientDao {
                     .setParameter("gender", patient.getGender().name())
                     .setParameter("birthdate", patient.getBirthdate());
             query.executeUpdate();
-
+            
+            // another easy way of adding Patient without all the code above.
+            // also there is a similar way to do it for update and delete functions below 
+            //session.save(patient);
             commitTransaction(session);
         } catch (Exception e) {
             JavaUtil.fireError(e);
@@ -45,15 +49,15 @@ public class PatientDao {
     }
 
     public void updatePatient(Patient patient) {
-        String sql =
-                "UPDATE patients SET fName = :fName, lName = :lName, cin = :cin, email = :email, " 
+        String hql =
+                "UPDATE Patient SET fName = :fName, lName = :lName, cin = :cin, email = :email, " 
                 +
                 "phone = :phone, gender = :gender, birthdate = :birthdate WHERE id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
 
-            Query query = session.createQuery(sql)
+            Query query = session.createQuery(hql)
                     .setParameter("fName", patient.getfName())
                     .setParameter("lName", patient.getlName())
                     .setParameter("cin", patient.getCin())
@@ -71,12 +75,12 @@ public class PatientDao {
     }
 
     public void deletePatient(Patient patient) {
-        String sql = "DELETE FROM patients WHERE id = :id";
+        String hql = "DELETE FROM Patient WHERE id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
 
-            Query query = session.createQuery(sql)
+            Query query = session.createQuery(hql)
                     .setParameter("id", patient.getId());
             query.executeUpdate();
 
@@ -87,12 +91,12 @@ public class PatientDao {
     }
 
     public Patient getPatientById(Long id) {
-        String sql = "FROM Patients WHERE id = :id";
+        String hql = "FROM Patient WHERE id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
 
-            Query<Patient> query = session.createQuery(sql, Patient.class)
+            Query<Patient> query = session.createQuery(hql, Patient.class)
                     .setParameter("id", id);
             Patient patient = query.uniqueResult();
 
@@ -105,12 +109,12 @@ public class PatientDao {
     }
 
     public List<Patient> getAllPatients() {
-        String sql = "FROM Patients";
+        String hql = "FROM Patient";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
 
-            Query<Patient> query = session.createQuery(sql, Patient.class);
+            Query<Patient> query = session.createQuery(hql, Patient.class);
             List<Patient> patients = query.list();
 
             commitTransaction(session);
