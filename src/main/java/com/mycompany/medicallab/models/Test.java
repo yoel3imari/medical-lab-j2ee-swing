@@ -4,10 +4,12 @@
  */
 package com.mycompany.medicallab.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /**
  *
@@ -16,19 +18,30 @@ import jakarta.persistence.Id;
 
 
 @Entity
+@Table(name = "test")
 public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
+    @Column(name = "label", length = 50)
     private String label;
+
+    @Column(name = "price")
     private double price;
+
+    @Column(name = "days_to_get_result")
     private int daysToGetResult;
+
+    @Column(name = "description", length = 255)
     private String description;
+
+    @Column(name = "type", length = 50)
     private String type;
-    // Add any other attributes as needed
 
     // Constructors, getters, and setters
+
     public Test() {
     }
 
@@ -40,7 +53,6 @@ public class Test {
         this.type = type;
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -89,4 +101,3 @@ public class Test {
         this.type = type;
     }
 }
-
