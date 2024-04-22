@@ -103,6 +103,7 @@ public class Dashboard extends javax.swing.JPanel {
         jPanel12.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 20, 5, 5));
 
         jLabel31.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(0, 51, 153));
         jLabel31.setText("Current Appointement");
 
         jLabel32.setText("Fullname:");
