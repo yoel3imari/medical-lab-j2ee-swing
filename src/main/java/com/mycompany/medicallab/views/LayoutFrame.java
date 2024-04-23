@@ -25,27 +25,24 @@ public class LayoutFrame extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
-        
-        nav = new NavManager();
 
-        Component dashboard = new Dashboard();
-        Component appointements = new Appoint();
-        Component patients = new Patients();
-        Component tests = new Tests();
+        //Component appointements = new Appoint();
+        //Component patients = new Patients();
+        //Component tests = new Tests();
 
         // init navigation
         String[] tabs = {"dashboard", "appointements", "patients", "tests"};
-        Component[] cmp = {dashboard, appointements, patients, tests};
+        Class[] cmp = {Dashboard.class, Appoint.class, Patients.class, Tests.class};
         Component[] navCmp = {dashboardNavItem, appointementsNavItem, patientsNavItem, testsNavItem};
 
         for (int i = 0; i < tabs.length; i++) {
-            cmp[i].setVisible(false);
-            nav.addTab(tabs[i], cmp[i]);
-            nav.addNavItem(tabs[i], navCmp[i]);
+            //cmp[i].setVisible(false);
+            NavManager.addTab(tabs[i], cmp[i]);
+            NavManager.addNavItem(tabs[i], navCmp[i]);
         }
 
         nav.setActive("dashboard");
-        tabContainer.add(dashboard, BorderLayout.CENTER);
+        tabContainer.add(Dashboard.getInstance(), BorderLayout.CENTER);
     }
 
     /**
@@ -351,7 +348,7 @@ public class LayoutFrame extends javax.swing.JFrame {
         nav.setActive("dashboard");
         tabTitle.setText("Dashboard");
         tabContainer.removeAll();
-        tabContainer.add(nav.getActive(), BorderLayout.CENTER);
+        tabContainer.add(Dashboard.getInstance(), BorderLayout.CENTER);
     }//GEN-LAST:event_dashboardLabelMouseClicked
 
     private void appointementsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_appointementsLabelMouseClicked
@@ -359,7 +356,7 @@ public class LayoutFrame extends javax.swing.JFrame {
         nav.setActive("appointements");
         tabTitle.setText("Appointments");
         tabContainer.removeAll();
-        tabContainer.add(nav.getActive(), BorderLayout.CENTER);
+        tabContainer.add(Appoint.getInstance(), BorderLayout.CENTER);
     }//GEN-LAST:event_appointementsLabelMouseClicked
 
     private void dashboardNavItemAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dashboardNavItemAncestorRemoved
@@ -371,7 +368,7 @@ public class LayoutFrame extends javax.swing.JFrame {
         nav.setActive("patients");
         tabTitle.setText("Patients");
         tabContainer.removeAll();
-        tabContainer.add(nav.getActive(), BorderLayout.CENTER);
+        tabContainer.add(Patients.getInstance(), BorderLayout.CENTER);
     }//GEN-LAST:event_patientsLabelMouseClicked
 
     private void testsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_testsLabelMouseClicked
@@ -379,7 +376,7 @@ public class LayoutFrame extends javax.swing.JFrame {
         nav.setActive("tests");
         tabTitle.setText("Tests");
         tabContainer.removeAll();
-        tabContainer.add(nav.getActive(), BorderLayout.CENTER);
+        tabContainer.add(Tests.getInstance(), BorderLayout.CENTER);
     }//GEN-LAST:event_testsLabelMouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked

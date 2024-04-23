@@ -9,12 +9,22 @@ package com.mycompany.medicallab.views.tabs;
  * @author yusef
  */
 public class Dashboard extends javax.swing.JPanel {
+    
+    private static Dashboard INSTANCE = null;
 
     /**
      * Creates new form Dashboard
      */
-    public Dashboard() {
+    private Dashboard() {
         initComponents();
+    }
+    
+    public static Dashboard getInstance() {
+        if( INSTANCE == null ) {
+            INSTANCE = new Dashboard();
+        }
+        
+        return INSTANCE;
     }
 
     /**
@@ -50,6 +60,9 @@ public class Dashboard extends javax.swing.JPanel {
         jTable2 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(254, 253, 237));
         setMaximumSize(new java.awt.Dimension(1080, 610));
@@ -103,6 +116,7 @@ public class Dashboard extends javax.swing.JPanel {
         jPanel12.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 20, 5, 5));
 
         jLabel31.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(0, 51, 153));
         jLabel31.setText("Current Appointement");
 
         jLabel32.setText("Fullname:");
@@ -214,6 +228,22 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jLabel2.setText("Today's Tests");
 
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+
+        jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        jLabel3.setText("Today's Results");
+
         javax.swing.GroupLayout mainAppointementsLayout = new javax.swing.GroupLayout(mainAppointements);
         mainAppointements.setLayout(mainAppointementsLayout);
         mainAppointementsLayout.setHorizontalGroup(
@@ -229,7 +259,9 @@ public class Dashboard extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(mainAppointementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         mainAppointementsLayout.setVerticalGroup(
@@ -237,15 +269,20 @@ public class Dashboard extends javax.swing.JPanel {
             .addGroup(mainAppointementsLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addGroup(mainAppointementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(mainAppointementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mainAppointementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainAppointementsLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -278,6 +315,7 @@ public class Dashboard extends javax.swing.JPanel {
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
@@ -295,8 +333,10 @@ public class Dashboard extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JPanel mainAppointements;
     // End of variables declaration//GEN-END:variables
 }

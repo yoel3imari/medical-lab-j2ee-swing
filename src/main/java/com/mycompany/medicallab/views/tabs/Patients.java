@@ -17,6 +17,8 @@ import javax.swing.table.DefaultTableModel;
  * @author yusef
  */
 public class Patients extends javax.swing.JPanel {
+    
+    private static Patients INSTANCE = null;
 
     /**
      * Creates new form Patients
@@ -24,6 +26,14 @@ public class Patients extends javax.swing.JPanel {
     public Patients() {
         initComponents();
         populateTableModel();
+    }
+    
+    public static Patients getInstance() {
+        if( INSTANCE == null ) {
+            INSTANCE = new Patients();
+        }
+        
+        return INSTANCE;
     }
 
     /**
@@ -170,7 +180,8 @@ public class Patients extends javax.swing.JPanel {
         List<Patient> patients = patientDAO.getAllPatients();
 
         // Get column names
-        String[] columnNames = {"Firstname", "Lastname", "CIN", "Email", "Phone", "Gender", "Birth Day"}; // Update with actual column names
+        String[] columnNames = {"Firstname", "Lastname", "CIN", "Email", "Phone", "Gender", "Birth Day"}; 
+        // Update with actual column names
         tableModel.setColumnIdentifiers(columnNames);
 
         // Populate data rows
@@ -182,7 +193,7 @@ public class Patients extends javax.swing.JPanel {
                 patient.getEmail(),
                 patient.getPhone(),
                 patient.getGender(),
-                patient.getBirthdate(),};
+                patient.getBirthdate()};
             tableModel.addRow(row);
         }
 

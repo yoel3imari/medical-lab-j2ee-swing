@@ -9,12 +9,22 @@ package com.mycompany.medicallab.views.tabs;
  * @author yusef
  */
 public class Tests extends javax.swing.JPanel {
+    
+    private static Tests INSTANCE = null;
 
     /**
      * Creates new form Tests
      */
     public Tests() {
         initComponents();
+    }
+    
+    public static Tests getInstance() {
+        if( INSTANCE == null ) {
+            INSTANCE = new Tests();
+        }
+        
+        return INSTANCE;
     }
 
     /**

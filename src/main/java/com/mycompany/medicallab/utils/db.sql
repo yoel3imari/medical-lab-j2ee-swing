@@ -22,13 +22,14 @@ CREATE TABLE IF NOT EXISTS patients (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS tests (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    label TEXT,
-    price DECIMAL(8,2),
-    result_after INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+create table if not EXISTS tests (
+    id int primary key AUTO_INCREMENT,
+    label text,
+    price decimal(8,2),
+    description TEXT, 
+    type VARCHAR(50),
+    created_at date default now(),
+    updated_at date default now()
 );
 
 CREATE TABLE IF NOT EXISTS appointments (

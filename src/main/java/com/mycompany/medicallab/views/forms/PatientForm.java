@@ -8,6 +8,7 @@ import com.mycompany.medicallab.dao.PatientDao;
 import com.mycompany.medicallab.models.Patient;
 import com.mycompany.medicallab.models.Patient.Gender;
 import java.util.Date;
+import javax.swing.JFrame;
 
 /**
  *
@@ -20,6 +21,8 @@ public class PatientForm extends javax.swing.JFrame {
      */
     public PatientForm() {
         initComponents();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     /**

@@ -4,17 +4,78 @@
  */
 package com.mycompany.medicallab.views.tabs;
 
+import com.mycompany.medicallab.calendar.CalendarEvent;
+import com.mycompany.medicallab.calendar.WeekCalendar;
+import java.awt.BorderLayout;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import javax.swing.JButton;
+import java.util.ArrayList;
+import javax.swing.JPanel;
+
 /**
  *
  * @author yusef
  */
 public class Appoint extends javax.swing.JPanel {
+    
+    private static Appoint INSTANCE = null;
 
     /**
      * Creates new form Patients
      */
     public Appoint() {
         initComponents();
+        //createCalendar();
+    }
+    
+    public static Appoint getInstance() {
+        if( INSTANCE == null ) {
+            INSTANCE = new Appoint();
+        }
+        
+        return INSTANCE;
+    }
+
+    private void createCalendar() {
+        // define events[]
+        ArrayList<CalendarEvent> events = new ArrayList<>();
+        events.add(new CalendarEvent(LocalDate.of(2024, 04, 23), LocalTime.of(14, 0), LocalTime.of(14, 20), "Test 11/11 14:00-14:20"));
+        events.add(new CalendarEvent(LocalDate.of(2024, 04, 22), LocalTime.of(9, 0), LocalTime.of(9, 20), "Test 14/11 9:00-9:20"));
+        events.add(new CalendarEvent(LocalDate.of(2024, 04, 21), LocalTime.of(12, 0), LocalTime.of(13, 20), "Test 15/11 12:00-13:20"));
+        events.add(new CalendarEvent(LocalDate.of(2024, 04, 25), LocalTime.of(9, 0), LocalTime.of(9, 20), "Test 16/11 9:00-9:20"));
+        events.add(new CalendarEvent(LocalDate.of(2024, 04, 25), LocalTime.of(12, 15), LocalTime.of(14, 20), "Test 17/11 12:15-14:20"));
+        events.add(new CalendarEvent(LocalDate.of(2024, 04, 24), LocalTime.of(9, 30), LocalTime.of(10, 00), "Test 18/11 9:30-10:00"));
+        events.add(new CalendarEvent(LocalDate.of(2024, 04, 24), LocalTime.of(16, 00), LocalTime.of(16, 45), "Test 18/11 16:00-16:45"));
+        // init WeekCalendar(events)
+        WeekCalendar cal = new WeekCalendar(events);
+        // define buttons
+        JButton goToTodayBtn = new JButton("Today");
+        goToTodayBtn.addActionListener(e -> cal.goToToday());
+
+        JButton nextWeekBtn = new JButton(">");
+        nextWeekBtn.addActionListener(e -> cal.nextWeek());
+
+        JButton prevWeekBtn = new JButton("<");
+        prevWeekBtn.addActionListener(e -> cal.prevWeek());
+
+        JButton nextMonthBtn = new JButton(">>");
+        nextMonthBtn.addActionListener(e -> cal.nextMonth());
+
+        JButton prevMonthBtn = new JButton("<<");
+        prevMonthBtn.addActionListener(e -> cal.prevMonth());
+
+        JPanel weekControls = new JPanel();
+        weekControls.add(prevMonthBtn);
+        weekControls.add(prevWeekBtn);
+        weekControls.add(goToTodayBtn);
+        weekControls.add(nextWeekBtn);
+        weekControls.add(nextMonthBtn);
+
+        add(weekControls, BorderLayout.NORTH);
+
+        add(cal, BorderLayout.CENTER);
+        setSize(1000, 900);
     }
 
     /**
@@ -27,8 +88,6 @@ public class Appoint extends javax.swing.JPanel {
     private void initComponents() {
 
         mainAppointements = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
@@ -47,32 +106,6 @@ public class Appoint extends javax.swing.JPanel {
         mainAppointements.setMaximumSize(new java.awt.Dimension(900, 600));
         mainAppointements.setMinimumSize(new java.awt.Dimension(900, 600));
         mainAppointements.setPreferredSize(new java.awt.Dimension(900, 600));
-
-        jScrollPane1.setBackground(new java.awt.Color(254, 253, 237));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Firstname", "Lastname", "Phone", "CIN", "Birth Day", "Address"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
 
         jScrollPane2.setBackground(new java.awt.Color(254, 253, 237));
 
@@ -109,7 +142,6 @@ public class Appoint extends javax.swing.JPanel {
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane1)
         );
         mainAppointementsLayout.setVerticalGroup(
             mainAppointementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,8 +152,7 @@ public class Appoint extends javax.swing.JPanel {
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
+                .addContainerGap(530, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -132,7 +163,7 @@ public class Appoint extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(mainAppointements, javax.swing.GroupLayout.PREFERRED_SIZE, 1085, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,9 +183,7 @@ public class Appoint extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel mainAppointements;
     // End of variables declaration//GEN-END:variables
