@@ -11,15 +11,7 @@ import java.util.List;
 
 public class PatientDao {
 
-    private void beginTransaction(Session session) {
-        session.beginTransaction();
-    }
-
-    private void commitTransaction(Session session) {
-        session.getTransaction().commit();
-    }
-
-    public void savePatient(Patient patient) {
+    public boolean savePatient(Patient patient) {
         // here notice that i did not enter the correct bale name which is patients but the model name Patient 
         String hql =
                 "INSERT INTO Patient (fName, lName, cin, email, phone, gender, birthdate) " 
@@ -27,7 +19,7 @@ public class PatientDao {
                 "VALUES (:fName, :lName, :cin, :email, :phone, :gender, :birthdate)";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            beginTransaction(session);
+            session.beginTransaction();
 
             Query query = session.createQuery(hql)
                     .setParameter("fName", patient.getfName())
@@ -35,27 +27,30 @@ public class PatientDao {
                     .setParameter("cin", patient.getCin())
                     .setParameter("email", patient.getEmail())
                     .setParameter("phone", patient.getPhone())
-                    .setParameter("gender", patient.getGender().name())
+                    .setParameter("gender", patient.getGender())
                     .setParameter("birthdate", patient.getBirthdate());
+                    //.setParameter("gender", patient.getGender().name())
             query.executeUpdate();
             
             // another easy way of adding Patient without all the code above.
             // also there is a similar way to do it for update and delete functions bellow 
             //session.save(patient);
-            commitTransaction(session);
+            session.getTransaction().commit();
         } catch (Exception e) {
             JavaUtil.fireError(e);
+            return false;
         }
+        return true;
     }
 
-    public void updatePatient(Patient patient) {
+    public boolean updatePatient(Patient patient) {
         String hql =
                 "UPDATE Patient SET fName = :fName, lName = :lName, cin = :cin, email = :email, " 
                 +
                 "phone = :phone, gender = :gender, birthdate = :birthdate WHERE id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            beginTransaction(session);
+            session.beginTransaction();
 
             Query query = session.createQuery(hql)
                     .setParameter("fName", patient.getfName())
@@ -63,44 +58,70 @@ public class PatientDao {
                     .setParameter("cin", patient.getCin())
                     .setParameter("email", patient.getEmail())
                     .setParameter("phone", patient.getPhone())
-                    .setParameter("gender", patient.getGender().name())
+                    .setParameter("gender", patient.getGender())
                     .setParameter("birthdate", patient.getBirthdate())
                     .setParameter("id", patient.getId());
+            //.setParameter("gender", patient.getGender().name())
             query.executeUpdate();
 
-            commitTransaction(session);
+            session.getTransaction().commit();
         } catch (Exception e) {
             JavaUtil.fireError(e);
+            return false;
         }
+        return true;
     }
 
-    public void deletePatient(Patient patient) {
+    public boolean deletePatient(Patient patient) {
         String hql = "DELETE FROM Patient WHERE id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            beginTransaction(session);
+            session.beginTransaction();
 
             Query query = session.createQuery(hql)
                     .setParameter("id", patient.getId());
-            query.executeUpdate();
-
-            commitTransaction(session);
+            int rowCount = query.executeUpdate(); 
+            
+            session.getTransaction().commit();
+            // Check if any rows were affected (deleted)
+            return rowCount > 0;
         } catch (Exception e) {
             JavaUtil.fireError(e);
+            return false;
         }
     }
 
-    public Patient getPatientById(Long id) {
+    public Patient getPatientById(int id) {
         String hql = "FROM Patient WHERE id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            beginTransaction(session);
+            session.beginTransaction();
 
             Query<Patient> query = session.createQuery(hql, Patient.class)
                     .setParameter("id", id);
             Patient patient = query.uniqueResult();
 
-            commitTransaction(session);
+            session.getTransaction().commit();
+            return patient;
+        } catch (Exception e) {
+            JavaUtil.fireError(e);
+            return null;
+        }
+    }
+    
+    public Patient getPatientByCIN(String cin) {
+         String hql = "FROM Patient WHERE cin = :cin";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.beginTransaction(); 
+            
+            Query<Patient> query = session.createQuery(hql, Patient.class);
+            query.setParameter("cin", cin);
+            Patient patient = query.uniqueResult();
+
+             
+            session.getTransaction().commit();
+
             return patient;
         } catch (Exception e) {
             JavaUtil.fireError(e);
@@ -112,16 +133,18 @@ public class PatientDao {
         String hql = "FROM Patient";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            beginTransaction(session);
+            session.beginTransaction();
 
             Query<Patient> query = session.createQuery(hql, Patient.class);
             List<Patient> patients = query.list();
 
-            commitTransaction(session);
+            session.getTransaction().commit();
             return patients;
         } catch (Exception e) {
             JavaUtil.fireError(e);
             return null;
         }
     }
+
+    
 }
