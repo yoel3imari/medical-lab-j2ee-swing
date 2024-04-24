@@ -25,18 +25,18 @@ public class TestDao {
     }
 
     public void saveTest(Test test) {
-        String sql = "INSERT INTO tests (label, price, days_to_get_result, description, type) " +
-                     "VALUES (:label, :price, :daysToGetResult, :description, :type)";
+        String sql = "INSERT INTO tests (label, price, days_to_get_result, description, oftype) " +
+                     "VALUES (:label, :price, :daysToGetResult, :description, :oftype)";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
 
-            Query query = session.createQuery(sql)
+            Query query = session.createNativeQuery(sql)
                     .setParameter("label", test.getLabel())
                     .setParameter("price", test.getPrice())
                     .setParameter("daysToGetResult", test.getDaysToGetResult())
                     .setParameter("description", test.getDescription())
-                    .setParameter("type", test.getType());
+                    .setParameter("oftype", test.getofType());
             query.executeUpdate();
 
             commitTransaction(session);
@@ -49,17 +49,17 @@ public class TestDao {
     public void updateTest(Test test) {
         String sql = "UPDATE tests SET label = :label, price = :price, " +
                      "days_to_get_result = :daysToGetResult, description = :description, " +
-                     "type = :type WHERE id = :id";
+                     "oftype = :oftype WHERE id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
 
-            Query query = session.createQuery(sql)
+            Query query = session.createNativeQuery(sql)
                     .setParameter("label", test.getLabel())
                     .setParameter("price", test.getPrice())
                     .setParameter("daysToGetResult", test.getDaysToGetResult())
                     .setParameter("description", test.getDescription())
-                    .setParameter("type", test.getType())
+                    .setParameter("oftype", test.getofType())
                     .setParameter("id", test.getId());
             query.executeUpdate();
 

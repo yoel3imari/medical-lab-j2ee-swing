@@ -20,15 +20,17 @@ create table if not EXISTS patients (
     updated_at date default now()
 );
 
-create table if not EXISTS tests (
-    id int primary key AUTO_INCREMENT,
-    label text,
-    price decimal(8,2),
+CREATE TABLE IF NOT EXISTS tests (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    label TEXT,
+    price DECIMAL(8,2),
+    daysToGetResult INT,
     description TEXT, 
-    type VARCHAR(50),
-    created_at date default now(),
-    updated_at date default now()
+    oftype VARCHAR(50),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 
 create table if not EXISTS appointements (
     id int primary key AUTO_INCREMENT,
