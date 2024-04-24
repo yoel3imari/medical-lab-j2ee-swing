@@ -3,8 +3,8 @@ com/mycompany/medicallab/models/Test.class
 com/mycompany/medicallab/views/PatientForm$4.class
 com/mycompany/medicallab/views/AppointementForm.class
 com/mycompany/medicallab/views/TestsFrame$1.class
-com/mycompany/medicallab/views/TestsFrame.class
 com/mycompany/medicallab/models/Appointement.class
+com/mycompany/medicallab/views/TestsFrame.class
 com/mycompany/medicallab/views/PatientForm$7.class
 com/mycompany/medicallab/views/AppointementsFrame.class
 com/mycompany/medicallab/views/PatientsFrame$3.class
