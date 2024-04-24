@@ -4,17 +4,27 @@
  */
 package com.mycompany.medicallab.views.tabs;
 
+import com.mycompany.medicallab.dao.TestDao;
+import com.mycompany.medicallab.models.Test;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author yusef
  */
 public class Tests extends javax.swing.JPanel {
-
+    private final TestDao testDao;
+    private final DefaultTableModel tableModel;
     /**
      * Creates new form Tests
+     * 
      */
     public Tests() {
         initComponents();
+        testDao = new TestDao();
+        tableModel = (DefaultTableModel) jTable1.getModel();
+        displayTestData();
     }
 
     /**
@@ -31,10 +41,10 @@ public class Tests extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnChearch_Test = new javax.swing.JButton();
+        btnDelete_Test = new javax.swing.JButton();
+        btnUpdate_Test = new javax.swing.JButton();
+        btnAdd_Test = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(254, 253, 237));
         setMaximumSize(new java.awt.Dimension(1080, 610));
@@ -76,18 +86,16 @@ public class Tests extends javax.swing.JPanel {
         jTextArea1.setRows(1);
         jScrollPane2.setViewportView(jTextArea1);
 
-        jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
+        btnChearch_Test.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        btnChearch_Test.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trash.png"))); // NOI18N
+        btnDelete_Test.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trash.png"))); // NOI18N
 
-        jButton2.setIcon(new javax.swing.ImageIcon("/home/yusef/WWW/PROJECTS/MedicalLab/src/main/resources/edit.png")); // NOI18N
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/plus.png"))); // NOI18N
-        jButton3.setToolTipText("");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd_Test.setIcon(new javax.swing.ImageIcon(getClass().getResource("/plus.png"))); // NOI18N
+        btnAdd_Test.setToolTipText("");
+        btnAdd_Test.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnAdd_TestActionPerformed(evt);
             }
         });
 
@@ -98,13 +106,13 @@ public class Tests extends javax.swing.JPanel {
             .addGroup(mainAppointementsLayout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnChearch_Test, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 555, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDelete_Test, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdate_Test, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnAdd_Test, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jScrollPane1)
         );
         mainAppointementsLayout.setVerticalGroup(
@@ -112,10 +120,10 @@ public class Tests extends javax.swing.JPanel {
             .addGroup(mainAppointementsLayout.createSequentialGroup()
                 .addGroup(mainAppointementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnChearch_Test, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete_Test, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdate_Test, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdd_Test, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
         );
@@ -138,16 +146,40 @@ public class Tests extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnAdd_TestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd_TestActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnAdd_TestActionPerformed
+private void displayTestData() {
+        // Clear existing data from the table
+        tableModel.setRowCount(0);
 
+        // Retrieve test data from the database
+        List<Test> tests = testDao.getAllTests();
+        
+        String[] columnNames = {"Id","lable", "price", "days_to_get_result", "type", "description"}; // Update with actual column names
+        tableModel.setColumnIdentifiers(columnNames);
+
+        // Populate the table with test data
+        for (Test test : tests) {
+            Object[] rowData = {
+                test.getId(),
+                test.getLabel(),
+                test.getPrice(),
+                test.getDaysToGetResult(),
+                test.getDescription(),
+                test.getofType()
+                // Add more columns as needed
+            };
+            tableModel.addRow(rowData);
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnAdd_Test;
+    private javax.swing.JButton btnChearch_Test;
+    private javax.swing.JButton btnDelete_Test;
+    private javax.swing.JButton btnUpdate_Test;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
