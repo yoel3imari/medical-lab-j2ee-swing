@@ -6,6 +6,7 @@ package com.mycompany.medicallab.dao;
 
 import com.mycompany.medicallab.models.Test;
 import com.mycompany.medicallab.utils.HibernateUtil;
+import java.util.Collections;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -76,7 +77,7 @@ public class TestDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
 
-            Query query = session.createQuery(sql)
+            Query query = session.createNativeQuery(sql)
                     .setParameter("id", test.getId());
             query.executeUpdate();
 
@@ -87,7 +88,7 @@ public class TestDao {
         }
     }
 
-    public Test getTestById(Long id) {
+    public Test getTestById(int id) {
         String sql = "FROM Test WHERE id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -122,5 +123,25 @@ public class TestDao {
         return null;
     }
 }
+    
+    public List<Test> searchTests(String keyword) {
+    String sql = "FROM Test t WHERE t.label LIKE :keyword OR t.description LIKE :keyword OR CAST(t.price AS string) LIKE :keyword OR t.oftype LIKE :keyword";
+
+    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        beginTransaction(session);
+
+        Query<Test> query = session.createQuery(sql, Test.class)
+                .setParameter("keyword", "%" + keyword + "%");
+        List<Test> tests = query.getResultList();
+
+        commitTransaction(session);
+        return tests;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return null;
+    }
+}
+
+
 }
 
