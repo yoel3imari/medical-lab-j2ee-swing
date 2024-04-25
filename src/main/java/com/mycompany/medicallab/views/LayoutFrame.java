@@ -9,6 +9,8 @@ import com.mycompany.medicallab.utils.NavManager;
 import com.mycompany.medicallab.views.tabs.*;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import com.mycompany.medicallab.views.tabs.Tests;
+
 
 /**
  *
@@ -310,9 +312,7 @@ public class LayoutFrame extends javax.swing.JFrame {
                 .addComponent(sidebar, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(navbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(0, 0, 0))))
+                    .addComponent(tabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

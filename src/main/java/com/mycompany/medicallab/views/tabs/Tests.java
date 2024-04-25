@@ -6,6 +6,7 @@ package com.mycompany.medicallab.views.tabs;
 
 import com.mycompany.medicallab.dao.TestDao;
 import com.mycompany.medicallab.models.Test;
+import com.mycompany.medicallab.views.forms.TestForm;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -147,9 +148,14 @@ public class Tests extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdd_TestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd_TestActionPerformed
-        // TODO add your handling code here:
+        // Create a new instance of the test form/dialog
+    TestForm testForm = new TestForm();
+    
+    // Make the form/dialog visible
+    testForm.setVisible(true);
+    
     }//GEN-LAST:event_btnAdd_TestActionPerformed
-private void displayTestData() {
+public void displayTestData() {
         // Clear existing data from the table
         tableModel.setRowCount(0);
 

@@ -7,6 +7,7 @@ package com.mycompany.medicallab.views.forms;
 import com.mycompany.medicallab.dao.TestDao;
 import com.mycompany.medicallab.models.Test;
 import com.mycompany.medicallab.utils.JavaUtil;
+import com.mycompany.medicallab.views.tabs.Tests;
 import javax.swing.JOptionPane;
 
 /**
@@ -230,9 +231,13 @@ public class TestForm extends javax.swing.JFrame {
         
         // Optionally, display a success message to the user
         JOptionPane.showMessageDialog(this, "Test saved successfully!");
+        //Tests testsPanel = (Tests) getParent(); // Assuming TestForm is a child of Tests panel
+        //testsPanel.displayTestData();
+        this.dispose();
+         
         
         // Close the form or perform any other desired actions
-        this.dispose(); // Close the form
+        //this.dispose(); // Close the form
     } catch (NumberFormatException ex) {
         // Handle number format exception (e.g., when parsing price or daysToGetResult)
         JOptionPane.showMessageDialog(this, "Invalid number format! Please enter a valid number.");
@@ -240,6 +245,8 @@ public class TestForm extends javax.swing.JFrame {
         // Handle other exceptions
         JavaUtil.fireError(e);
     }
+         // Refresh the data in the Tests panel
+        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void PriceTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PriceTxtActionPerformed
