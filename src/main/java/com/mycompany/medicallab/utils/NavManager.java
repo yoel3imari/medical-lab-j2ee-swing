@@ -17,7 +17,7 @@ import javax.swing.JPanel;
  */
 public class NavManager {
     
-    private static Map<String, Class> tabs = new HashMap<>();
+    private static Map<String, Component> tabs = new HashMap<>();
     private static Map<String, Component> navItems = new HashMap();
     
     private static String current = null;
@@ -27,7 +27,7 @@ public class NavManager {
     private static final Color normalColor = new Color(204,255,204);
     private static final Color normalText = new Color(0,0,0);
     
-    public static void addTab(String label, Class tab) { tabs.put(label, tab); }
+    public static void addTab(String label, Component tab) { tabs.put(label, tab); }
     
     public static void addNavItem(String label, Component tab) { navItems.put(label, tab); }
     
@@ -36,7 +36,7 @@ public class NavManager {
             current = tab;
         }
         // reset current tab to unvisible
-        // tabs.get(current).getInstance();
+        tabs.get(current).setVisible(false);
         
         // set current navItem background
         navItems.get(current).setBackground(normalColor);
@@ -46,12 +46,12 @@ public class NavManager {
         navItems.get(tab).setForeground(hoverText);
         
         // set next tab as visible
-        // tabs.get(tab).setVisible(true);
+        tabs.get(tab).setVisible(true);
         
         current = tab;   
     }
     
-    public static Class getActive() {
+    public static Component getActive() {
         return tabs.get(current);
     }
 }

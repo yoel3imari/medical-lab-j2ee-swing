@@ -9,6 +9,7 @@ import com.mycompany.medicallab.utils.NavManager;
 import com.mycompany.medicallab.views.tabs.*;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import javax.swing.JPanel;
 
 /**
  *
@@ -26,23 +27,19 @@ public class LayoutFrame extends javax.swing.JFrame {
         setVisible(true);
         setLocationRelativeTo(null);
 
-        //Component appointements = new Appoint();
-        //Component patients = new Patients();
-        //Component tests = new Tests();
-
         // init navigation
         String[] tabs = {"dashboard", "appointements", "patients", "tests"};
-        Class[] cmp = {Dashboard.class, Appoint.class, Patients.class, Tests.class};
+        Component[] cmp = {Dashboard.getInstance(), Appoint.getInstance(), Patients.getInstance(), Tests.getInstance()};
         Component[] navCmp = {dashboardNavItem, appointementsNavItem, patientsNavItem, testsNavItem};
 
         for (int i = 0; i < tabs.length; i++) {
-            //cmp[i].setVisible(false);
+            cmp[i].setVisible(false);
             NavManager.addTab(tabs[i], cmp[i]);
             NavManager.addNavItem(tabs[i], navCmp[i]);
         }
 
         nav.setActive("dashboard");
-        tabContainer.add(Dashboard.getInstance(), BorderLayout.CENTER);
+        tabContainer.add(cmp[0], BorderLayout.CENTER);
     }
 
     /**
@@ -132,7 +129,6 @@ public class LayoutFrame extends javax.swing.JFrame {
 
         dashboardLabel.setBackground(new java.awt.Color(254, 253, 237));
         dashboardLabel.setFont(new java.awt.Font("Liberation Sans", 1, 20)); // NOI18N
-        dashboardLabel.setForeground(new java.awt.Color(27, 60, 115));
         dashboardLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dashboard.png"))); // NOI18N
         dashboardLabel.setText("Dashboad");
         dashboardLabel.setToolTipText("");
@@ -307,9 +303,7 @@ public class LayoutFrame extends javax.swing.JFrame {
                 .addComponent(sidebar, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(navbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(0, 0, 0))))
+                    .addComponent(tabContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,7 +339,7 @@ public class LayoutFrame extends javax.swing.JFrame {
 
     private void dashboardLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboardLabelMouseClicked
         // TODO add your handling code here:
-        nav.setActive("dashboard");
+        NavManager.setActive("dashboard");
         tabTitle.setText("Dashboard");
         tabContainer.removeAll();
         tabContainer.add(Dashboard.getInstance(), BorderLayout.CENTER);
@@ -353,7 +347,7 @@ public class LayoutFrame extends javax.swing.JFrame {
 
     private void appointementsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_appointementsLabelMouseClicked
         // TODO add your handling code here:
-        nav.setActive("appointements");
+        NavManager.setActive("appointements");
         tabTitle.setText("Appointments");
         tabContainer.removeAll();
         tabContainer.add(Appoint.getInstance(), BorderLayout.CENTER);
@@ -365,7 +359,7 @@ public class LayoutFrame extends javax.swing.JFrame {
 
     private void patientsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_patientsLabelMouseClicked
         // TODO add your handling code here:
-        nav.setActive("patients");
+        NavManager.setActive("patients");
         tabTitle.setText("Patients");
         tabContainer.removeAll();
         tabContainer.add(Patients.getInstance(), BorderLayout.CENTER);
@@ -373,7 +367,7 @@ public class LayoutFrame extends javax.swing.JFrame {
 
     private void testsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_testsLabelMouseClicked
         // TODO add your handling code here:
-        nav.setActive("tests");
+        NavManager.setActive("tests");
         tabTitle.setText("Tests");
         tabContainer.removeAll();
         tabContainer.add(Tests.getInstance(), BorderLayout.CENTER);

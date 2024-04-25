@@ -28,7 +28,7 @@ public class Patients extends javax.swing.JPanel {
     /**
      * Creates new form Patients
      */
-    public Patients() {
+    private Patients() {
         initComponents();
         populateTableModel();
     }

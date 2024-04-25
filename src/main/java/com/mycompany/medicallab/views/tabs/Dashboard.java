@@ -11,7 +11,7 @@ package com.mycompany.medicallab.views.tabs;
 public class Dashboard extends javax.swing.JPanel {
     
     private static Dashboard INSTANCE = null;
-
+    
     /**
      * Creates new form Dashboard
      */

@@ -11,11 +11,11 @@ package com.mycompany.medicallab.views.tabs;
 public class Tests extends javax.swing.JPanel {
     
     private static Tests INSTANCE = null;
-
+    
     /**
      * Creates new form Tests
      */
-    public Tests() {
+    private Tests() {
         initComponents();
     }
     
@@ -26,6 +26,7 @@ public class Tests extends javax.swing.JPanel {
         
         return INSTANCE;
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

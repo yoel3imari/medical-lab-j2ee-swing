@@ -5,6 +5,7 @@
 package com.mycompany.medicallab.views.forms;
 
 import com.mycompany.medicallab.utils.JavaUtil;
+import javax.swing.JFrame;
 
 /**
  *
@@ -17,6 +18,8 @@ public class TestForm extends javax.swing.JFrame {
      */
     public TestForm() {
         initComponents();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
