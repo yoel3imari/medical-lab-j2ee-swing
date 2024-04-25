@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS medicallab;
+
 CREATE DATABASE IF NOT EXISTS medicallab;
 USE medicallab;
 

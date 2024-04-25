@@ -19,7 +19,7 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Long id;
+    private int id;
 
     @Column(name = "fName", length = 25)
     private String fName;
@@ -36,9 +36,12 @@ public class Patient {
     @Column(name = "phone", length = 10)
     private String phone;
 
+    //@Column(name = "gender", length = 6)
+    //@Enumerated(EnumType.STRING)
+    //private Gender gender;
+    
     @Column(name = "gender", length = 6)
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private String gender;
     
     //This annotation ensures that only the date portion of the Date object is stored in the database, without considering the time component.
     @Column(name = "birthdate")
@@ -47,11 +50,11 @@ public class Patient {
 
     // Getters and setters
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -95,13 +98,21 @@ public class Patient {
         this.phone = phone;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
+
+//    public Gender getGender() {
+//        return gender;
+//    }
+//
+//    public void setGender(Gender gender) {
+//        this.gender = gender;
+//    }
 
     public Date getBirthdate() {
         return birthdate;
@@ -111,10 +122,10 @@ public class Patient {
         this.birthdate = birthdate;
     }
     
-    public enum Gender {
-        Male,
-        Female
-    }
+//    public enum Gender {
+//        Male,
+//        Female
+//    }
 }
 
 
