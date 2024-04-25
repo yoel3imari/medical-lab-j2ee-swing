@@ -11,10 +11,7 @@ import com.mycompany.medicallab.views.tabs.Tests;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/**
- *
- * @author yusef
- */
+
 public class TestForm extends javax.swing.JFrame {
      private Tests parentPanel;
      private Test testToUpdate; // Add a variable to store the test being updated

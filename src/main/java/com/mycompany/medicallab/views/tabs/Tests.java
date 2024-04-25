@@ -11,10 +11,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author yusef
- */
+
 public class Tests extends javax.swing.JPanel {
 
     private final TestDao testDao;
