@@ -24,7 +24,7 @@ public class Appoint extends javax.swing.JPanel {
      */
     public Appoint() {
         initComponents();
-        //createCalendar();
+        createCalendar();
     }
 
     private void createCalendar() {
@@ -32,9 +32,12 @@ public class Appoint extends javax.swing.JPanel {
         ArrayList<CalendarEvent> events = new ArrayList<>();
         // init WeekCalendar(events)
         WeekCalendar cal = new WeekCalendar(events);
+        events.add(new CalendarEvent(LocalDate.of(2024, 04, 23), LocalTime.of(14, 0), LocalTime.of(14, 20), "Test 11/11 14:00-14:20"));
+        events.add(new CalendarEvent(LocalDate.of(2024, 04, 27), LocalTime.of(9, 0), LocalTime.of(9, 20), "Test 14/11 9:00-9:20"));
+        events.add(new CalendarEvent(LocalDate.of(2024, 04, 25), LocalTime.of(12, 0), LocalTime.of(13, 20), "Test 15/11 12:00-13:20"));
         // define buttons
         
-        add(cal, BorderLayout.CENTER);
+        mainAppointements.add(cal, BorderLayout.CENTER);
         cal.setSize(1000, 900);
     }
 
