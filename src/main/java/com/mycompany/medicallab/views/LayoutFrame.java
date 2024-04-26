@@ -4,12 +4,12 @@
  */
 package com.mycompany.medicallab.views;
 
-import com.mycompany.medicallab.utils.HibernateUtil;
 import com.mycompany.medicallab.utils.NavManager;
 import com.mycompany.medicallab.views.tabs.*;
+
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Component;
-import javax.swing.JPanel;
 
 /**
  *
@@ -17,7 +17,10 @@ import javax.swing.JPanel;
  */
 public class LayoutFrame extends javax.swing.JFrame {
 
-    NavManager nav = null;
+    JPanel dashboard = null;
+    JPanel appoint = null;
+    JPanel patients = null;
+    JPanel tests = null;
 
     /**
      * Creates new form LayoutFrame
@@ -27,9 +30,14 @@ public class LayoutFrame extends javax.swing.JFrame {
         setVisible(true);
         setLocationRelativeTo(null);
 
+        dashboard = new Dashboard();
+        appoint = new Appoint();
+        patients = new Patients();
+        tests = new Tests();
+
         // init navigation
         String[] tabs = {"dashboard", "appointements", "patients", "tests"};
-        Component[] cmp = {Dashboard.getInstance(), Appoint.getInstance(), Patients.getInstance(), Tests.getInstance()};
+        Component[] cmp = {dashboard, appoint, patients, tests};
         Component[] navCmp = {dashboardNavItem, appointementsNavItem, patientsNavItem, testsNavItem};
 
         for (int i = 0; i < tabs.length; i++) {
@@ -38,7 +46,7 @@ public class LayoutFrame extends javax.swing.JFrame {
             NavManager.addNavItem(tabs[i], navCmp[i]);
         }
 
-        nav.setActive("dashboard");
+        NavManager.setActive(tabs[0]);
         tabContainer.add(cmp[0], BorderLayout.CENTER);
     }
 
@@ -342,7 +350,7 @@ public class LayoutFrame extends javax.swing.JFrame {
         NavManager.setActive("dashboard");
         tabTitle.setText("Dashboard");
         tabContainer.removeAll();
-        tabContainer.add(Dashboard.getInstance(), BorderLayout.CENTER);
+        tabContainer.add(dashboard, BorderLayout.CENTER);
     }//GEN-LAST:event_dashboardLabelMouseClicked
 
     private void appointementsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_appointementsLabelMouseClicked
@@ -350,7 +358,7 @@ public class LayoutFrame extends javax.swing.JFrame {
         NavManager.setActive("appointements");
         tabTitle.setText("Appointments");
         tabContainer.removeAll();
-        tabContainer.add(Appoint.getInstance(), BorderLayout.CENTER);
+        tabContainer.add(appoint, BorderLayout.CENTER);
     }//GEN-LAST:event_appointementsLabelMouseClicked
 
     private void dashboardNavItemAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dashboardNavItemAncestorRemoved
@@ -362,7 +370,7 @@ public class LayoutFrame extends javax.swing.JFrame {
         NavManager.setActive("patients");
         tabTitle.setText("Patients");
         tabContainer.removeAll();
-        tabContainer.add(Patients.getInstance(), BorderLayout.CENTER);
+        tabContainer.add(patients, BorderLayout.CENTER);
     }//GEN-LAST:event_patientsLabelMouseClicked
 
     private void testsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_testsLabelMouseClicked
@@ -370,7 +378,7 @@ public class LayoutFrame extends javax.swing.JFrame {
         NavManager.setActive("tests");
         tabTitle.setText("Tests");
         tabContainer.removeAll();
-        tabContainer.add(Tests.getInstance(), BorderLayout.CENTER);
+        tabContainer.add(tests, BorderLayout.CENTER);
     }//GEN-LAST:event_testsLabelMouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked

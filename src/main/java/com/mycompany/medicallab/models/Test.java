@@ -17,13 +17,13 @@ import jakarta.persistence.Table;
  */
 
 
-@Entity
+@Entity(name = "Test") 
 @Table(name = "tests")
 public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private Long id;
+    private int id;
 
     @Column(name = "label", length = 50)
     private String label;
@@ -37,27 +37,28 @@ public class Test {
     @Column(name = "description", length = 255)
     private String description;
 
-    @Column(name = "type", length = 50)
-    private String type;
+    @Column(name = "oftype", length = 50)
+    private String oftype;
 
     // Constructors, getters, and setters
 
     public Test() {
     }
 
-    public Test(String label, double price, int daysToGetResult, String description, String type) {
+    public Test(String label, double price, int daysToGetResult, String description, String oftype) {
         this.label = label;
         this.price = price;
         this.daysToGetResult = daysToGetResult;
         this.description = description;
-        this.type = type;
+        this.oftype = oftype;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -93,11 +94,11 @@ public class Test {
         this.description = description;
     }
 
-    public String getType() {
-        return type;
+    public String getofType() {
+        return oftype;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setofType(String oftype) {
+        this.oftype = oftype;
     }
 }

@@ -22,23 +22,13 @@ import javax.swing.table.TableRowSorter;
  * @author yusef
  */
 public class Patients extends javax.swing.JPanel {
-    
-    private static Patients INSTANCE = null;
 
     /**
      * Creates new form Patients
      */
-    private Patients() {
+    public Patients() {
         initComponents();
         populateTableModel();
-    }
-    
-    public static Patients getInstance() {
-        if( INSTANCE == null ) {
-            INSTANCE = new Patients();
-        }
-        
-        return INSTANCE;
     }
 
     /**
