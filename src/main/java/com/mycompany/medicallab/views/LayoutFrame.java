@@ -17,10 +17,10 @@ import java.awt.Component;
  */
 public class LayoutFrame extends javax.swing.JFrame {
 
-    JPanel dashboard = null;
-    JPanel appoint = null;
-    JPanel patients = null;
-    JPanel tests = null;
+    Component dashboard = new Dashboard();
+    Component appoint = new Appoint();
+    Component patients = new Patients();
+    Component tests = new Tests();
 
     /**
      * Creates new form LayoutFrame
@@ -29,11 +29,6 @@ public class LayoutFrame extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
-
-        dashboard = new Dashboard();
-        appoint = new Appoint();
-        patients = new Patients();
-        tests = new Tests();
 
         // init navigation
         String[] tabs = {"dashboard", "appointements", "patients", "tests"};

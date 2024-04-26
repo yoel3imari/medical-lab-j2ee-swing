@@ -26,7 +26,7 @@ public class TestDao {
 
     public void saveTest(Test test) {
         String sql = "INSERT INTO tests (label, price, days_to_get_result, description, oftype) " +
-                     "VALUES (:label, :price, :daysToGetResult, :description, :oftype)";
+                     "VALUES (:label, :price, :days_to_get_result, :description, :oftype)";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);

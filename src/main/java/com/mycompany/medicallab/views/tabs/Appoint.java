@@ -34,8 +34,8 @@ public class Appoint extends javax.swing.JPanel {
         WeekCalendar cal = new WeekCalendar(events);
         // define buttons
         
-        mainAppointements.add(cal, BorderLayout.CENTER);
-        //setSize(1000, 900);
+        add(cal, BorderLayout.CENTER);
+        cal.setSize(1000, 900);
     }
 
     /**
@@ -70,7 +70,7 @@ public class Appoint extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(mainAppointements, javax.swing.GroupLayout.PREFERRED_SIZE, 1085, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

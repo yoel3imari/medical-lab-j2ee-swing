@@ -36,6 +36,7 @@ public class NavManager {
             current = tab;
         }
         // reset current tab to unvisible
+        System.out.println("\ncurrent: " + current + " // next: " + tab + "\n");
         tabs.get(current).setVisible(false);
         
         // set current navItem background
