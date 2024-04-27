@@ -17,6 +17,7 @@ com/mycompany/medicallab/views/forms/TestForm$5.class
 com/mycompany/medicallab/views/LoginFrame$6.class
 com/mycompany/medicallab/views/forms/AppointementForm$1.class
 com/mycompany/medicallab/views/forms/TestForm$2.class
+com/mycompany/medicallab/views/tabs/Tests$5.class
 com/mycompany/medicallab/views/LayoutFrame$9.class
 com/mycompany/medicallab/views/forms/TestForm$3.class
 com/mycompany/medicallab/views/LoginFrame$3.class
@@ -24,6 +25,7 @@ com/mycompany/medicallab/testings/AppointTests.class
 com/mycompany/medicallab/views/forms/PatientForm$2.class
 com/mycompany/medicallab/calendar/CalendarEventClickEvent.class
 com/mycompany/medicallab/views/forms/AppointementForm$3.class
+com/mycompany/medicallab/views/tabs/Tests$3.class
 com/mycompany/medicallab/views/tabs/Patients$4.class
 com/mycompany/medicallab/calendar/Calendar.class
 com/mycompany/medicallab/views/forms/AppointementForm.class
@@ -72,6 +74,7 @@ com/mycompany/medicallab/views/forms/PatientForm$7.class
 com/mycompany/medicallab/views/forms/TestForm$1.class
 com/mycompany/medicallab/dao/TestDao.class
 com/mycompany/medicallab/views/LayoutFrame$7.class
+com/mycompany/medicallab/views/tabs/Tests$4.class
 com/mycompany/medicallab/testings/LayoutTesting.class
 com/mycompany/medicallab/utils/NotificationUtil$1.class
 com/mycompany/medicallab/views/tabs/Tests$1.class

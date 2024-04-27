@@ -245,17 +245,21 @@ public class Patients extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextArea1KeyReleased
 
     public void populateTableModel() {
+        
         //getAllPatients()
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-
         tableModel.setRowCount(0); // Clear existing rows
+        // Get column names
+        String[] columnNames = {"Id", "Firstname", "Lastname", "CIN", "Email", "Phone", "Gender", "Birth Day"};
+        // Update with actual column names
+        tableModel.setColumnIdentifiers(columnNames);
 
         PatientDao patientDAO = new PatientDao();
         List<Patient> patients = patientDAO.getAllPatients();
-
-        // Get column names
-        String[] columnNames = {"Id", "Firstname", "Lastname", "CIN", "Email", "Phone", "Gender", "Birth Day"}; // Update with actual column names
-        tableModel.setColumnIdentifiers(columnNames);
+        
+        if( patients == null ) {
+            return;
+        }
 
         // Populate data rows
         for (Patient patient : patients) {
@@ -278,7 +282,7 @@ public class Patients extends javax.swing.JPanel {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Patients Management");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.getContentPane().add(new Patients());
             frame.pack();
             frame.setLocationRelativeTo(null); // Center the frame

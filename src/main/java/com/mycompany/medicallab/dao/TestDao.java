@@ -6,6 +6,7 @@ package com.mycompany.medicallab.dao;
 
 import com.mycompany.medicallab.models.Test;
 import com.mycompany.medicallab.utils.HibernateUtil;
+import java.util.Collections;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -25,8 +26,8 @@ public class TestDao {
     }
 
     public void saveTest(Test test) {
-        String sql = "INSERT INTO tests (label, price, days_to_get_result, description, oftype) " +
-                     "VALUES (:label, :price, :days_to_get_result, :description, :oftype)";
+        String sql = "INSERT INTO tests (label, price,duration, days_to_get_result, description, oftype) " +
+                     "VALUES (:label, :price, :duration, :daysToGetResult, :description, :oftype)";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
@@ -34,6 +35,7 @@ public class TestDao {
             Query query = session.createNativeQuery(sql)
                     .setParameter("label", test.getLabel())
                     .setParameter("price", test.getPrice())
+                    .setParameter("duration", test.getDuration())
                     .setParameter("daysToGetResult", test.getDaysToGetResult())
                     .setParameter("description", test.getDescription())
                     .setParameter("oftype", test.getofType());
@@ -47,7 +49,7 @@ public class TestDao {
     }
 
     public void updateTest(Test test) {
-        String sql = "UPDATE tests SET label = :label, price = :price, " +
+        String sql = "UPDATE tests SET label = :label, price = :price, duration = :duration, " +
                      "days_to_get_result = :daysToGetResult, description = :description, " +
                      "oftype = :oftype WHERE id = :id";
 
@@ -57,6 +59,7 @@ public class TestDao {
             Query query = session.createNativeQuery(sql)
                     .setParameter("label", test.getLabel())
                     .setParameter("price", test.getPrice())
+                    .setParameter("duration", test.getDuration())
                     .setParameter("daysToGetResult", test.getDaysToGetResult())
                     .setParameter("description", test.getDescription())
                     .setParameter("oftype", test.getofType())
@@ -76,7 +79,7 @@ public class TestDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
 
-            Query query = session.createQuery(sql)
+            Query query = session.createNativeQuery(sql)
                     .setParameter("id", test.getId());
             query.executeUpdate();
 
@@ -87,13 +90,13 @@ public class TestDao {
         }
     }
 
-    public Test getTestById(Long id) {
-        String sql = "FROM Test WHERE id = :id";
+    public Test getTestById(int id) {
+        String sql = "SELECT * FROM tests WHERE id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
 
-            Query<Test> query = session.createQuery(sql, Test.class)
+            Query<Test> query = session.createNativeQuery(sql, Test.class)
                     .setParameter("id", id);
             Test test = query.uniqueResult();
 
@@ -122,5 +125,62 @@ public class TestDao {
         return null;
     }
 }
+    
+    public List<Test> searchTests(String keyword) {
+    String sql = "FROM Test t WHERE t.label LIKE :keyword OR t.description LIKE :keyword OR CAST(t.price AS string) LIKE :keyword OR t.oftype LIKE :keyword";
+
+    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        beginTransaction(session);
+
+        Query<Test> query = session.createQuery(sql, Test.class)
+                .setParameter("keyword", "%" + keyword + "%");
+        List<Test> tests = query.getResultList();
+
+        commitTransaction(session);
+        return tests;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return null;
+    }
+}
+    
+    // Method to retrieve all distinct test types
+    public List<String> getAllTestTypes() {
+        String sql = "SELECT DISTINCT oftype FROM tests";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.beginTransaction();
+
+            Query<String> query = session.createNativeQuery(sql, String.class);
+            List<String> testTypes = query.getResultList();
+
+            session.getTransaction().commit();
+            return testTypes;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    // Method to retrieve test labels by specified test type
+    public List<String> getTestLabelsByType(String testType) {
+        String sql = "SELECT label FROM tests WHERE oftype = :testType";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.beginTransaction();
+
+            Query<String> query = session.createNativeQuery(sql, String.class)
+                    .setParameter("testType", testType);
+            List<String> testLabels = query.getResultList();
+
+            session.getTransaction().commit();
+            return testLabels;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
 }
 

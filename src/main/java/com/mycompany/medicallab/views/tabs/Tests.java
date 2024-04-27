@@ -8,12 +8,10 @@ import com.mycompany.medicallab.dao.TestDao;
 import com.mycompany.medicallab.models.Test;
 import com.mycompany.medicallab.views.forms.TestForm;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author yusef
- */
+
 public class Tests extends javax.swing.JPanel {
 
     private final TestDao testDao;
@@ -43,7 +41,7 @@ public class Tests extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtSearch = new javax.swing.JTextArea();
         btnChearch_Test = new javax.swing.JButton();
         btnDelete_Test = new javax.swing.JButton();
         btnUpdate_Test = new javax.swing.JButton();
@@ -63,20 +61,20 @@ public class Tests extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Firstname", "Lastname", "Phone", "CIN", "Birth Day", "Address"
+                "Firstname", "Lastname", "Phone", "CIN", "Birth Day", "Address", "Title 7"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -85,14 +83,31 @@ public class Tests extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(1);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtSearch.setColumns(20);
+        txtSearch.setRows(1);
+        jScrollPane2.setViewportView(txtSearch);
 
         btnChearch_Test.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         btnChearch_Test.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
+        btnChearch_Test.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChearch_TestActionPerformed(evt);
+            }
+        });
 
         btnDelete_Test.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trash.png"))); // NOI18N
+        btnDelete_Test.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelete_TestActionPerformed(evt);
+            }
+        });
+
+        btnUpdate_Test.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edit.png"))); // NOI18N
+        btnUpdate_Test.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdate_TestActionPerformed(evt);
+            }
+        });
 
         btnAdd_Test.setIcon(new javax.swing.ImageIcon(getClass().getResource("/plus.png"))); // NOI18N
         btnAdd_Test.setToolTipText("");
@@ -151,12 +166,75 @@ public class Tests extends javax.swing.JPanel {
 
     private void btnAdd_TestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd_TestActionPerformed
         // Create a new instance of the test form/dialog
-        TestForm testForm = new TestForm();
-
-        // Make the form/dialog visible
-        testForm.setVisible(true);
+        TestForm testForm = new TestForm(this);
 
     }//GEN-LAST:event_btnAdd_TestActionPerformed
+
+    private void btnUpdate_TestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdate_TestActionPerformed
+        // Get the selected row index
+    int selectedRowIndex = jTable1.getSelectedRow();
+    
+    if (selectedRowIndex != -1) { // If a row is selected
+        // Retrieve the test data from the selected row
+        
+        int testId = (int) jTable1.getValueAt(selectedRowIndex, 0);
+// Assuming ID is in the first column
+        TestDao testDao = new TestDao();
+        Test selectedTest = testDao.getTestById(testId);
+
+        // Open the TestForm for update with the selected test data
+        TestForm testForm = new TestForm(this, selectedTest);
+    } else {
+        JOptionPane.showMessageDialog(this, "Please select a test to update.");
+    }
+
+        
+        
+       
+        
+    }//GEN-LAST:event_btnUpdate_TestActionPerformed
+
+    private void btnDelete_TestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete_TestActionPerformed
+        // Get the selected row index
+    int selectedRowIndex = jTable1.getSelectedRow();
+    
+    if (selectedRowIndex != -1) { // If a row is selected
+        // Retrieve the test ID from the selected row
+        int testId = (int) jTable1.getValueAt(selectedRowIndex, 0); // Assuming ID is in the first column
+        
+        // Confirm with the user before deleting the test
+        int confirmDialogResult = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this test?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+        
+        if (confirmDialogResult == JOptionPane.YES_OPTION) { // If user confirms deletion
+            // Use the TestDao to delete the test
+            TestDao testDao = new TestDao();
+            Test testToDelete = testDao.getTestById(testId);
+            testDao.deleteTest(testToDelete);
+            
+            // Optionally, you can update the table to reflect the changes
+            displayTestData();
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Please select a test to delete.");
+    }
+    }//GEN-LAST:event_btnDelete_TestActionPerformed
+
+    private void btnChearch_TestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChearch_TestActionPerformed
+        String keyword = txtSearch.getText().trim();
+
+    // Perform the search if the keyword is not empty
+    if (!keyword.isEmpty()) {
+        // Call a method in your DAO class to search for tests based on the keyword
+        TestDao testDao = new TestDao();
+        List<Test> searchResults = testDao.searchTests(keyword);
+
+        // Display the search results in the table
+        displayTestSearchResults(searchResults);
+    } else {
+        // Reload the original data into the table
+        reloadOriginalTestData();
+    }
+    }//GEN-LAST:event_btnChearch_TestActionPerformed
     public void displayTestData() {
         // Clear existing data from the table
         tableModel.setRowCount(0);
@@ -164,7 +242,7 @@ public class Tests extends javax.swing.JPanel {
         // Retrieve test data from the database
         List<Test> tests = testDao.getAllTests();
 
-        String[] columnNames = {"Id", "lable", "price", "days_to_get_result", "type", "description"}; // Update with actual column names
+        String[] columnNames = {"Id", "Lable", "Price(DH)","Duration(Min)", "Days_to_get_result", "Type", "Description"}; // Update with actual column names
         tableModel.setColumnIdentifiers(columnNames);
 
         // Populate the table with test data
@@ -173,14 +251,38 @@ public class Tests extends javax.swing.JPanel {
                 test.getId(),
                 test.getLabel(),
                 test.getPrice(),
+                test.getDuration(),
                 test.getDaysToGetResult(),
-                test.getDescription(),
-                test.getofType()
+                test.getofType(),
+                test.getDescription()
+                
             // Add more columns as needed
             };
             tableModel.addRow(rowData);
         }
     }
+    
+    private void reloadOriginalTestData() {
+    // Call a method in your DAO class to get all tests
+    TestDao testDao = new TestDao();
+    List<Test> allTests = testDao.getAllTests();
+
+    // Display all tests in the table
+    displayTestSearchResults(allTests);
+}
+    
+    private void displayTestSearchResults(List<Test> searchResults) {
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    model.setRowCount(0); // Clear the existing table data
+
+    // Iterate over the search results and add them to the table
+    for (Test test : searchResults) {
+        
+        Object[] rowData = {test.getId(), test.getLabel(),test.getDuration(), test.getPrice(), test.getDaysToGetResult(), test.getDescription(), test.getofType()};
+        model.addRow(rowData);
+    }
+}
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -191,7 +293,7 @@ public class Tests extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel mainAppointements;
+    private javax.swing.JTextArea txtSearch;
     // End of variables declaration//GEN-END:variables
 }

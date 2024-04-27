@@ -6,21 +6,43 @@ package com.mycompany.medicallab.views.forms;
 
 import com.mycompany.medicallab.dao.TestDao;
 import com.mycompany.medicallab.models.Test;
+import com.mycompany.medicallab.views.tabs.Tests;
 import com.mycompany.medicallab.utils.JavaUtil;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
-/**
- *
- * @author yusef
- */
+
 public class TestForm extends javax.swing.JFrame {
+     private Tests parentPanel;
+     private Test testToUpdate; // Add a variable to store the test being updated
 
     /**
      * Creates new form TestForm
      */
-    public TestForm() {
+     public TestForm(Tests parent) {
         initComponents();
+        setVisible(true);
+        setLocationRelativeTo(null);
+        parentPanel = parent;
+        testToUpdate = null; // Initialize testToUpdate as null
+    }
+    public TestForm(Tests parent, Test test) {
+        initComponents();
+        setVisible(true);
+        setLocationRelativeTo(null);
+        parentPanel = parent;
+        testToUpdate = test;
+        testLabeltxt.setText(test.getLabel());
+        PriceTxt.setText(String.valueOf(test.getPrice()));
+        durationTxt.setText(String.valueOf(test.getDuration()));
+        DaysTOGRtxt.setText(String.valueOf(test.getDaysToGetResult()));
+        DescriptionTxt.setText(test.getDescription());
+        jComboBox1.setSelectedItem(test.getofType());
+    }
+    
+    public void setParentPanel(Tests parentPanel, String option) {
+        this.parentPanel = parentPanel;
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
@@ -48,6 +70,8 @@ public class TestForm extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         DescriptionTxt = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
+        durationTxt = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,12 +129,21 @@ public class TestForm extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel7.setText("Description");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blood test", "Urine test", "Imaging test", "Genetic test", "Allergy test", "Hormone test", "Pathology test", "Microbiology test", "Toxicology test", "Cardiac test" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diagnostic", "Screening", "Genetic", "Monitoring", "Functional", "Allergy", "Nutritional", "Infectious Disease", "Toxicology", "Physiological" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
+
+        durationTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                durationTxtActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("Duration");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -130,20 +163,6 @@ public class TestForm extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(PriceTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                                    .addComponent(testLabeltxt))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(DaysTOGRtxt)))
-                            .addComponent(jLabel6))
-                        .addGap(30, 30, 30))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -153,7 +172,24 @@ public class TestForm extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(DescriptionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 28, Short.MAX_VALUE))))))
+                                .addGap(0, 28, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(testLabeltxt)
+                                        .addComponent(jLabel2)
+                                        .addComponent(durationTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(DaysTOGRtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                    .addComponent(PriceTxt))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,22 +197,23 @@ public class TestForm extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addComponent(jLabel1)
                 .addGap(40, 40, 40)
-                .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(testLabeltxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(testLabeltxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PriceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(PriceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DaysTOGRtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(51, 51, 51)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addGap(1, 1, 1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(DaysTOGRtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(durationTxt))
                 .addComponent(jLabel6)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
@@ -209,37 +246,56 @@ public class TestForm extends javax.swing.JFrame {
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+       
         
-         try {
+          try {
         // Retrieve data from input fields
         String label = testLabeltxt.getText();
         double price = Double.parseDouble(PriceTxt.getText());
+        int duration =Integer.parseInt(durationTxt.getText());
         int daysToGetResult = Integer.parseInt(DaysTOGRtxt.getText());
         String description = DescriptionTxt.getText();
         
         // Retrieve selected test type from the JComboBox
         String oftype = (String) jComboBox1.getSelectedItem();
         
-        // Create a new Test object
-        Test test = new Test(label, price, daysToGetResult, description, oftype);
+        // If testToUpdate is null, it means we're saving a new test
+        if (testToUpdate == null) {
+            // Create a new Test object
+            Test test = new Test(label, price,duration, daysToGetResult, description, oftype);
+            
+            // Save the test using your TestDao
+            TestDao testDao = new TestDao();
+            testDao.saveTest(test);
+            
+            // Display a success message to the user
+            JOptionPane.showMessageDialog(this, "Test saved successfully!");
+        } else {
+            // Update the existing test
+            testToUpdate.setLabel(label);
+            testToUpdate.setPrice(price);
+            testToUpdate.setDuration(duration);
+            testToUpdate.setDaysToGetResult(daysToGetResult);
+            testToUpdate.setDescription(description);
+            testToUpdate.setofType(oftype);
+            
+            // Update the test using your TestDao
+            TestDao testDao = new TestDao();
+            testDao.updateTest(testToUpdate);
+            
+            // Display a success message to the user
+            JOptionPane.showMessageDialog(this, "Test updated successfully!");
+        }
         
-        // Save the test using your TestDao
-        TestDao testDao = new TestDao();
-        testDao.saveTest(test);
+        // Refresh the data in the Tests panel
+        parentPanel.displayTestData();
         
-        // Optionally, display a success message to the user
-        JOptionPane.showMessageDialog(this, "Test saved successfully!");
-        //Tests testsPanel = (Tests) getParent(); // Assuming TestForm is a child of Tests panel
-        //testsPanel.displayTestData();
-        this.dispose();
-         
-        
-        // Close the form or perform any other desired actions
-        //this.dispose(); // Close the form
+        dispose(); // Close the form
     } catch (NumberFormatException ex) {
         // Handle number format exception (e.g., when parsing price or daysToGetResult)
         JOptionPane.showMessageDialog(this, "Invalid number format! Please enter a valid number.");
@@ -263,52 +319,26 @@ public class TestForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void durationTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_durationTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_durationTxtActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TestForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TestForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TestForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TestForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TestForm().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField DaysTOGRtxt;
     private javax.swing.JTextField DescriptionTxt;
     private javax.swing.JTextField PriceTxt;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
+    private javax.swing.JTextField durationTxt;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
