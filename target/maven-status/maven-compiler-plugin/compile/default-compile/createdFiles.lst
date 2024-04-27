@@ -40,6 +40,7 @@ com\mycompany\medicallab\views\tabs\Patients$2.class
 com\mycompany\medicallab\views\forms\PatientForm$5.class
 com\mycompany\medicallab\views\forms\PatientForm$8.class
 com\mycompany\medicallab\views\LayoutFrame$11.class
+com\mycompany\medicallab\views\forms\TestForm$6.class
 com\mycompany\medicallab\views\tabs\Tests$5.class
 com\mycompany\medicallab\views\forms\AppointementForm$1.class
 com\mycompany\medicallab\views\forms\PatientForm$4.class

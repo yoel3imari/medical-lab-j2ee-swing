@@ -61,20 +61,20 @@ public class Tests extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Firstname", "Lastname", "Phone", "CIN", "Birth Day", "Address"
+                "Firstname", "Lastname", "Phone", "CIN", "Birth Day", "Address", "Title 7"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -242,7 +242,7 @@ public class Tests extends javax.swing.JPanel {
         // Retrieve test data from the database
         List<Test> tests = testDao.getAllTests();
 
-        String[] columnNames = {"Id", "lable", "price", "days_to_get_result", "type", "description"}; // Update with actual column names
+        String[] columnNames = {"Id", "lable", "price","duration", "days_to_get_result", "type", "description"}; // Update with actual column names
         tableModel.setColumnIdentifiers(columnNames);
 
         // Populate the table with test data
@@ -251,6 +251,7 @@ public class Tests extends javax.swing.JPanel {
                 test.getId(),
                 test.getLabel(),
                 test.getPrice(),
+                test.getDuration(),
                 test.getDaysToGetResult(),
                 test.getDescription(),
                 test.getofType()
@@ -276,7 +277,7 @@ public class Tests extends javax.swing.JPanel {
     // Iterate over the search results and add them to the table
     for (Test test : searchResults) {
         
-        Object[] rowData = {test.getId(), test.getLabel(), test.getPrice(), test.getDaysToGetResult(), test.getDescription(), test.getofType()};
+        Object[] rowData = {test.getId(), test.getLabel(),test.getDuration(), test.getPrice(), test.getDaysToGetResult(), test.getDescription(), test.getofType()};
         model.addRow(rowData);
     }
 }
