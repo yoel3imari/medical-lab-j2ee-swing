@@ -143,6 +143,43 @@ public class TestDao {
         return null;
     }
 }
+    
+    // Method to retrieve all distinct test types
+    public List<String> getAllTestTypes() {
+        String sql = "SELECT DISTINCT oftype FROM tests";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.beginTransaction();
+
+            Query<String> query = session.createNativeQuery(sql, String.class);
+            List<String> testTypes = query.getResultList();
+
+            session.getTransaction().commit();
+            return testTypes;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    // Method to retrieve test labels by specified test type
+    public List<String> getTestLabelsByType(String testType) {
+        String sql = "SELECT label FROM tests WHERE oftype = :testType";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.beginTransaction();
+
+            Query<String> query = session.createNativeQuery(sql, String.class)
+                    .setParameter("testType", testType);
+            List<String> testLabels = query.getResultList();
+
+            session.getTransaction().commit();
+            return testLabels;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 
 }
