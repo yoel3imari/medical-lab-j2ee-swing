@@ -26,9 +26,14 @@ public class Test {
 
     @Column(name = "price")
     private double price;
+    
+    @Column(name = "duration")
+    private int duration;
 
     @Column(name = "days_to_get_result")
     private int daysToGetResult;
+
+    
 
     @Column(name = "description", length = 255)
     private String description;
@@ -41,9 +46,10 @@ public class Test {
     public Test() {
     }
 
-    public Test(String label, double price, int daysToGetResult, String description, String oftype) {
+    public Test(String label, double price,int duration, int daysToGetResult, String description, String oftype) {
         this.label = label;
         this.price = price;
+        this.duration= duration;
         this.daysToGetResult = daysToGetResult;
         this.description = description;
         this.oftype = oftype;
@@ -72,6 +78,14 @@ public class Test {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+    
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public int getDaysToGetResult() {
