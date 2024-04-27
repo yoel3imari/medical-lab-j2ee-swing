@@ -26,8 +26,8 @@ public class TestDao {
     }
 
     public void saveTest(Test test) {
-        String sql = "INSERT INTO tests (label, price, days_to_get_result, description, oftype) " +
-                     "VALUES (:label, :price, :daysToGetResult, :description, :oftype)";
+        String sql = "INSERT INTO tests (label, price,duration, days_to_get_result, description, oftype) " +
+                     "VALUES (:label, :price, :duration, :daysToGetResult, :description, :oftype)";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
@@ -35,6 +35,7 @@ public class TestDao {
             Query query = session.createNativeQuery(sql)
                     .setParameter("label", test.getLabel())
                     .setParameter("price", test.getPrice())
+                    .setParameter("duration", test.getDuration())
                     .setParameter("daysToGetResult", test.getDaysToGetResult())
                     .setParameter("description", test.getDescription())
                     .setParameter("oftype", test.getofType());
@@ -48,7 +49,7 @@ public class TestDao {
     }
 
     public void updateTest(Test test) {
-        String sql = "UPDATE tests SET label = :label, price = :price, " +
+        String sql = "UPDATE tests SET label = :label, price = :price, duration = :duration, " +
                      "days_to_get_result = :daysToGetResult, description = :description, " +
                      "oftype = :oftype WHERE id = :id";
 
@@ -58,6 +59,7 @@ public class TestDao {
             Query query = session.createNativeQuery(sql)
                     .setParameter("label", test.getLabel())
                     .setParameter("price", test.getPrice())
+                    .setParameter("duration", test.getDuration())
                     .setParameter("daysToGetResult", test.getDaysToGetResult())
                     .setParameter("description", test.getDescription())
                     .setParameter("oftype", test.getofType())
@@ -89,12 +91,12 @@ public class TestDao {
     }
 
     public Test getTestById(int id) {
-        String sql = "FROM Test WHERE id = :id";
+        String sql = "SELECT * FROM tests WHERE id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
 
-            Query<Test> query = session.createQuery(sql, Test.class)
+            Query<Test> query = session.createNativeQuery(sql, Test.class)
                     .setParameter("id", id);
             Test test = query.uniqueResult();
 
