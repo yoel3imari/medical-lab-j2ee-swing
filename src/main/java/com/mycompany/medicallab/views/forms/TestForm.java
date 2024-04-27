@@ -126,7 +126,7 @@ public class TestForm extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel7.setText("Description");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blood test", "Urine test", "Imaging test", "Genetic test", "Allergy test", "Hormone test", "Pathology test", "Microbiology test", "Toxicology test", "Cardiac test" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diagnostic", "Screening", "Genetic", "Monitoring", "Functional", "Allergy", "Nutritional", "Infectious Disease", "Toxicology", "Physiological" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
