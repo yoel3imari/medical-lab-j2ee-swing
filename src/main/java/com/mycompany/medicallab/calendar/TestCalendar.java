@@ -27,6 +27,7 @@ public class TestCalendar {
         WeekCalendar cal = new WeekCalendar(events);
 
         cal.addCalendarEventClickListener(e -> System.out.println(e.getCalendarEvent()));
+        
         cal.addCalendarEmptyClickListener(e -> {
             System.out.println(e.getDateTime());
             System.out.println(Calendar.roundTime(e.getDateTime().toLocalTime(), 30));
