@@ -28,6 +28,7 @@ public class LayoutFrame extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // init navigation
         String[] tabs = {"dashboard", "appointements", "patients", "tests"};

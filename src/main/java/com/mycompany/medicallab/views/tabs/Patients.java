@@ -256,10 +256,6 @@ public class Patients extends javax.swing.JPanel {
 
         PatientDao patientDAO = new PatientDao();
         List<Patient> patients = patientDAO.getAllPatients();
-        
-        if( patients == null ) {
-            return;
-        }
 
         // Populate data rows
         for (Patient patient : patients) {

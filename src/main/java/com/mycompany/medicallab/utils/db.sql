@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS tests (
     id INT PRIMARY KEY AUTO_INCREMENT,
     label TEXT,
     price DECIMAL(8,2),
-    daysToGetResult INT,
+    days_to_get_result INT,
     duration INT,
     oftype VARCHAR(50),
     description TEXT, 

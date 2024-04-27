@@ -12,21 +12,23 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-
 public class TestForm extends javax.swing.JFrame {
-     private Tests parentPanel;
-     private Test testToUpdate; // Add a variable to store the test being updated
+
+    private Tests parentPanel;
+    private Test testToUpdate; // Add a variable to store the test being updated
 
     /**
      * Creates new form TestForm
      */
-     public TestForm(Tests parent) {
+    public TestForm(Tests parent) {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         parentPanel = parent;
         testToUpdate = null; // Initialize testToUpdate as null
     }
+
     public TestForm(Tests parent, Test test) {
         initComponents();
         setVisible(true);
@@ -40,11 +42,9 @@ public class TestForm extends javax.swing.JFrame {
         DescriptionTxt.setText(test.getDescription());
         jComboBox1.setSelectedItem(test.getofType());
     }
-    
+
     public void setParentPanel(Tests parentPanel, String option) {
         this.parentPanel = parentPanel;
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -68,10 +68,11 @@ public class TestForm extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         DaysTOGRtxt = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        DescriptionTxt = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         durationTxt = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        DescriptionTxt = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +86,9 @@ public class TestForm extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel2.setText("Test Label");
 
+        testLabeltxt.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
+
+        PriceTxt.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
         PriceTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PriceTxtActionPerformed(evt);
@@ -120,6 +124,7 @@ public class TestForm extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel6.setText("Test Type");
 
+        DaysTOGRtxt.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
         DaysTOGRtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DaysTOGRtxtActionPerformed(evt);
@@ -130,12 +135,14 @@ public class TestForm extends javax.swing.JFrame {
         jLabel7.setText("Description");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diagnostic", "Screening", "Genetic", "Monitoring", "Functional", "Allergy", "Nutritional", "Infectious Disease", "Toxicology", "Physiological" }));
+        jComboBox1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
 
+        durationTxt.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
         durationTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 durationTxtActionPerformed(evt);
@@ -145,36 +152,34 @@ public class TestForm extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Duration");
 
+        DescriptionTxt.setColumns(20);
+        DescriptionTxt.setRows(3);
+        DescriptionTxt.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
+        jScrollPane1.setViewportView(DescriptionTxt);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(DescriptionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 28, Short.MAX_VALUE))))
+                        .addGap(140, 140, 140)
+                        .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jScrollPane1)
+                                        .addComponent(jComboBox1, 0, 337, Short.MAX_VALUE))))
                             .addComponent(jLabel6)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,15 +193,15 @@ public class TestForm extends javax.swing.JFrame {
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel3)
                                     .addComponent(DaysTOGRtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                                    .addComponent(PriceTxt))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addComponent(PriceTxt))))))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1)
                 .addGap(40, 40, 40)
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
@@ -212,13 +217,14 @@ public class TestForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(DaysTOGRtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                     .addComponent(durationTxt))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DescriptionTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -251,60 +257,59 @@ public class TestForm extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-       
-        
-          try {
-        // Retrieve data from input fields
-        String label = testLabeltxt.getText();
-        double price = Double.parseDouble(PriceTxt.getText());
-        int duration =Integer.parseInt(durationTxt.getText());
-        int daysToGetResult = Integer.parseInt(DaysTOGRtxt.getText());
-        String description = DescriptionTxt.getText();
-        
-        // Retrieve selected test type from the JComboBox
-        String oftype = (String) jComboBox1.getSelectedItem();
-        
-        // If testToUpdate is null, it means we're saving a new test
-        if (testToUpdate == null) {
-            // Create a new Test object
-            Test test = new Test(label, price,duration, daysToGetResult, description, oftype);
-            
-            // Save the test using your TestDao
-            TestDao testDao = new TestDao();
-            testDao.saveTest(test);
-            
-            // Display a success message to the user
-            JOptionPane.showMessageDialog(this, "Test saved successfully!");
-        } else {
-            // Update the existing test
-            testToUpdate.setLabel(label);
-            testToUpdate.setPrice(price);
-            testToUpdate.setDuration(duration);
-            testToUpdate.setDaysToGetResult(daysToGetResult);
-            testToUpdate.setDescription(description);
-            testToUpdate.setofType(oftype);
-            
-            // Update the test using your TestDao
-            TestDao testDao = new TestDao();
-            testDao.updateTest(testToUpdate);
-            
-            // Display a success message to the user
-            JOptionPane.showMessageDialog(this, "Test updated successfully!");
+
+        try {
+            // Retrieve data from input fields
+            String label = testLabeltxt.getText();
+            double price = Double.parseDouble(PriceTxt.getText());
+            int duration = Integer.parseInt(durationTxt.getText());
+            int daysToGetResult = Integer.parseInt(DaysTOGRtxt.getText());
+            String description = DescriptionTxt.getText();
+
+            // Retrieve selected test type from the JComboBox
+            String oftype = (String) jComboBox1.getSelectedItem();
+
+            // If testToUpdate is null, it means we're saving a new test
+            if (testToUpdate == null) {
+                // Create a new Test object
+                Test test = new Test(label, price, duration, daysToGetResult, description, oftype);
+
+                // Save the test using your TestDao
+                TestDao testDao = new TestDao();
+                testDao.saveTest(test);
+
+                // Display a success message to the user
+                JOptionPane.showMessageDialog(this, "Test saved successfully!");
+            } else {
+                // Update the existing test
+                testToUpdate.setLabel(label);
+                testToUpdate.setPrice(price);
+                testToUpdate.setDuration(duration);
+                testToUpdate.setDaysToGetResult(daysToGetResult);
+                testToUpdate.setDescription(description);
+                testToUpdate.setofType(oftype);
+
+                // Update the test using your TestDao
+                TestDao testDao = new TestDao();
+                testDao.updateTest(testToUpdate);
+
+                // Display a success message to the user
+                JOptionPane.showMessageDialog(this, "Test updated successfully!");
+            }
+
+            // Refresh the data in the Tests panel
+            parentPanel.displayTestData();
+
+            dispose(); // Close the form
+        } catch (NumberFormatException ex) {
+            // Handle number format exception (e.g., when parsing price or daysToGetResult)
+            JOptionPane.showMessageDialog(this, "Invalid number format! Please enter a valid number.");
+        } catch (Exception e) {
+            // Handle other exceptions
+            JavaUtil.fireError(e);
         }
-        
         // Refresh the data in the Tests panel
-        parentPanel.displayTestData();
-        
-        dispose(); // Close the form
-    } catch (NumberFormatException ex) {
-        // Handle number format exception (e.g., when parsing price or daysToGetResult)
-        JOptionPane.showMessageDialog(this, "Invalid number format! Please enter a valid number.");
-    } catch (Exception e) {
-        // Handle other exceptions
-        JavaUtil.fireError(e);
-    }
-         // Refresh the data in the Tests panel
-        
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void PriceTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PriceTxtActionPerformed
@@ -328,7 +333,7 @@ public class TestForm extends javax.swing.JFrame {
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField DaysTOGRtxt;
-    private javax.swing.JTextField DescriptionTxt;
+    private javax.swing.JTextArea DescriptionTxt;
     private javax.swing.JTextField PriceTxt;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
@@ -342,6 +347,7 @@ public class TestForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField testLabeltxt;
     // End of variables declaration//GEN-END:variables
 }

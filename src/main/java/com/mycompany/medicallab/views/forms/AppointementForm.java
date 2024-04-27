@@ -83,6 +83,8 @@ public class AppointementForm extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel2.setText("Patient Identifier (CIN)");
 
+        patientCin.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
+
         jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel3.setText("Tests Type");
 
@@ -119,6 +121,7 @@ public class AppointementForm extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabel4.setText("Tests");
 
+        chosenTests.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
         chosenTests.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -129,6 +132,10 @@ public class AppointementForm extends javax.swing.JFrame {
         appointDate.setText("Date: __/__/__");
 
         appointTime.setText("Time: __:__");
+
+        TestTypeList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
+
+        TestList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(161, 195, 152), 2, true));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
