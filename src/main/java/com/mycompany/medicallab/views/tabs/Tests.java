@@ -242,7 +242,7 @@ public class Tests extends javax.swing.JPanel {
         // Retrieve test data from the database
         List<Test> tests = testDao.getAllTests();
 
-        String[] columnNames = {"Id", "lable", "price","duration", "days_to_get_result", "type", "description"}; // Update with actual column names
+        String[] columnNames = {"Id", "Lable", "Price(DH)","Duration(Min)", "Days_to_get_result", "Type", "Description"}; // Update with actual column names
         tableModel.setColumnIdentifiers(columnNames);
 
         // Populate the table with test data
@@ -253,8 +253,9 @@ public class Tests extends javax.swing.JPanel {
                 test.getPrice(),
                 test.getDuration(),
                 test.getDaysToGetResult(),
-                test.getDescription(),
-                test.getofType()
+                test.getofType(),
+                test.getDescription()
+                
             // Add more columns as needed
             };
             tableModel.addRow(rowData);
