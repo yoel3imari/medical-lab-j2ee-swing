@@ -145,6 +145,11 @@ public class PatientDao {
             return null;
         }
     }
+    
+    public boolean patientExists(String cin) {
+        Patient p = getPatientByCIN(cin);
+        return p != null;
+    }
 
     
 }

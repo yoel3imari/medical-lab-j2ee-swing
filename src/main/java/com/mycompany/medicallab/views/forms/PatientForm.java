@@ -15,6 +15,7 @@ import java.util.Date;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
@@ -23,12 +24,12 @@ import javax.swing.JTextField;
  */
 public class PatientForm extends javax.swing.JFrame {
     private Patients patientsPanel;
-    public PatientForm(Patients patientsPanel, String saveActionType) {
+    public PatientForm(JPanel patientsPanel, String saveActionType) {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        this.patientsPanel = patientsPanel;
+        this.patientsPanel = (Patients) patientsPanel;
         this.saveActionType = saveActionType;
     }
     private int id;

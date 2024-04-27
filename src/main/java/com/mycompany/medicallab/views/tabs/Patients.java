@@ -159,62 +159,59 @@ public class Patients extends javax.swing.JPanel {
 
     private void btnUpdatePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePatientActionPerformed
         // Get the selected row index
-    int selectedRowIndex = jTable1.getSelectedRow();
-    
-    // Check if a row is selected
-    if (selectedRowIndex != -1) {
-        // Extract patient details from the selected row
-        int id = (int) jTable1.getValueAt(selectedRowIndex, 0);
-        String firstName = (String) jTable1.getValueAt(selectedRowIndex, 1);
-        String lastName = (String) jTable1.getValueAt(selectedRowIndex, 2);
-        String cin = (String) jTable1.getValueAt(selectedRowIndex, 3);
-        String email = (String) jTable1.getValueAt(selectedRowIndex, 4);
-        String phone = (String) jTable1.getValueAt(selectedRowIndex, 5);
-        String gender = (String) jTable1.getValueAt(selectedRowIndex, 6);
-        //Patient.Gender gender = (Patient.Gender) jTable1.getValueAt(selectedRowIndex, 6); // Retrieve gender as enum
-        // Convert gender enum to string
-        //String genderString = gender.toString();        
-        
-        Date birthDate = (Date) jTable1.getValueAt(selectedRowIndex, 7);
-        
-        // Print values for debugging
-        System.out.println("id : " + id);
-    System.out.println("First Name: " + firstName);
-    System.out.println("Last Name: " + lastName);
-    System.out.println("CIN: " + cin);
-    System.out.println("Email: " + email);
-    System.out.println("Phone: " + phone);
-    System.out.println("Gender: " + gender);
-        
-        
-        
-        // Open the PatientForm with the selected patient's details pre-filled
-        PatientForm patientForm = new PatientForm(this, "update", id, firstName, lastName, cin, email, phone, gender, birthDate);
-        patientForm.setVisible(true);
-        
-    } else {
-        // Inform the user to select a row before modifying
-        JOptionPane.showMessageDialog(null, "Please select a patient to modify.");
-    }
-        
+        int selectedRowIndex = jTable1.getSelectedRow();
+
+        // Check if a row is selected
+        if (selectedRowIndex != -1) {
+            // Extract patient details from the selected row
+            int id = (int) jTable1.getValueAt(selectedRowIndex, 0);
+            String firstName = (String) jTable1.getValueAt(selectedRowIndex, 1);
+            String lastName = (String) jTable1.getValueAt(selectedRowIndex, 2);
+            String cin = (String) jTable1.getValueAt(selectedRowIndex, 3);
+            String email = (String) jTable1.getValueAt(selectedRowIndex, 4);
+            String phone = (String) jTable1.getValueAt(selectedRowIndex, 5);
+            String gender = (String) jTable1.getValueAt(selectedRowIndex, 6);
+            //Patient.Gender gender = (Patient.Gender) jTable1.getValueAt(selectedRowIndex, 6); // Retrieve gender as enum
+            // Convert gender enum to string
+            //String genderString = gender.toString();        
+
+            Date birthDate = (Date) jTable1.getValueAt(selectedRowIndex, 7);
+
+            // Print values for debugging
+            System.out.println("id : " + id);
+            System.out.println("First Name: " + firstName);
+            System.out.println("Last Name: " + lastName);
+            System.out.println("CIN: " + cin);
+            System.out.println("Email: " + email);
+            System.out.println("Phone: " + phone);
+            System.out.println("Gender: " + gender);
+
+            // Open the PatientForm with the selected patient's details pre-filled
+            PatientForm patientForm = new PatientForm(this, "update", id, firstName, lastName, cin, email, phone, gender, birthDate);
+            patientForm.setVisible(true);
+
+        } else {
+            // Inform the user to select a row before modifying
+            JOptionPane.showMessageDialog(null, "Please select a patient to modify.");
+        }
+
     }//GEN-LAST:event_btnUpdatePatientActionPerformed
 
     private void btnDeletePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePatientActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = jTable1.getSelectedRow();
-        
+
         if (selectedRowIndex != -1) { // Ensure a row is selected
-            
+
             int patientID = (int) jTable1.getValueAt(selectedRowIndex, 0);
- 
+
             PatientDao PatientDao = new PatientDao();
             Patient patient = PatientDao.getPatientById(patientID);
-            
+
             if (patient != null) {
                 // Delete the patient record from the database
                 boolean deletionSuccessful = PatientDao.deletePatient(patient);
                 //PatientDao.deletePatient(patient);
-                
 
                 if (deletionSuccessful) {
                     // Remove the selected row from the table model
@@ -236,7 +233,7 @@ public class Patients extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please select a patient to delete.");
         }
     }//GEN-LAST:event_btnDeletePatientActionPerformed
-    
+
     //search bar with no button 
     private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased
         // TODO add your handling code here:
@@ -252,12 +249,12 @@ public class Patients extends javax.swing.JPanel {
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
 
         tableModel.setRowCount(0); // Clear existing rows
-    
+
         PatientDao patientDAO = new PatientDao();
-        List<Patient> patients = patientDAO.getAllPatients(); 
-        
+        List<Patient> patients = patientDAO.getAllPatients();
+
         // Get column names
-        String[] columnNames = {"Id","Firstname", "Lastname", "CIN", "Email", "Phone", "Gender", "Birth Day"}; // Update with actual column names
+        String[] columnNames = {"Id", "Firstname", "Lastname", "CIN", "Email", "Phone", "Gender", "Birth Day"}; // Update with actual column names
         tableModel.setColumnIdentifiers(columnNames);
 
         // Populate data rows
@@ -273,12 +270,11 @@ public class Patients extends javax.swing.JPanel {
                 patient.getBirthdate()};
             tableModel.addRow(row);
         }
-        
-         // Notify JTable to refresh its view
+
+        // Notify JTable to refresh its view
         tableModel.fireTableDataChanged(); // or fireTableStructureChanged() if the structure of the table has changed
     }
-    
-    
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Patients Management");
@@ -289,7 +285,7 @@ public class Patients extends javax.swing.JPanel {
             frame.setVisible(true);
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddPatient;
     private javax.swing.JButton btnDeletePatient;
@@ -302,5 +298,3 @@ public class Patients extends javax.swing.JPanel {
     private javax.swing.JPanel mainAppointements;
     // End of variables declaration//GEN-END:variables
 }
-
-

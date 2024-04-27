@@ -4,16 +4,16 @@
  */
 package com.mycompany.medicallab.views.tabs;
 
+import com.mycompany.medicallab.calendar.Calendar;
 import com.mycompany.medicallab.calendar.CalendarEvent;
 import com.mycompany.medicallab.calendar.WeekCalendar;
+import com.mycompany.medicallab.views.forms.AppointementForm;
+
 import java.awt.BorderLayout;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.util.ArrayList;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 /**
  *
@@ -50,6 +50,11 @@ public class Appoint extends javax.swing.JPanel {
         events.add(new CalendarEvent(LocalDate.of(2024, 04, 25), LocalTime.of(12, 0), LocalTime.of(13, 20), "Test 15/11 12:00-13:20"));
         // define buttons
         cal.setSize(1000, 900);
+
+        cal.addCalendarEmptyClickListener(e -> {
+            AppointementForm ap= new AppointementForm(e.getDateTime());
+            //JOptionPane.showMessageDialog(this, e.getDateTime() + " / " + Calendar.roundTime(e.getDateTime().toLocalTime(), 30));
+        });
     }
 
     /**

@@ -29,7 +29,11 @@
             <artifactId>hibernate-core</artifactId>
             <version>6.5.0.CR2</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.mirzaakhena</groupId>
+            <artifactId>swing-autocomplete</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

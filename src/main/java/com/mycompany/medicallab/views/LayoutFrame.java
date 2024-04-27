@@ -9,7 +9,6 @@ import com.mycompany.medicallab.views.tabs.*;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
-import java.awt.Component;
 
 /**
  *
@@ -17,10 +16,10 @@ import java.awt.Component;
  */
 public class LayoutFrame extends javax.swing.JFrame {
 
-    Component dashboard = new Dashboard();
-    Component appoint = new Appoint();
-    Component patients = new Patients();
-    Component tests = new Tests();
+    JPanel dashboard = new Dashboard();
+    JPanel appoint = new Appoint();
+    JPanel patients = new Patients();
+    JPanel tests = new Tests();
 
     /**
      * Creates new form LayoutFrame
@@ -32,8 +31,8 @@ public class LayoutFrame extends javax.swing.JFrame {
 
         // init navigation
         String[] tabs = {"dashboard", "appointements", "patients", "tests"};
-        Component[] cmp = {dashboard, appoint, patients, tests};
-        Component[] navCmp = {dashboardNavItem, appointementsNavItem, patientsNavItem, testsNavItem};
+        JPanel[] cmp = {dashboard, appoint, patients, tests};
+        JPanel[] navCmp = {dashboardNavItem, appointementsNavItem, patientsNavItem, testsNavItem};
 
         for (int i = 0; i < tabs.length; i++) {
             cmp[i].setVisible(false);
