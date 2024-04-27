@@ -28,7 +28,7 @@ public class PatientForm extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
+        setVisible(true);
         this.patientsPanel = (Patients) patientsPanel;
         this.saveActionType = saveActionType;
     }
@@ -43,6 +43,7 @@ public class PatientForm extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setVisible(true);
     }
   
     
@@ -418,7 +419,7 @@ public class PatientForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PatientForm().setVisible(true);
+                new PatientForm();
             }
         });
     }

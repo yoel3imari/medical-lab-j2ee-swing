@@ -12,6 +12,7 @@ com/mycompany/medicallab/models/Appointement.class
 com/mycompany/medicallab/views/forms/PatientForm$6.class
 com/mycompany/medicallab/views/LayoutFrame$1.class
 com/mycompany/medicallab/calendar/Week.class
+com/mycompany/medicallab/views/forms/AppointementForm$4.class
 com/mycompany/medicallab/views/forms/TestForm$5.class
 com/mycompany/medicallab/views/LoginFrame$6.class
 com/mycompany/medicallab/views/forms/AppointementForm$1.class
@@ -22,6 +23,7 @@ com/mycompany/medicallab/views/LoginFrame$3.class
 com/mycompany/medicallab/testings/AppointTests.class
 com/mycompany/medicallab/views/forms/PatientForm$2.class
 com/mycompany/medicallab/calendar/CalendarEventClickEvent.class
+com/mycompany/medicallab/views/forms/AppointementForm$3.class
 com/mycompany/medicallab/views/tabs/Patients$4.class
 com/mycompany/medicallab/calendar/Calendar.class
 com/mycompany/medicallab/views/forms/AppointementForm.class
@@ -75,3 +77,4 @@ com/mycompany/medicallab/utils/NotificationUtil$1.class
 com/mycompany/medicallab/views/tabs/Tests$1.class
 com/mycompany/medicallab/views/tabs/Patients$2.class
 com/mycompany/medicallab/views/LoginFrame$2.class
+com/mycompany/medicallab/views/forms/AppointementForm$5.class
