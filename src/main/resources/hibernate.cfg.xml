@@ -19,7 +19,7 @@
         <mapping class="com.mycompany.medicallab.models.Admin" />
         <mapping class="com.mycompany.medicallab.models.Patient" />
         <mapping class="com.mycompany.medicallab.models.Test" />
-        <mapping class="com.mycompany.medicallab.models.Appointement" />
+        <mapping class="com.mycompany.medicallab.models.Appointment" />
         <!-- Other Hibernate properties -->
     </session-factory>
 </hibernate-configuration>

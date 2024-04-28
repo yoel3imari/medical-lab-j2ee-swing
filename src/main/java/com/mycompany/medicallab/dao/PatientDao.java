@@ -13,10 +13,9 @@ public class PatientDao {
 
     public boolean savePatient(Patient patient) {
         // here notice that i did not enter the correct bale name which is patients but the model name Patient 
-        String hql =
-                "INSERT INTO Patient (fName, lName, cin, email, phone, gender, birthdate) " 
-                +
-                "VALUES (:fName, :lName, :cin, :email, :phone, :gender, :birthdate)";
+        String hql
+                = "INSERT INTO Patient (fName, lName, cin, email, phone, gender, birthdate) "
+                + "VALUES (:fName, :lName, :cin, :email, :phone, :gender, :birthdate)";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
@@ -29,9 +28,9 @@ public class PatientDao {
                     .setParameter("phone", patient.getPhone())
                     .setParameter("gender", patient.getGender())
                     .setParameter("birthdate", patient.getBirthdate());
-                    //.setParameter("gender", patient.getGender().name())
+            //.setParameter("gender", patient.getGender().name())
             query.executeUpdate();
-            
+
             // another easy way of adding Patient without all the code above.
             // also there is a similar way to do it for update and delete functions bellow 
             //session.save(patient);
@@ -44,10 +43,8 @@ public class PatientDao {
     }
 
     public boolean updatePatient(Patient patient) {
-        String hql =
-                "UPDATE Patient SET fName = :fName, lName = :lName, cin = :cin, email = :email, " 
-                +
-                "phone = :phone, gender = :gender, birthdate = :birthdate WHERE id = :id";
+        String hql = "UPDATE Patient SET fName = :fName, lName = :lName, cin = :cin, email = :email, "
+                + "phone = :phone, gender = :gender, birthdate = :birthdate WHERE id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
@@ -80,8 +77,8 @@ public class PatientDao {
 
             Query query = session.createQuery(hql)
                     .setParameter("id", patient.getId());
-            int rowCount = query.executeUpdate(); 
-            
+            int rowCount = query.executeUpdate();
+
             session.getTransaction().commit();
             // Check if any rows were affected (deleted)
             return rowCount > 0;
@@ -92,12 +89,10 @@ public class PatientDao {
     }
 
     public Patient getPatientById(int id) {
-        String hql = "FROM Patient WHERE id = :id";
-
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
 
-            Query<Patient> query = session.createQuery(hql, Patient.class)
+            Query<Patient> query = session.createQuery("FROM Patient WHERE id = :id", Patient.class)
                     .setParameter("id", id);
             Patient patient = query.uniqueResult();
 
@@ -108,18 +103,15 @@ public class PatientDao {
             return null;
         }
     }
-    
-    public Patient getPatientByCIN(String cin) {
-         String hql = "FROM Patient WHERE cin = :cin";
 
+    public Patient getPatientByCIN(String cin) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction(); 
-            
-            Query<Patient> query = session.createQuery(hql, Patient.class);
+            session.beginTransaction();
+
+            Query<Patient> query = session.createQuery("FROM Patient WHERE cin = :cin", Patient.class);
             query.setParameter("cin", cin);
             Patient patient = query.uniqueResult();
 
-             
             session.getTransaction().commit();
 
             return patient;
@@ -145,11 +137,10 @@ public class PatientDao {
             return null;
         }
     }
-    
+
     public boolean patientExists(String cin) {
         Patient p = getPatientByCIN(cin);
         return p != null;
     }
 
-    
 }

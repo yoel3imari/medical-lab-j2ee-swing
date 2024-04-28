@@ -161,6 +161,7 @@ public class TestDao {
             return null;
         }
     }
+    
     // Method to retrieve test labels by specified test type
     public List<String> getTestLabelsByType(String testType) {
         String sql = "SELECT label FROM tests WHERE oftype = :testType";
@@ -179,8 +180,6 @@ public class TestDao {
             return null;
         }
     }
-
-
 
 }
 

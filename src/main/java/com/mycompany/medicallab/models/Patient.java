@@ -1,21 +1,15 @@
 package com.mycompany.medicallab.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import java.util.Date;
+import jakarta.persistence.*;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "patients")
 public class Patient {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
@@ -39,16 +33,30 @@ public class Patient {
     //@Column(name = "gender", length = 6)
     //@Enumerated(EnumType.STRING)
     //private Gender gender;
-    
     @Column(name = "gender", length = 6)
     private String gender;
-    
+
     //This annotation ensures that only the date portion of the Date object is stored in the database, without considering the time component.
     @Column(name = "birthdate")
     @Temporal(TemporalType.DATE)
     private Date birthdate;
 
+    @OneToMany(mappedBy = "patient")
+    private Set<Appointment> appointments = new HashSet<>();
+
+    public Set<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Set<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
     // Getters and setters
+    @Override
+    public String toString() {
+        return "Patient{" + "id=" + id + ", fName=" + fName + ", lName=" + lName + ", cin=" + cin + ", email=" + email + ", phone=" + phone + ", gender=" + gender + ", birthdate=" + birthdate + '}';
+    }
 
     public int getId() {
         return id;
@@ -113,7 +121,6 @@ public class Patient {
 //    public void setGender(Gender gender) {
 //        this.gender = gender;
 //    }
-
     public Date getBirthdate() {
         return birthdate;
     }
@@ -121,12 +128,9 @@ public class Patient {
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
-    
+
 //    public enum Gender {
 //        Male,
 //        Female
 //    }
 }
-
-
-

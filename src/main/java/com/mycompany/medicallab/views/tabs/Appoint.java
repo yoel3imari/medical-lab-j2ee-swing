@@ -4,10 +4,9 @@
  */
 package com.mycompany.medicallab.views.tabs;
 
-import com.mycompany.medicallab.calendar.Calendar;
 import com.mycompany.medicallab.calendar.CalendarEvent;
 import com.mycompany.medicallab.calendar.WeekCalendar;
-import com.mycompany.medicallab.views.forms.AppointementForm;
+import com.mycompany.medicallab.views.forms.AppointmentForm;
 
 import java.awt.BorderLayout;
 import java.time.LocalDate;
@@ -20,8 +19,9 @@ import java.util.ArrayList;
  * @author yusef
  */
 public class Appoint extends javax.swing.JPanel {
-    
-      WeekCalendar cal;
+
+    WeekCalendar cal;
+    volatile ArrayList<CalendarEvent> events = new ArrayList<>();
 
     /**
      * Creates new form Patients
@@ -29,31 +29,21 @@ public class Appoint extends javax.swing.JPanel {
     public Appoint() {
         initComponents();
         createCalendar();
-        
+
         mainAppointements.setLayout(new BoxLayout(mainAppointements, BoxLayout.Y_AXIS));
         mainAppointements.setSize(1080, 610);
-        
+
         mainAppointements.add(cal, BorderLayout.CENTER);
-        //JScrollPane scroll = new JScrollPane(mainAppointements);
-        //scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        
-        
+
     }
 
     private void createCalendar() {
-        // define events[]
-        ArrayList<CalendarEvent> events = new ArrayList<>();
-        // init WeekCalendar(events)
+
         cal = new WeekCalendar(events);
-        events.add(new CalendarEvent(LocalDate.of(2024, 04, 23), LocalTime.of(14, 0), LocalTime.of(14, 20), "Test 11/11 14:00-14:20"));
-        events.add(new CalendarEvent(LocalDate.of(2024, 04, 27), LocalTime.of(9, 0), LocalTime.of(9, 20), "Test 14/11 9:00-9:20"));
-        events.add(new CalendarEvent(LocalDate.of(2024, 04, 25), LocalTime.of(12, 0), LocalTime.of(13, 20), "Test 15/11 12:00-13:20"));
-        // define buttons
         cal.setSize(1000, 900);
 
         cal.addCalendarEmptyClickListener(e -> {
-            AppointementForm ap= new AppointementForm(e.getDateTime());
-            //JOptionPane.showMessageDialog(this, e.getDateTime() + " / " + Calendar.roundTime(e.getDateTime().toLocalTime(), 30));
+            AppointmentForm ap = new AppointmentForm(cal, e.getDateTime());
         });
     }
 

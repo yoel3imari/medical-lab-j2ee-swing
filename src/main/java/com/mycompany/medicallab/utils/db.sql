@@ -38,22 +38,14 @@ CREATE TABLE IF NOT EXISTS tests (
 
 CREATE TABLE IF NOT EXISTS appointments (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    id_patient INT,
+    patient_id INT not null,
+    id_test_id INT not null,
     day DATE,
-    hour CHAR(6),
+    hour TIME,
     state CHAR(10),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_patient) REFERENCES patients(id)
-);
-
-CREATE TABLE IF NOT EXISTS appointment_tests (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    id_appointment INT,
-    id_test INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_appointment) REFERENCES appointments(id),
+    FOREIGN KEY (id_patient) REFERENCES patients(id),
     FOREIGN KEY (id_test) REFERENCES tests(id)
 );
 

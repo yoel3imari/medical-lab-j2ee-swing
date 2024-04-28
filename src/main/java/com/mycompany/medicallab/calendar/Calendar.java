@@ -393,4 +393,10 @@ public abstract class Calendar extends JComponent {
         this.events = events;
         repaint();
     }
+
+    public ArrayList<CalendarEvent> getEvents() {
+        return events;
+    }
+    
+    
 }
