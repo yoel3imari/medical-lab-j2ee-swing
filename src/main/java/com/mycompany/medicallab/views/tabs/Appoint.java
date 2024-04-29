@@ -14,6 +14,7 @@ import com.mycompany.medicallab.views.forms.AppointmentForm;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -51,15 +52,32 @@ public class Appoint extends javax.swing.JPanel {
     private void createCalendar() {
 
         cal = new WeekCalendar(events);
+        cal.setSize(1080, 610);
         
         JButton goToTodayBtn = new JButton("Today");
-        goToTodayBtn.addActionListener(e -> cal.goToToday());
+        goToTodayBtn.addActionListener(e -> {
+            weekApt = ado.getAppointBetween(LocalDate.now(), JavaUtil.getNextSaturday(LocalDate.now()));
+            cal.goToToday();
+            
+        });
         JButton nextWeekBtn = new JButton(">");
-        nextWeekBtn.addActionListener(e -> cal.nextWeek());
+        nextWeekBtn.addActionListener(e -> {
+            cal.nextWeek();
+            weekApt = ado.getAppointBetween(cal.getWeek().getDay(DayOfWeek.MONDAY), cal.getWeek().getDay(DayOfWeek.SATURDAY));
+            displayEvents();
+        });
         JButton nextMonthBtn = new JButton(">>");
-        nextMonthBtn.addActionListener(e -> cal.nextMonth());
+        nextMonthBtn.addActionListener(e -> {
+            cal.nextMonth();
+            weekApt = ado.getAppointBetween(cal.getWeek().getDay(DayOfWeek.MONDAY), cal.getWeek().getDay(DayOfWeek.SATURDAY));
+            displayEvents();
+        });
         JButton lastApt = new JButton("Last");
-        lastApt.addActionListener(e -> cal.goToLast(ado.getLastAppointDate()));
+        lastApt.addActionListener(e -> {
+            cal.goToLast(ado.getLastAppointDate());
+            weekApt = ado.getAppointBetween(cal.getWeek().getDay(DayOfWeek.MONDAY), cal.getWeek().getDay(DayOfWeek.SATURDAY));
+            displayEvents();
+        });
         
         weekControls.setLayout(new BoxLayout(weekControls, BoxLayout.X_AXIS));
         weekControls.add(goToTodayBtn);
