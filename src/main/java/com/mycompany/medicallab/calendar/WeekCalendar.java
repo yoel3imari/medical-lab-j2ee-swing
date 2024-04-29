@@ -71,4 +71,13 @@ public class WeekCalendar extends Calendar {
         repaint();
     }
 
+    public Week getWeek() {
+        return week;
+    }
+
+    public void setWeek(Week week) {
+        this.week = week;
+    }
+
+    
 }

@@ -1,5 +1,6 @@
 package com.mycompany.medicallab.utils;
 
+import com.mycompany.medicallab.calendar.Week;
 import com.mycompany.medicallab.dao.AppointmentDao;
 import com.mycompany.medicallab.models.Appointment;
 import java.time.DayOfWeek;
