@@ -10,7 +10,7 @@ import java.util.List;
 import javax.swing.*;
 
 public class JavaUtil {
-
+    
     public static void fireError(Exception ex) {
         JFrame frame = new JFrame("Error");
         frame.setSize(500, 300);
@@ -24,7 +24,7 @@ public class JavaUtil {
                 JOptionPane.ERROR_MESSAGE
         );
     }
-
+    
     public static LocalTime regulateTime(LocalTime time) {
         // get minutes
         // divide by 30
@@ -35,7 +35,7 @@ public class JavaUtil {
             return time;
         }
         return time.minusMinutes(minutes % 30);
-
+        
     }
     
     public static LocalDateTime regulateDateTime(LocalDateTime datetime) {
@@ -48,26 +48,25 @@ public class JavaUtil {
             return datetime;
         }
         return datetime.minusMinutes(minutes % 30);
-
+        
     }
     
-    
-
     public static int regulateDuration(int minutes) {
-        return minutes + 30 - 30 % minutes;
+        //int rest = minutes % 30;
+        return minutes + (30 - (minutes%30));
     }
-
+    
     public static LocalDate getNextSaturday(LocalDate today) {
         LocalDate nextSaturday = today;
         while (nextSaturday.getDayOfWeek() != DayOfWeek.SATURDAY) {
             nextSaturday = nextSaturday.plusDays(1);
         }
-
+        
         return nextSaturday;
     }
-
+    
     public static void DumpPeek(Object obj) {
-
+        
         if (obj instanceof List) {
             ((List) obj).forEach(e -> {
                 System.out.println("-------------------------------");
@@ -75,12 +74,14 @@ public class JavaUtil {
                 System.out.println("-------------------------------");
             });
         }
-
+        
         System.out.println("-------------------------------");
         System.err.println("Var: " + obj.toString());
         System.out.println("-------------------------------");
     }
-
-    public static void main(String[] args) {}
-
+    
+    public static void main(String[] args) {
+        System.err.println("20: " + regulateDuration(20));
+    }
+    
 }

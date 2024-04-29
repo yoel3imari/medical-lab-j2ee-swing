@@ -132,8 +132,34 @@ public class AppointmentDao {
             query.setParameter("to", to);
             List<Appointment> apt = query.getResultList();
             session.getTransaction().commit();
-          
+
             return apt;
+        } catch (Exception e) {
+            JavaUtil.fireError(e);
+            return null;
+        }
+    }
+
+    public LocalDate getLastAppointDate() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            Query<Appointment> query = session.createNativeQuery(
+                    """
+                SELECT *
+                FROM appointments
+                WHERE (day, hour) = (
+                    SELECT day, MAX(hour)
+                    FROM appointments
+                    WHERE day = (
+                        SELECT MAX(day)
+                        FROM appointments
+                    )
+                    GROUP BY day
+                );
+            """, Appointment.class);
+            List<Appointment> apt = query.getResultList();
+            session.getTransaction().commit();
+            return apt.get(0).getDay();
         } catch (Exception e) {
             JavaUtil.fireError(e);
             return null;

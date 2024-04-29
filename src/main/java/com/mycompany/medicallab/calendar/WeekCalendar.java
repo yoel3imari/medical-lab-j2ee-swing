@@ -41,6 +41,10 @@ public class WeekCalendar extends Calendar {
     protected void setRangeToToday() {
         week = new Week(LocalDate.now());
     }
+    
+    protected void setRangeTo(LocalDate day) {
+        week = new Week(day);
+    }
 
     @Override
     protected double dayToPixel(DayOfWeek dayOfWeek) {

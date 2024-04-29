@@ -42,6 +42,12 @@ public class DayCalendar extends Calendar {
     protected void setRangeToToday() {
         calDate = LocalDate.now();
     }
+    
+    
+    @Override
+    protected void setRangeTo(LocalDate day) {
+        calDate = day;
+    }
 
     @Override
     protected double dayToPixel(DayOfWeek dayOfWeek) {

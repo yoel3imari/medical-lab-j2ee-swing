@@ -42,9 +42,7 @@ public class Test {
     @Column(name = "description", length = 255)
     private String description;
 
-    
-    
-    
+
     // Constructors, getters, and setters
 
     public Test() {
@@ -108,5 +106,8 @@ public class Test {
         this.description = description;
     }
 
-    
+    @Override
+    public String toString() {
+        return getLabel();
+    }
 }

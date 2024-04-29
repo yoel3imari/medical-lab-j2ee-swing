@@ -372,9 +372,16 @@ public abstract class Calendar extends JComponent {
     }
 
     protected abstract void setRangeToToday();
+    
+    protected abstract void setRangeTo(LocalDate day);
 
     public void goToToday() {
         setRangeToToday();
+        repaint();
+    }
+    
+    public void goToLast(LocalDate day) {
+        setRangeTo(day);
         repaint();
     }
 

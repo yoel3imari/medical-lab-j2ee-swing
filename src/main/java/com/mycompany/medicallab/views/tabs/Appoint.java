@@ -42,6 +42,8 @@ public class Appoint extends javax.swing.JPanel {
         mainAppointements.setSize(1080, 610);
         
         weekApt = new ArrayList<>();
+        weekApt = ado.getAppointBetween(LocalDate.now(), JavaUtil.getNextSaturday(LocalDate.now()));
+        
         createCalendar();
 
     }
@@ -56,10 +58,14 @@ public class Appoint extends javax.swing.JPanel {
         nextWeekBtn.addActionListener(e -> cal.nextWeek());
         JButton nextMonthBtn = new JButton(">>");
         nextMonthBtn.addActionListener(e -> cal.nextMonth());
+        JButton lastApt = new JButton("Last");
+        lastApt.addActionListener(e -> cal.goToLast(ado.getLastAppointDate()));
         
+        weekControls.setLayout(new BoxLayout(weekControls, BoxLayout.X_AXIS));
         weekControls.add(goToTodayBtn);
         weekControls.add(nextWeekBtn);
         weekControls.add(nextMonthBtn);
+        weekControls.add(lastApt);
         
         cal.addCalendarEmptyClickListener(e -> {
             LocalDateTime ldt = JavaUtil.regulateDateTime(e.getDateTime());
@@ -73,7 +79,7 @@ public class Appoint extends javax.swing.JPanel {
             // get appoint
             new AppointmentForm(cal, e.getCalendarEvent());
         });
-        weekApt = ado.getAppointBetween(LocalDate.now(), JavaUtil.getNextSaturday(LocalDate.now()));
+        
         displayEvents();
         
         mainAppointements.add(cal, BorderLayout.CENTER);
@@ -85,7 +91,7 @@ public class Appoint extends javax.swing.JPanel {
                     evt,
                     evt.getDay(),
                     evt.getHour(),
-                    evt.getHour().plusMinutes(evt.getTest().getDuration()),
+                    evt.getHour().plusMinutes(JavaUtil.regulateDuration(evt.getTest().getDuration())),
                     evt.getTest().getLabel()
             ));
         });
@@ -100,66 +106,37 @@ public class Appoint extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        weekControls = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         mainAppointements = new javax.swing.JPanel();
-        weekControls = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(254, 253, 237));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 20));
         setMaximumSize(new java.awt.Dimension(1080, 610));
         setMinimumSize(new java.awt.Dimension(1080, 610));
         setPreferredSize(new java.awt.Dimension(1080, 610));
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
-        jScrollPane1.setMaximumSize(new java.awt.Dimension(1040, 600));
-        jScrollPane1.setMinimumSize(new java.awt.Dimension(1040, 600));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(1040, 600));
+        weekControls.setBackground(new java.awt.Color(254, 253, 237));
+        weekControls.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        weekControls.setMaximumSize(new java.awt.Dimension(32767, 40));
+        weekControls.setMinimumSize(new java.awt.Dimension(0, 40));
+        weekControls.setPreferredSize(new java.awt.Dimension(0, 40));
+        weekControls.setLayout(new javax.swing.BoxLayout(weekControls, javax.swing.BoxLayout.X_AXIS));
+        add(weekControls);
+
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(1040, 550));
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(1040, 550));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(1040, 550));
 
         mainAppointements.setBackground(new java.awt.Color(254, 253, 237));
         mainAppointements.setMaximumSize(new java.awt.Dimension(1080, 610));
         mainAppointements.setMinimumSize(new java.awt.Dimension(1080, 610));
         mainAppointements.setPreferredSize(new java.awt.Dimension(1080, 610));
-
-        javax.swing.GroupLayout mainAppointementsLayout = new javax.swing.GroupLayout(mainAppointements);
-        mainAppointements.setLayout(mainAppointementsLayout);
-        mainAppointementsLayout.setHorizontalGroup(
-            mainAppointementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1080, Short.MAX_VALUE)
-        );
-        mainAppointementsLayout.setVerticalGroup(
-            mainAppointementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
-        );
-
+        mainAppointements.setLayout(new javax.swing.BoxLayout(mainAppointements, javax.swing.BoxLayout.LINE_AXIS));
         jScrollPane1.setViewportView(mainAppointements);
 
-        javax.swing.GroupLayout weekControlsLayout = new javax.swing.GroupLayout(weekControls);
-        weekControls.setLayout(weekControlsLayout);
-        weekControlsLayout.setHorizontalGroup(
-            weekControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        weekControlsLayout.setVerticalGroup(
-            weekControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 44, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(weekControls, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(weekControls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, Short.MAX_VALUE))
-        );
+        add(jScrollPane1);
     }// </editor-fold>//GEN-END:initComponents
 
 
