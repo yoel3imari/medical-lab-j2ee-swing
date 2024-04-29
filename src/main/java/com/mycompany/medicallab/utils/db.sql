@@ -30,8 +30,7 @@ CREATE TABLE IF NOT EXISTS tests (
     price DECIMAL(8,2),
     days_to_get_result INT,
     duration INT,
-    oftype VARCHAR(50),
-    description TEXT, 
+    description TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -39,14 +38,14 @@ CREATE TABLE IF NOT EXISTS tests (
 CREATE TABLE IF NOT EXISTS appointments (
     id INT PRIMARY KEY AUTO_INCREMENT,
     patient_id INT not null,
-    id_test_id INT not null,
+    test_id INT not null,
     day DATE,
     hour TIME,
     state CHAR(10),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_patient) REFERENCES patients(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_test) REFERENCES tests(id) ON DELETE CASCADE
+    FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE,
+    FOREIGN KEY (test_id) REFERENCES tests(id) ON DELETE CASCADE
 );
 
 INSERT INTO admins (username, password) VALUES ('admin', '12345678');
