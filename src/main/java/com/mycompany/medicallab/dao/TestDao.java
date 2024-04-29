@@ -26,8 +26,8 @@ public class TestDao {
     }
 
     public void saveTest(Test test) {
-        String sql = "INSERT INTO tests (label, price,duration, days_to_get_result, description, oftype) " +
-                     "VALUES (:label, :price, :duration, :daysToGetResult, :description, :oftype)";
+        String sql = "INSERT INTO tests (label, price,duration, days_to_get_result, description) " +
+                     "VALUES (:label, :price, :duration, :daysToGetResult, :description)";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
@@ -37,8 +37,8 @@ public class TestDao {
                     .setParameter("price", test.getPrice())
                     .setParameter("duration", test.getDuration())
                     .setParameter("daysToGetResult", test.getDaysToGetResult())
-                    .setParameter("description", test.getDescription())
-                    .setParameter("oftype", test.getofType());
+                    .setParameter("description", test.getDescription());
+           
             query.executeUpdate();
 
             commitTransaction(session);
@@ -50,8 +50,8 @@ public class TestDao {
 
     public void updateTest(Test test) {
         String sql = "UPDATE tests SET label = :label, price = :price, duration = :duration, " +
-                     "days_to_get_result = :daysToGetResult, description = :description, " +
-                     "oftype = :oftype WHERE id = :id";
+                     "days_to_get_result = :daysToGetResult, description = :description " +
+                     "WHERE id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
@@ -62,7 +62,6 @@ public class TestDao {
                     .setParameter("duration", test.getDuration())
                     .setParameter("daysToGetResult", test.getDaysToGetResult())
                     .setParameter("description", test.getDescription())
-                    .setParameter("oftype", test.getofType())
                     .setParameter("id", test.getId());
             query.executeUpdate();
 
@@ -110,7 +109,7 @@ public class TestDao {
     }
 
     public List<Test> getAllTests() {
-    String sql = "SELECT * FROM tests";
+    String sql = "SELECT * FROM tests order by created_at DESC";
 
     try (Session session = HibernateUtil.getSessionFactory().openSession()) {
         beginTransaction(session);
@@ -127,7 +126,7 @@ public class TestDao {
 }
     
     public List<Test> searchTests(String keyword) {
-    String sql = "FROM Test t WHERE t.label LIKE :keyword OR t.description LIKE :keyword OR CAST(t.price AS string) LIKE :keyword OR t.oftype LIKE :keyword";
+    String sql = "FROM Test t WHERE t.label LIKE :keyword OR t.description LIKE :keyword OR CAST(t.price AS string) LIKE :keyword";
 
     try (Session session = HibernateUtil.getSessionFactory().openSession()) {
         beginTransaction(session);
@@ -144,43 +143,10 @@ public class TestDao {
     }
 }
     
-    // Method to retrieve all distinct test types
-    public List<String> getAllTestTypes() {
-        String sql = "SELECT DISTINCT oftype FROM tests";
-
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
-
-            Query<String> query = session.createNativeQuery(sql, String.class);
-            List<String> testTypes = query.getResultList();
-
-            session.getTransaction().commit();
-            return testTypes;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    // Method to retrieve test labels by specified test type
-    public List<String> getTestLabelsByType(String testType) {
-        String sql = "SELECT label FROM tests WHERE oftype = :testType";
-
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
-
-            Query<String> query = session.createNativeQuery(sql, String.class)
-                    .setParameter("testType", testType);
-            List<String> testLabels = query.getResultList();
-
-            session.getTransaction().commit();
-            return testLabels;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    
     }
 
 
 
-}
+
 

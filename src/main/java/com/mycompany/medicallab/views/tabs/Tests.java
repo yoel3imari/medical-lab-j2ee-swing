@@ -256,7 +256,7 @@ public class Tests extends javax.swing.JPanel {
                 test.getofType(),
                 test.getDescription()
                 
-            // Add more columns as needed
+           
             };
             tableModel.addRow(rowData);
         }
