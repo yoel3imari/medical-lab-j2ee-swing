@@ -70,6 +70,14 @@ INSERT INTO `tests` (`id`, `label`, `price`, `duration`, `days_to_get_result`, `
 (20, 'Environmental Allergy Panel', 500.00, 60, 2, 'Blood test to identify allergies to environmental allergens such as pollen, dust mites, and pet dander', '2024-04-27 21:16:39', '2024-04-27 22:04:03'),
 (21, 'blood test', 500.00, 20, 1, 'blood test', '2024-04-28 02:41:29', '2024-04-28 16:18:20');
 
+INSERT INTO patients (fName, lName, cin, email, phone, gender, birthdate)
+VALUES 
+    ('Ahmed', 'Benbrahim', 'AB123456', 'ahmed@example.com', '0612345678', 'Male', '1990-05-15'),
+    ('Fatima', 'El Kadi', 'FK987654', 'fatima@example.com', '0612345679', 'Female', '1985-10-20'),
+    ('Youssef', 'Hassani', 'YH456789', NULL, '0612345680', 'Male', '1982-07-08'),
+    ('Amina', 'Ouahbi', 'AO789012', 'amina@example.com', '0612345681', 'Female', '1995-02-28');
+
+
 INSERT INTO `appointments` (`id`, `patient_id`, `test_id`, `day`, `hour`, `state`, `created_at`, `updated_at`) VALUES
 (1, 1, 17, '2024-07-24', '11:30:00', 'pending', '2024-04-29 17:00:07', '2024-04-29 17:00:07'),
 (2, 1, 21, '2024-06-26', '08:30:00', 'pending', '2024-04-29 17:02:15', '2024-04-29 17:02:15'),
