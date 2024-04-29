@@ -26,7 +26,6 @@ CREATE TABLE IF NOT EXISTS tests (
     price DECIMAL(8,2),
     daysToGetResult INT,
     duration INT,
-    oftype VARCHAR(50),
     description TEXT, 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
