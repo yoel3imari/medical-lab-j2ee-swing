@@ -4,17 +4,23 @@
  */
 package com.mycompany.medicallab.views.tabs;
 
+import com.mycompany.medicallab.dao.TestDao;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author yusef
  */
 public class Dashboard extends javax.swing.JPanel {
-    
+    private TestDao testDao;
     /**
      * Creates new form Dashboard
      */
     public Dashboard() {
         initComponents();
+        testDao = new TestDao();
+        displayTodaysTests();
     }
 
     /**
@@ -303,6 +309,19 @@ public class Dashboard extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    
+    private void displayTodaysTests() {
+        // Fetch today's tests and counts from the database
+        List<Object[]> data = testDao.getTodaysTestsAndCounts();
+
+        // Populate the table with fetched data
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0); // Clear existing rows
+
+        for (Object[] row : data) {
+            model.addRow(row);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton6;
