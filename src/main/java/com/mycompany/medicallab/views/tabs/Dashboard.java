@@ -9,7 +9,7 @@ package com.mycompany.medicallab.views.tabs;
  * @author yusef
  */
 public class Dashboard extends javax.swing.JPanel {
-
+    
     /**
      * Creates new form Dashboard
      */
@@ -29,9 +29,6 @@ public class Dashboard extends javax.swing.JPanel {
         mainAppointements = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
-        jPanel10 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
@@ -42,8 +39,8 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jButton6 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -75,33 +72,6 @@ public class Dashboard extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(254, 253, 237));
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
-        jButton5.setBackground(new java.awt.Color(204, 255, 204));
-        jButton5.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(27, 60, 115));
-        jButton5.setText("Reserve Appointement");
-        jButton5.setPreferredSize(new java.awt.Dimension(300, 75));
-        jPanel5.add(jButton5, new java.awt.GridBagConstraints());
-
-        jPanel15.add(jPanel5);
-
-        jPanel10.setBackground(new java.awt.Color(254, 253, 237));
-        jPanel10.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 5, 0, 5, new java.awt.Color(204, 255, 204)));
-        jPanel10.setLayout(new java.awt.GridBagLayout());
-
-        jButton6.setBackground(new java.awt.Color(255, 204, 204));
-        jButton6.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(27, 60, 115));
-        jButton6.setText("Next Appointement");
-        jButton6.setPreferredSize(new java.awt.Dimension(300, 75));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jPanel10.add(jButton6, new java.awt.GridBagConstraints());
-
-        jPanel15.add(jPanel10);
-
         jPanel12.setBackground(new java.awt.Color(254, 253, 237));
         jPanel12.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 20, 5, 5));
 
@@ -121,13 +91,9 @@ public class Dashboard extends javax.swing.JPanel {
 
         jLabel37.setText("From: 14:00");
 
-        jLabel38.setText("From: 14:00");
+        jLabel38.setText("To: 14:00");
 
         jLabel39.setText("Flen Ben Flan");
-
-        jLabel40.setText("Age:");
-
-        jLabel41.setText("32 ans");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -142,24 +108,20 @@ public class Dashboard extends javax.swing.JPanel {
                             .addGroup(jPanel12Layout.createSequentialGroup()
                                 .addComponent(jLabel32)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel39))
-                            .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addComponent(jLabel40)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel41)))
+                                .addComponent(jLabel39)))
                         .addGap(37, 37, 37)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addComponent(jLabel35)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel36))
                             .addGroup(jPanel12Layout.createSequentialGroup()
                                 .addComponent(jLabel33)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel34))
                             .addComponent(jLabel38)))
-                    .addComponent(jLabel31))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addComponent(jLabel31)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel35)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel36)))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,20 +133,38 @@ public class Dashboard extends javax.swing.JPanel {
                     .addComponent(jLabel33)
                     .addComponent(jLabel34)
                     .addComponent(jLabel39))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel40)
-                    .addComponent(jLabel41)
                     .addComponent(jLabel35)
                     .addComponent(jLabel36))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel37)
-                    .addComponent(jLabel38))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel38)
+                    .addComponent(jLabel37))
                 .addContainerGap())
         );
 
-        jPanel15.add(jPanel12);
+        jPanel5.add(jPanel12, new java.awt.GridBagConstraints());
+
+        jPanel10.setBackground(new java.awt.Color(254, 253, 237));
+        jPanel10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel10.setLayout(new java.awt.GridBagLayout());
+
+        jButton6.setBackground(new java.awt.Color(255, 204, 204));
+        jButton6.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(27, 60, 115));
+        jButton6.setText("Next");
+        jButton6.setPreferredSize(new java.awt.Dimension(300, 75));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton6, new java.awt.GridBagConstraints());
+
+        jPanel5.add(jPanel10, new java.awt.GridBagConstraints());
+
+        jPanel15.add(jPanel5);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -194,22 +174,38 @@ public class Dashboard extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Fullname", "CIN", "From", "To"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Test", "Count"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
@@ -220,15 +216,23 @@ public class Dashboard extends javax.swing.JPanel {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Fllname", "CIN", "Test"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(jTable3);
 
         jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
@@ -301,7 +305,6 @@ public class Dashboard extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -315,8 +318,6 @@ public class Dashboard extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel15;

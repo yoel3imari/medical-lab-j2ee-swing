@@ -29,12 +29,21 @@
             <artifactId>hibernate-core</artifactId>
             <version>6.5.0.CR2</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.mirzaakhena</groupId>
+            <artifactId>swing-autocomplete</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.swinglabs.swingx</groupId>
+            <artifactId>swingx-all</artifactId>
+            <version>1.6.4</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>com.mycompany.medicallab.MedicalLab</exec.mainClass>
+        <exec.mainClass>com.mycompany.medicallab.testings.LayoutTesting</exec.mainClass>
     </properties>
 </project>

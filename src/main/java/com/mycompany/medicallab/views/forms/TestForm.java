@@ -8,28 +8,31 @@ import com.mycompany.medicallab.dao.TestDao;
 import com.mycompany.medicallab.models.Test;
 import com.mycompany.medicallab.utils.JavaUtil;
 import com.mycompany.medicallab.views.tabs.Tests;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-
 public class TestForm extends javax.swing.JFrame {
-     private Tests parentPanel;
-     private Test testToUpdate; // Add a variable to store the test being updated
+
+    private Tests parentPanel;
+    private Test testToUpdate; // Add a variable to store the test being updated
 
     /**
      * Creates new form TestForm
      */
-     public TestForm(Tests parent) {
+    public TestForm(Tests parent) {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         parentPanel = parent;
-        testToUpdate = null; // Initialize testToUpdate as null
+        testToUpdate = null;
     }
+
     public TestForm(Tests parent, Test test) {
-        initComponents();
-        setVisible(true);
-        setLocationRelativeTo(null);
+
+        this(parent);
+
         parentPanel = parent;
         testToUpdate = test;
         testLabeltxt.setText(test.getLabel());
@@ -37,9 +40,9 @@ public class TestForm extends javax.swing.JFrame {
         durationTxt.setText(String.valueOf(test.getDuration()));
         DaysTOGRtxt.setText(String.valueOf(test.getDaysToGetResult()));
         DescriptionTxt.setText(test.getDescription());
-        
+
     }
-    
+
     public void setParentPanel(Tests parentPanel, String option) {
         this.parentPanel = parentPanel;
     }
@@ -133,91 +136,91 @@ public class TestForm extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(140, 140, 140)
+                                .addComponent(jLabel1)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(DescriptionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 30, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(testLabeltxt)
-                                .addComponent(jLabel2)
-                                .addComponent(durationTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3)
-                            .addComponent(DaysTOGRtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                            .addComponent(PriceTxt)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(jLabel4)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 50, 50))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(2, 2, 2)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(jLabel7)
+                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(DescriptionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(0, 30, Short.MAX_VALUE))))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                .addComponent(testLabeltxt)
+                                                                .addComponent(jLabel2)
+                                                                .addComponent(durationTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
+                                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(jLabel3)
+                                                        .addComponent(DaysTOGRtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                                        .addComponent(PriceTxt)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addGap(15, 15, 15)
+                                                                .addComponent(jLabel4)))
+                                                .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1)
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(testLabeltxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PriceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(durationTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DaysTOGRtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addComponent(jLabel7)
-                .addGap(18, 18, 18)
-                .addComponent(DescriptionTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel1)
+                                .addGap(40, 40, 40)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(testLabeltxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(PriceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(31, 31, 31)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(durationTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(DaysTOGRtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(34, 34, 34)
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(DescriptionTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -230,60 +233,55 @@ public class TestForm extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-       
-        
-          try {
-        // Retrieve data from input fields
-        String label = testLabeltxt.getText();
-        double price = Double.parseDouble(PriceTxt.getText());
-        int duration =Integer.parseInt(durationTxt.getText());
-        int daysToGetResult = Integer.parseInt(DaysTOGRtxt.getText());
-        String description = DescriptionTxt.getText();
-        
-       
-        
-        
-        // If testToUpdate is null, it means we're saving a new test
-        if (testToUpdate == null) {
-            // Create a new Test object
-            Test test = new Test(label, price,duration, daysToGetResult, description);
-            
-            // Save the test using your TestDao
-            TestDao testDao = new TestDao();
-            testDao.saveTest(test);
-            
-            // Display a success message to the user
-            JOptionPane.showMessageDialog(this, "Test saved successfully!");
-        } else {
-            // Update the existing test
-            testToUpdate.setLabel(label);
-            testToUpdate.setPrice(price);
-            testToUpdate.setDuration(duration);
-            testToUpdate.setDaysToGetResult(daysToGetResult);
-            testToUpdate.setDescription(description);
-           
-            
-        // Update the test using your "TestDao"
-            TestDao testDao = new TestDao();
-            testDao.updateTest(testToUpdate);
-            
-            // Display a success message to the user
-            JOptionPane.showMessageDialog(this, "Test updated successfully!");
+
+        try {
+            // Retrieve data from input fields
+            String label = testLabeltxt.getText();
+            double price = Double.parseDouble(PriceTxt.getText());
+            int duration = Integer.parseInt(durationTxt.getText());
+            int daysToGetResult = Integer.parseInt(DaysTOGRtxt.getText());
+            String description = DescriptionTxt.getText();
+
+            // If testToUpdate is null, it means we're saving a new test
+            if (testToUpdate == null) {
+                // Create a new Test object
+                Test test = new Test(label, price, duration, daysToGetResult, description);
+
+                // Save the test using your TestDao
+                TestDao testDao = new TestDao();
+                testDao.saveTest(test);
+
+                // Display a success message to the user
+                JOptionPane.showMessageDialog(this, "Test saved successfully!");
+            } else {
+                // Update the existing test
+                testToUpdate.setLabel(label);
+                testToUpdate.setPrice(price);
+                testToUpdate.setDuration(duration);
+                testToUpdate.setDaysToGetResult(daysToGetResult);
+                testToUpdate.setDescription(description);
+
+                // Update the test using your "TestDao"
+                TestDao testDao = new TestDao();
+                testDao.updateTest(testToUpdate);
+
+                // Display a success message to the user
+                JOptionPane.showMessageDialog(this, "Test updated successfully!");
+            }
+
+            // Refresh the data in the Tests panel
+            parentPanel.displayTestData();
+
+            dispose(); // Close the form
+        } catch (NumberFormatException ex) {
+            // Handle number format exception (e.g., when parsing price or daysToGetResult)
+            JOptionPane.showMessageDialog(this, "Invalid number format! Please enter a valid number.");
+        } catch (Exception e) {
+            // Handle other exceptions
+            JavaUtil.fireError(e);
         }
-        
         // Refresh the data in the Tests panel
-        parentPanel.displayTestData();
-        
-        dispose(); // Close the form
-    } catch (NumberFormatException ex) {
-        // Handle number format exception (e.g., when parsing price or daysToGetResult)
-        JOptionPane.showMessageDialog(this, "Invalid number format! Please enter a valid number.");
-    } catch (Exception e) {
-        // Handle other exceptions
-        JavaUtil.fireError(e);
-    }
-         // Refresh the data in the Tests panel
-        
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void PriceTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PriceTxtActionPerformed

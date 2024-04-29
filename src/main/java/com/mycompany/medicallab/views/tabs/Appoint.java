@@ -4,17 +4,115 @@
  */
 package com.mycompany.medicallab.views.tabs;
 
+import com.mycompany.medicallab.calendar.CalendarEvent;
+import com.mycompany.medicallab.calendar.WeekCalendar;
+import com.mycompany.medicallab.dao.AppointmentDao;
+import com.mycompany.medicallab.models.Appointment;
+import com.mycompany.medicallab.utils.JavaUtil;
+import com.mycompany.medicallab.utils.NotificationUtil;
+import com.mycompany.medicallab.views.forms.AppointmentForm;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author yusef
  */
 public class Appoint extends javax.swing.JPanel {
 
+    AppointmentDao ado = new AppointmentDao();
+    WeekCalendar cal;
+    ArrayList<CalendarEvent> events = new ArrayList<>();
+    List<Appointment> weekApt;
+
     /**
      * Creates new form Patients
      */
     public Appoint() {
         initComponents();
+        
+        mainAppointements.setLayout(new BoxLayout(mainAppointements, BoxLayout.Y_AXIS));
+        mainAppointements.setSize(1080, 610);
+        
+        weekApt = new ArrayList<>();
+        weekApt = ado.getAppointBetween(LocalDate.now(), JavaUtil.getNextSaturday(LocalDate.now()));
+        
+        createCalendar();
+
+    }
+
+    private void createCalendar() {
+
+        cal = new WeekCalendar(events);
+        cal.setSize(1080, 610);
+        
+        JButton goToTodayBtn = new JButton("Today");
+        goToTodayBtn.addActionListener(e -> {
+            weekApt = ado.getAppointBetween(LocalDate.now(), JavaUtil.getNextSaturday(LocalDate.now()));
+            cal.goToToday();
+            
+        });
+        JButton nextWeekBtn = new JButton(">");
+        nextWeekBtn.addActionListener(e -> {
+            cal.nextWeek();
+            weekApt = ado.getAppointBetween(cal.getWeek().getDay(DayOfWeek.MONDAY), cal.getWeek().getDay(DayOfWeek.SATURDAY));
+            displayEvents();
+        });
+        JButton nextMonthBtn = new JButton(">>");
+        nextMonthBtn.addActionListener(e -> {
+            cal.nextMonth();
+            weekApt = ado.getAppointBetween(cal.getWeek().getDay(DayOfWeek.MONDAY), cal.getWeek().getDay(DayOfWeek.SATURDAY));
+            displayEvents();
+        });
+        JButton lastApt = new JButton("Last");
+        lastApt.addActionListener(e -> {
+            cal.goToLast(ado.getLastAppointDate());
+            weekApt = ado.getAppointBetween(cal.getWeek().getDay(DayOfWeek.MONDAY), cal.getWeek().getDay(DayOfWeek.SATURDAY));
+            displayEvents();
+        });
+        
+        weekControls.setLayout(new BoxLayout(weekControls, BoxLayout.X_AXIS));
+        weekControls.add(goToTodayBtn);
+        weekControls.add(nextWeekBtn);
+        weekControls.add(nextMonthBtn);
+        weekControls.add(lastApt);
+        
+        cal.addCalendarEmptyClickListener(e -> {
+            LocalDateTime ldt = JavaUtil.regulateDateTime(e.getDateTime());
+            if (ldt.isAfter(LocalDateTime.now())) {
+                new AppointmentForm(cal, ldt);
+            } else {
+                new NotificationUtil("Selected Box Expired").show();
+            }
+        });
+        cal.addCalendarEventClickListener(e -> {
+            // get appoint
+            new AppointmentForm(cal, e.getCalendarEvent());
+        });
+        
+        displayEvents();
+        
+        mainAppointements.add(cal, BorderLayout.CENTER);
+    }
+
+    private void displayEvents() {
+        weekApt.forEach(evt -> {
+            cal.addEvent(new CalendarEvent(
+                    evt,
+                    evt.getDay(),
+                    evt.getHour(),
+                    evt.getHour().plusMinutes(JavaUtil.regulateDuration(evt.getTest().getDuration())),
+                    evt.getTest().getLabel()
+            ));
+        });
     }
 
     /**
@@ -26,136 +124,43 @@ public class Appoint extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mainAppointements = new javax.swing.JPanel();
+        weekControls = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        mainAppointements = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(254, 253, 237));
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 20, 1, 20));
         setMaximumSize(new java.awt.Dimension(1080, 610));
         setMinimumSize(new java.awt.Dimension(1080, 610));
         setPreferredSize(new java.awt.Dimension(1080, 610));
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
+
+        weekControls.setBackground(new java.awt.Color(254, 253, 237));
+        weekControls.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        weekControls.setMaximumSize(new java.awt.Dimension(32767, 40));
+        weekControls.setMinimumSize(new java.awt.Dimension(0, 40));
+        weekControls.setPreferredSize(new java.awt.Dimension(0, 40));
+        weekControls.setLayout(new javax.swing.BoxLayout(weekControls, javax.swing.BoxLayout.X_AXIS));
+        add(weekControls);
+
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(1040, 550));
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(1040, 550));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(1040, 550));
 
         mainAppointements.setBackground(new java.awt.Color(254, 253, 237));
-        mainAppointements.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        mainAppointements.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        mainAppointements.setMaximumSize(new java.awt.Dimension(900, 600));
-        mainAppointements.setMinimumSize(new java.awt.Dimension(900, 600));
-        mainAppointements.setPreferredSize(new java.awt.Dimension(900, 600));
+        mainAppointements.setMaximumSize(new java.awt.Dimension(1080, 610));
+        mainAppointements.setMinimumSize(new java.awt.Dimension(1080, 610));
+        mainAppointements.setPreferredSize(new java.awt.Dimension(1080, 610));
+        mainAppointements.setLayout(new javax.swing.BoxLayout(mainAppointements, javax.swing.BoxLayout.LINE_AXIS));
+        jScrollPane1.setViewportView(mainAppointements);
 
-        jScrollPane1.setBackground(new java.awt.Color(254, 253, 237));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Firstname", "Lastname", "Phone", "CIN", "Birth Day", "Address"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        jScrollPane2.setBackground(new java.awt.Color(254, 253, 237));
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(1);
-        jScrollPane2.setViewportView(jTextArea1);
-
-        jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trash.png"))); // NOI18N
-
-        jButton2.setIcon(new javax.swing.ImageIcon("/home/yusef/WWW/PROJECTS/MedicalLab/src/main/resources/edit.png")); // NOI18N
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/plus.png"))); // NOI18N
-        jButton3.setToolTipText("");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout mainAppointementsLayout = new javax.swing.GroupLayout(mainAppointements);
-        mainAppointements.setLayout(mainAppointementsLayout);
-        mainAppointementsLayout.setHorizontalGroup(
-            mainAppointementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainAppointementsLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 555, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane1)
-        );
-        mainAppointementsLayout.setVerticalGroup(
-            mainAppointementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainAppointementsLayout.createSequentialGroup()
-                .addGroup(mainAppointementsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1080, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(mainAppointements, javax.swing.GroupLayout.PREFERRED_SIZE, 1085, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(mainAppointements, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE))
-        );
+        add(jScrollPane1);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel mainAppointements;
+    private javax.swing.JPanel weekControls;
     // End of variables declaration//GEN-END:variables
 }

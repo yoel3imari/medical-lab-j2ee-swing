@@ -6,9 +6,11 @@ package com.mycompany.medicallab.dao;
 
 import com.mycompany.medicallab.models.Test;
 import com.mycompany.medicallab.utils.HibernateUtil;
+import com.mycompany.medicallab.utils.JavaUtil;
 import java.util.Collections;
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
 /**
@@ -26,8 +28,8 @@ public class TestDao {
     }
 
     public void saveTest(Test test) {
-        String sql = "INSERT INTO tests (label, price,duration, days_to_get_result, description) " +
-                     "VALUES (:label, :price, :duration, :daysToGetResult, :description)";
+        String sql = "INSERT INTO tests (label, price,duration, days_to_get_result, description) "
+                + "VALUES (:label, :price, :duration, :daysToGetResult, :description)";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
@@ -38,7 +40,7 @@ public class TestDao {
                     .setParameter("duration", test.getDuration())
                     .setParameter("daysToGetResult", test.getDaysToGetResult())
                     .setParameter("description", test.getDescription());
-           
+
             query.executeUpdate();
 
             commitTransaction(session);
@@ -49,9 +51,9 @@ public class TestDao {
     }
 
     public void updateTest(Test test) {
-        String sql = "UPDATE tests SET label = :label, price = :price, duration = :duration, " +
-                     "days_to_get_result = :daysToGetResult, description = :description " +
-                     "WHERE id = :id";
+        String sql = "UPDATE tests SET label = :label, price = :price, duration = :duration, "
+                + "days_to_get_result = :daysToGetResult, description = :description "
+                + "WHERE id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
@@ -109,44 +111,61 @@ public class TestDao {
     }
 
     public List<Test> getAllTests() {
-    String sql = "SELECT * FROM tests order by created_at DESC";
+        String sql = "SELECT * FROM tests order by created_at DESC";
 
-    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-        beginTransaction(session);
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            beginTransaction(session);
 
-        Query query = session.createNativeQuery(sql, Test.class);
-        List<Test> tests = query.list();
+            Query query = session.createNativeQuery(sql, Test.class);
+            List<Test> tests = query.list();
 
-        commitTransaction(session);
-        return tests;
-    } catch (Exception e) {
-        e.printStackTrace();
-        return null;
+            commitTransaction(session);
+            return tests;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
-}
-    
+
     public List<Test> searchTests(String keyword) {
-    String sql = "FROM Test t WHERE t.label LIKE :keyword OR t.description LIKE :keyword OR CAST(t.price AS string) LIKE :keyword";
+        String sql = "FROM Test t WHERE CAST(t.id AS string) LIKE :keyword OR t.label LIKE :keyword";
 
-    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-        beginTransaction(session);
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            beginTransaction(session);
 
-        Query<Test> query = session.createQuery(sql, Test.class)
-                .setParameter("keyword", "%" + keyword + "%");
-        List<Test> tests = query.getResultList();
+            Query<Test> query = session.createQuery(sql, Test.class)
+                    .setParameter("keyword", "%" + keyword + "%");
+            List<Test> tests = query.getResultList();
 
-        commitTransaction(session);
-        return tests;
-    } catch (Exception e) {
-        e.printStackTrace();
-        return null;
+            commitTransaction(session);
+            return tests;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+    
+    
+    public List<Object[]> getTodaysTestsAndCounts() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.beginTransaction();
+
+            String sqlQuery = "SELECT t.label AS test_label, COUNT(*) AS test_count " +
+                              "FROM tests t " +
+                              "JOIN appointments a ON t.id = a.test_id " +
+                              "WHERE DATE(a.day) = CURDATE() " +
+                              "GROUP BY t.label";
+
+            NativeQuery<Object[]> query = session.createNativeQuery(sqlQuery);
+            List<Object[]> results = query.getResultList();
+
+            session.getTransaction().commit();
+
+            return results;
+        } catch (Exception e) {
+            JavaUtil.fireError(e);
+            return null;
+        }
+    }
+
 }
-    
-    
-    }
-
-
-
-
-
