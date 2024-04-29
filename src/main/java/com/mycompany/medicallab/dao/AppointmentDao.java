@@ -14,6 +14,7 @@ import org.hibernate.query.Query;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppointmentDao {
@@ -35,7 +36,7 @@ public class AppointmentDao {
             session.getTransaction().commit();
 
             return rowCount > 0;
-            
+
         } catch (Exception e) {
             JavaUtil.fireError(e);
             return false;
@@ -65,10 +66,11 @@ public class AppointmentDao {
         }
     }
 
-    public boolean deleteAppoint(Appoint appoint) {
+    public boolean deleteAppoint(Appointment apt) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            Query query = session.createQuery("delete from appointments where id=:id", Appointment.class);
+            Query query = session.createNativeQuery("delete from appointments where id=:id", Appointment.class);
+            query.setParameter("id", apt.getId());
             int rowCount = query.executeUpdate();
             session.getTransaction().commit();
             return rowCount > 0;
@@ -81,7 +83,7 @@ public class AppointmentDao {
     public Appointment getAppointById(int id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            Query query = session.createQuery("from appointments where id = :id", Appointment.class);
+            Query query = session.createNativeQuery("select * from appointments where id = :id", Appointment.class);
             query.setParameter("id", id);
             Appointment appointment = (Appointment) query.uniqueResult();
             session.getTransaction().commit();
@@ -99,6 +101,7 @@ public class AppointmentDao {
             query.setParameter("day", date);
             query.setParameter("hour", hour);
             Appointment apt = (Appointment) query.uniqueResult();
+            session.getTransaction().commit();
             return apt;
         } catch (Exception e) {
             JavaUtil.fireError(e);
@@ -112,20 +115,24 @@ public class AppointmentDao {
             Query query = session.createNativeQuery("from appointments where day=:day", Appointment.class);
             query.setParameter("day", date);
             List<Appointment> apt = query.getResultList();
+            session.getTransaction().commit();
             return apt;
         } catch (Exception e) {
             JavaUtil.fireError(e);
             return null;
         }
     }
-    
+
     public List<Appointment> getAppointBetween(LocalDate from, LocalDate to) {
+
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            Query query = session.createNativeQuery("from appointments where day between :from and :to", Appointment.class);
+            Query<Appointment> query = session.createNativeQuery("select * from appointments where day between :from and :to order by day, hour", Appointment.class);
             query.setParameter("from", from);
             query.setParameter("to", to);
             List<Appointment> apt = query.getResultList();
+            session.getTransaction().commit();
+          
             return apt;
         } catch (Exception e) {
             JavaUtil.fireError(e);

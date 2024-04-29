@@ -1,5 +1,6 @@
 package com.mycompany.medicallab.calendar;
 
+import com.mycompany.medicallab.models.Appointment;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -8,6 +9,7 @@ public class CalendarEvent {
 
     private static final Color DEFAULT_COLOR = Color.PINK;
 
+    private Appointment apt;
     private LocalDate date;
     private LocalTime start;
     private LocalTime end;
@@ -24,6 +26,11 @@ public class CalendarEvent {
         this.end = end;
         this.text = text;
         this.color = color;
+    }
+    
+    public CalendarEvent(Appointment apt, LocalDate date, LocalTime start, LocalTime end, String text) {
+        this(date, start, end, text, DEFAULT_COLOR);
+        this.apt = apt;
     }
 
     public LocalDate getDate() {
@@ -86,4 +93,14 @@ public class CalendarEvent {
         result = 31 * result + end.hashCode();
         return result;
     }
+
+    public Appointment getApt() {
+        return apt;
+    }
+
+    public void setApt(Appointment apt) {
+        this.apt = apt;
+    }
+    
+    
 }

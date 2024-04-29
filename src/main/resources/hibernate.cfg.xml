@@ -11,8 +11,9 @@
         <property name="hibernate.connection.password"></property>
         <!-- Other Hibernate properties -->
         
+        <!--
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-        
+        -->
         <property name="show_sql">true</property>
         
         <!-- Mapping configuration -->

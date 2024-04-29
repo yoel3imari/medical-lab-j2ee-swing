@@ -33,11 +33,11 @@ public class TestCalendar {
         JButton nextWeekBtn = new JButton(">");
         nextWeekBtn.addActionListener(e -> cal.nextWeek());
 
-        JButton prevWeekBtn = new JButton("<");
-        prevWeekBtn.addActionListener(e -> cal.prevWeek());
-
         JButton nextMonthBtn = new JButton(">>");
         nextMonthBtn.addActionListener(e -> cal.nextMonth());
+        
+        JButton prevWeekBtn = new JButton("<");
+        prevWeekBtn.addActionListener(e -> cal.prevWeek());
 
         JButton prevMonthBtn = new JButton("<<");
         prevMonthBtn.addActionListener(e -> cal.prevMonth());

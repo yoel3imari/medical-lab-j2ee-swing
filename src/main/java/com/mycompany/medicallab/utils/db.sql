@@ -45,8 +45,8 @@ CREATE TABLE IF NOT EXISTS appointments (
     state CHAR(10),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_patient) REFERENCES patients(id),
-    FOREIGN KEY (id_test) REFERENCES tests(id)
+    FOREIGN KEY (id_patient) REFERENCES patients(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_test) REFERENCES tests(id) ON DELETE CASCADE
 );
 
 INSERT INTO admins (username, password) VALUES ('admin', '12345678');

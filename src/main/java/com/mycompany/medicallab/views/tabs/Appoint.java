@@ -6,13 +6,20 @@ package com.mycompany.medicallab.views.tabs;
 
 import com.mycompany.medicallab.calendar.CalendarEvent;
 import com.mycompany.medicallab.calendar.WeekCalendar;
+import com.mycompany.medicallab.dao.AppointmentDao;
+import com.mycompany.medicallab.models.Appointment;
+import com.mycompany.medicallab.utils.JavaUtil;
+import com.mycompany.medicallab.utils.NotificationUtil;
 import com.mycompany.medicallab.views.forms.AppointmentForm;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,20 +27,23 @@ import java.util.ArrayList;
  */
 public class Appoint extends javax.swing.JPanel {
 
+    AppointmentDao ado = new AppointmentDao();
     WeekCalendar cal;
-    volatile ArrayList<CalendarEvent> events = new ArrayList<>();
+    ArrayList<CalendarEvent> events = new ArrayList<>();
+    List<Appointment> weekApt;
 
     /**
      * Creates new form Patients
      */
     public Appoint() {
         initComponents();
-        createCalendar();
-
+        
         mainAppointements.setLayout(new BoxLayout(mainAppointements, BoxLayout.Y_AXIS));
         mainAppointements.setSize(1080, 610);
-
-        mainAppointements.add(cal, BorderLayout.CENTER);
+        mainAppointements.add(Box.createVerticalGlue());
+        
+        weekApt = new ArrayList<>();
+        createCalendar();
 
     }
 
@@ -41,9 +51,49 @@ public class Appoint extends javax.swing.JPanel {
 
         cal = new WeekCalendar(events);
         cal.setSize(1000, 900);
-
+        
+        JButton goToTodayBtn = new JButton("Today");
+        goToTodayBtn.addActionListener(e -> cal.goToToday());
+        JButton nextWeekBtn = new JButton(">");
+        nextWeekBtn.addActionListener(e -> cal.nextWeek());
+        JButton nextMonthBtn = new JButton(">>");
+        nextMonthBtn.addActionListener(e -> cal.nextMonth());
+        
+        JPanel weekControls = new JPanel();
+        weekControls.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+        weekControls.setMinimumSize(new Dimension(Integer.MAX_VALUE, 50));
+        weekControls.add(goToTodayBtn);
+        weekControls.add(nextWeekBtn);
+        weekControls.add(nextMonthBtn);
+        
         cal.addCalendarEmptyClickListener(e -> {
-            AppointmentForm ap = new AppointmentForm(cal, e.getDateTime());
+            LocalDateTime ldt = JavaUtil.regulateDateTime(e.getDateTime());
+            if (ldt.isAfter(LocalDateTime.now())) {
+                new AppointmentForm(cal, ldt);
+            } else {
+                new NotificationUtil("Selected Box Expired").show();
+            }
+        });
+        cal.addCalendarEventClickListener(e -> {
+            // get appoint
+            new AppointmentForm(cal, e.getCalendarEvent());
+        });
+        weekApt = ado.getAppointBetween(LocalDate.now(), JavaUtil.getNextSaturday(LocalDate.now()));
+        displayEvents();
+        
+        mainAppointements.add(weekControls);
+        mainAppointements.add(cal, BorderLayout.CENTER);
+    }
+
+    private void displayEvents() {
+        weekApt.forEach(evt -> {
+            cal.addEvent(new CalendarEvent(
+                    evt,
+                    evt.getDay(),
+                    evt.getHour(),
+                    evt.getHour().plusMinutes(evt.getTest().getDuration()),
+                    evt.getTest().getLabel()
+            ));
         });
     }
 
