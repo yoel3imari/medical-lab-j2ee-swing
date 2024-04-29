@@ -42,21 +42,21 @@ public class Test {
     @Column(name = "description", length = 255)
     private String description;
 
-    @Column(name = "oftype", length = 50)
-    private String oftype;
-
+    
+    
+    
     // Constructors, getters, and setters
 
     public Test() {
     }
 
-    public Test(String label, double price,int duration, int daysToGetResult, String description, String oftype) {
+    public Test(String label, double price,int duration, int daysToGetResult, String description) {
         this.label = label;
         this.price = price;
         this.duration= duration;
         this.daysToGetResult = daysToGetResult;
         this.description = description;
-        this.oftype = oftype;
+     
     }
 
     public int getId() {
@@ -108,18 +108,5 @@ public class Test {
         this.description = description;
     }
 
-    public String getofType() {
-        return oftype;
-    }
-
-    public void setofType(String oftype) {
-        this.oftype = oftype;
-    }
-
-    @Override
-    public String toString() {
-        return getLabel();
-    }
-    
     
 }
