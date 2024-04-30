@@ -4,6 +4,17 @@
  */
 package com.mycompany.medicallab.views.tabs;
 
+import com.mycompany.medicallab.dao.ResultDao;
+import com.mycompany.medicallab.models.Patient;
+import com.mycompany.medicallab.utils.HibernateUtil;
+import com.mycompany.medicallab.utils.JavaUtil;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
+
 /**
  *
  * @author yusef
@@ -15,6 +26,7 @@ public class Dashboard extends javax.swing.JPanel {
      */
     public Dashboard() {
         initComponents();
+        populateResultTable();
     }
 
     /**
@@ -48,7 +60,7 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        resultTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(254, 253, 237));
@@ -214,7 +226,7 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jLabel2.setText("Today's Tests");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        resultTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -222,7 +234,7 @@ public class Dashboard extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "Fllname", "CIN", "Test"
+                "Full Name", "CIN", "Test"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -233,7 +245,7 @@ public class Dashboard extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(resultTable);
 
         jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jLabel3.setText("Today's Results");
@@ -302,7 +314,41 @@ public class Dashboard extends javax.swing.JPanel {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+    
+    private void populateResultTable(){
+        DefaultTableModel resultTableModel = (DefaultTableModel) resultTable.getModel(); // get the table model
+        resultTableModel.setRowCount(0); // Clear existing rows
+        // Get column names
+        String[] columnNames = {"Full Name", "CIN", "Test"};
+        // Update with actual column names
+        resultTableModel.setColumnIdentifiers(columnNames);
+        
+        
+        // to get results from data base and store in them a list named results 
+        List<Object[]> results = new ArrayList<>();
+        ResultDao resultDao = new ResultDao();
+        results = resultDao.getTodaysResults();
+        
+        // printing to debug 
+        System.out.println("results :\n" + results);
+        for (Object[] itemArray : results) {
+            for (Object item : itemArray) {
+                System.out.print(item + " ");
+            }
+            System.out.println(); // Add a new line after each array
+        }
+        // Populate data rows
+        for (Object[] resultArray : results) {
+            String fullname = resultArray[0].toString() + " " + resultArray[1].toString();
+            String cin = resultArray[2].toString();
+            String test = resultArray[3].toString();
+            Object[] row = new Object[]{fullname, cin , test};
+            resultTableModel.addRow(row);
+        }
 
+        // Notify JTable to refresh its view
+        resultTableModel.fireTableDataChanged(); // or fireTableStructureChanged() if the structure of the table has changed
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton6;
@@ -327,7 +373,7 @@ public class Dashboard extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JPanel mainAppointements;
+    private javax.swing.JTable resultTable;
     // End of variables declaration//GEN-END:variables
 }
