@@ -41,14 +41,15 @@ CREATE TABLE IF NOT EXISTS appointments (
     test_id INT not null,
     day DATE,
     hour TIME,
-    state CHAR(10),
+    state CHAR(10) DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE,
     FOREIGN KEY (test_id) REFERENCES tests(id) ON DELETE CASCADE
 );
 
-INSERT INTO admins (username, password) VALUES ('admin', '12345678');
+
+INSERT INTO admins (username, password) VALUES ('admin', 'admin@lab');
 
 INSERT INTO `tests` (`id`, `label`, `price`, `duration`, `days_to_get_result`, `description`, `created_at`, `updated_at`) VALUES
 (1, 'Blood Test', 888.00, 60, 3, 'A standard blood test to check various parameters. ', '2024-04-24 23:21:50', '2024-04-27 20:57:29'),
@@ -64,7 +65,7 @@ INSERT INTO `tests` (`id`, `label`, `price`, `duration`, `days_to_get_result`, `
 (14, 'Genetic Testing', 1200.00, 70, 14, 'Analysis of DNA for genetic predispositions.', '2024-04-27 21:09:46', '2024-04-27 21:09:46'),
 (15, 'Urine Drug Screen', 300.00, 1, 2, 'Screening test to detect the presence of drugs or their metabolites in urine.', '2024-04-27 21:12:09', '2024-04-27 21:12:09'),
 (16, 'Hair Follicle Drug Test', 600.00, 1, 5, 'Test that analyzes a small sample of hair to detect the presence of drugs over an extended period, usually up to 90 days.', '2024-04-27 21:13:03', '2024-04-27 21:13:03'),
-(17, 'Heavy Metal Panel', 900.00, 600, 5, 'Blood test to detect the presence of heavy metals such as lead, mercury, and arsenic, which can be toxic to the body.', '2024-04-27 21:14:24', '2024-04-27 21:14:24'),
+(17, 'Heavy Metal Panel', 900.00, 60, 5, 'Blood test to detect the presence of heavy metals such as lead, mercury, and arsenic, which can be toxic to the body.', '2024-04-27 21:14:24', '2024-04-27 21:14:24'),
 (18, 'Skin Prick Test', 600.00, 30, 1, 'Introduction of small amounts of allergens into the skin to measure allergic reactions.', '2024-04-27 21:15:08', '2024-04-27 21:15:08'),
 (19, 'Food Allergy Panel', 400.00, 50, 8, ' Blood test to identify allergies to specific foods by measuring IgE antibodies against common food allergens.', '2024-04-27 21:15:57', '2024-04-27 21:15:57'),
 (20, 'Environmental Allergy Panel', 500.00, 60, 2, 'Blood test to identify allergies to environmental allergens such as pollen, dust mites, and pet dander', '2024-04-27 21:16:39', '2024-04-27 22:04:03'),

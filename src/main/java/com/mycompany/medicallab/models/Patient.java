@@ -30,9 +30,6 @@ public class Patient {
     @Column(name = "phone", length = 10)
     private String phone;
 
-    //@Column(name = "gender", length = 6)
-    //@Enumerated(EnumType.STRING)
-    //private Gender gender;
     @Column(name = "gender", length = 6)
     private String gender;
 
@@ -113,14 +110,7 @@ public class Patient {
     public void setGender(String gender) {
         this.gender = gender;
     }
-
-//    public Gender getGender() {
-//        return gender;
-//    }
-//
-//    public void setGender(Gender gender) {
-//        this.gender = gender;
-//    }
+    
     public Date getBirthdate() {
         return birthdate;
     }
@@ -128,9 +118,5 @@ public class Patient {
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
-
-//    public enum Gender {
-//        Male,
-//        Female
-//    }
+    
 }
