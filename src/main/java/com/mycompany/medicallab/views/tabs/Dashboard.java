@@ -16,6 +16,9 @@ import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import com.mycompany.medicallab.dao.TestDao;
+import com.mycompany.medicallab.models.Appointment;
+import com.mycompany.medicallab.utils.NavManager;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,18 +27,39 @@ import javax.swing.table.DefaultTableModel;
  * @author yusef
  */
 public class Dashboard extends javax.swing.JPanel {
-    private TestDao testDao;
-    List<Object[]> appointments = new ArrayList<>();
+
+    List<Appointment> appointments = new ArrayList<>();
+    Appointment currentApt = null;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+    TestDao testDao = null;
+    DashboardDao dashboardDao = null;
+    AppointmentDao appointmentDao = null;
+
+    DefaultTableModel appointmentTableModel;
+
     /**
      * Creates new form Dashboard
      */
     public Dashboard() {
+
         initComponents();
+
         testDao = new TestDao();
-        displayTodaysTests();
+        dashboardDao = new DashboardDao();
+        appointmentDao = new AppointmentDao();
+
+        appointmentTableModel = (DefaultTableModel) appointmentTable.getModel(); // get the table model
+        appointmentTableModel.setRowCount(0); // Clear existing rows
+        // Get column names
+        String[] columnNames = {"Full Name", "CIN", "From", "To"};
+        // Update with actual column names
+        appointmentTableModel.setColumnIdentifiers(columnNames);
+
         populateAppointmantTable();
+        populateCurrentAppointment();
+        displayTodaysTests();
         populateResultTable();
-        populateCurrentAppointment();   
     }
 
     /**
@@ -341,104 +365,100 @@ public class Dashboard extends javax.swing.JPanel {
 
     private void btnNextAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextAppointmentActionPerformed
         // TODO add your handling code here:
-        
-        DashboardDao dashboardDao = new DashboardDao();
-        dashboardDao.endAppointmentById(appointments);
-        
-        
-        // you can populateAppointmant Table  only if appointments list is not empty 
-        if(!appointments.isEmpty()){
-            populateAppointmantTable(); 
+
+        if (currentApt == null) {
+            return;
         }
-        
+
+        dashboardDao.endAppointmentById(currentApt.getId());
+
+        // you can populateAppointmant Table  only if appointments list is not empty 
+        populateAppointmantTable();
+
         // you can populateCurrentAppointment table only if appointments list is not empty 
         // but if it is empty then current Appointment should be also empty
-        if(!appointments.isEmpty()){
+        if (!appointments.isEmpty()) {
             populateCurrentAppointment();
             displayTodaysTests();
-        }else {
+        } else {
             currFullName.setText("");
             currCIN.setText("");
             currTest.setText("");
             currFrom.setText("");
             currTo.setText("");
         }
+
+        Appoint aptPanel = (Appoint) NavManager.getTab("appointements");
+        aptPanel.populateWeekCalendar();
+        
     }//GEN-LAST:event_btnNextAppointmentActionPerformed
-    
-    public void populateAppointmantTable(){
-        DefaultTableModel appointmentTableModel = (DefaultTableModel) appointmentTable.getModel(); // get the table model
-        appointmentTableModel.setRowCount(0); // Clear existing rows
-        // Get column names
-        String[] columnNames = {"Full Name", "CIN", "From", "To"};
-        // Update with actual column names
-        appointmentTableModel.setColumnIdentifiers(columnNames);
+
+    public void populateAppointmantTable() {
 
         // to get results from data base and store in them a list named appointments  
-        AppointmentDao appointmentDao = new AppointmentDao();
         appointments = appointmentDao.getTodaysAppointments();
 
         if (!appointments.isEmpty()) {
-            // printing to debug 
-            System.out.println("results :\n" + appointments);
-            for (Object[] itemArray : appointments) {
-                for (Object item : itemArray) {
-                    System.out.print(item + " ");
-                }
-                System.out.println(); // Add a new line after each array
+            currentApt = appointments.get(0);
+            appointments.remove(0);
+
+            JavaUtil.DumpPeek(currentApt);
+
+            if (appointments.isEmpty()) {
+                return;
             }
+
             // Populate data rows but excluding first appoitment so it can show in current appointment jPanel
-            for (Object[] appointmentArray : appointments) {
-                if (appointments.indexOf(appointmentArray) != 0.) {
-                    String fullname = appointmentArray[1].toString();
-                    String cin = appointmentArray[2].toString();
-                    String from_hour = appointmentArray[3].toString();
-                    String to_hour = appointmentArray[4].toString();
-                    Object[] row = new Object[]{fullname, cin, from_hour, to_hour};
-                    appointmentTableModel.addRow(row);
-                }
+            for (Appointment apt : appointments) {
+                String fullname = apt.getPatient().getfName() + apt.getPatient().getlName();
+                String cin = apt.getPatient().getCin();
+                String from_hour = apt.getHour().format(formatter);
+                String to_hour = apt.getHour().plusMinutes(JavaUtil.regulateDuration(apt.getTest().getDuration())).format(formatter);
+                Object[] row = new Object[]{fullname, cin, from_hour, to_hour};
+                appointmentTableModel.addRow(row);
             }
             // Notify JTable to refresh its view
             appointmentTableModel.fireTableDataChanged(); // or fireTableStructureChanged() if the structure of the table has changed
-        } 
-    }
-    
-    public void populateCurrentAppointment(){
-        if (!appointments.isEmpty()) {
-            System.out.println("appointments");
-            for (Object[] i : appointments) {
-                System.out.println(i.toString());
-            }
-
-            Object[] firstAppointmentArray = appointments.getFirst();
-
-            String fullName = firstAppointmentArray[1].toString();
-            String cin = firstAppointmentArray[2].toString();
-            String from = firstAppointmentArray[3].toString();
-            String to = firstAppointmentArray[4].toString();
-            String test = firstAppointmentArray[5].toString();
-
-            currFullName.setText(fullName);
-            currCIN.setText(cin);
-            currTest.setText(test);
-            currFrom.setText(from);
-            currTo.setText(to);
         }
     }
 
-    private void populateResultTable(){
+    public void populateCurrentAppointment() {
+
+        if (currentApt == null) {
+            currFullName.setText("___________");
+            currCIN.setText("___________");
+            currTest.setText("______________________");
+            currFrom.setText("__:__");
+            currTo.setText("__:__");
+
+            return;
+        }
+
+        String fullName = currentApt.getPatient().getfName() + currentApt.getPatient().getlName();
+        String cin = currentApt.getPatient().getCin();
+        String from = currentApt.getHour().format(formatter);
+        String to = currentApt.getHour().plusMinutes(JavaUtil.regulateDuration(currentApt.getTest().getDuration())).format(formatter);
+        String test = currentApt.getTest().getLabel();
+
+        currFullName.setText(fullName);
+        currCIN.setText(cin);
+        currTest.setText(test);
+        currFrom.setText(from);
+        currTo.setText(to);
+    }
+
+    private void populateResultTable() {
         DefaultTableModel resultTableModel = (DefaultTableModel) resultTable.getModel(); // get the table model
         resultTableModel.setRowCount(0); // Clear existing rows
         // Get column names
         String[] columnNames = {"Full Name", "CIN", "Test"};
         // Update with actual column names
         resultTableModel.setColumnIdentifiers(columnNames);
-        
-        
+
         // to get results from data base and store in them a list named results 
         List<Object[]> results = new ArrayList<>();
-        DashboardDao dashboardDao = new DashboardDao();
         results = dashboardDao.getTodaysResults();
-        
+
         // printing to debug 
         System.out.println("results :\n" + results);
         for (Object[] itemArray : results) {
@@ -452,23 +472,14 @@ public class Dashboard extends javax.swing.JPanel {
             String fullname = resultArray[0].toString() + " " + resultArray[1].toString();
             String cin = resultArray[2].toString();
             String test = resultArray[3].toString();
-            Object[] row = new Object[]{fullname, cin , test};
+            Object[] row = new Object[]{fullname, cin, test};
             resultTableModel.addRow(row);
         }
 
         // Notify JTable to refresh its view
         resultTableModel.fireTableDataChanged(); // or fireTableStructureChanged() if the structure of the table has changed
     }
-    
-    // Variables declaration - do not modify                     
-    private javax.swing.JTable appointmentTable;
-    private javax.swing.JButton btnNextAppointment;
-    private javax.swing.JLabel currCIN;
-    private javax.swing.JLabel currFrom;
-    private javax.swing.JLabel currFullName;
-    private javax.swing.JLabel currTest;
-    private javax.swing.JLabel currTo;
-    
+
     public void displayTodaysTests() {
         // Fetch today's tests and counts from the database
         List<Object[]> data = testDao.getTodaysTestsAndCounts();

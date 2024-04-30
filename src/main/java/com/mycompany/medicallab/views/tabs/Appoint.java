@@ -29,45 +29,47 @@ import java.util.List;
  */
 public class Appoint extends javax.swing.JPanel {
 
-    AppointmentDao ado = new AppointmentDao();
-    WeekCalendar cal;
-    ArrayList<CalendarEvent> events = new ArrayList<>();
-    List<Appointment> weekApt;
-    
-    Dashboard dashboard;
-    
+    private AppointmentDao ado = new AppointmentDao();
+    private WeekCalendar cal;
+    private ArrayList<CalendarEvent> events = new ArrayList<>();
+    private List<Appointment> weekApt;
+
+    private Dashboard dashboard;
+
     /**
      * Creates new form Patients
      */
     public Appoint() {
         initComponents();
-        
+
         mainAppointements.setLayout(new BoxLayout(mainAppointements, BoxLayout.Y_AXIS));
         mainAppointements.setSize(1080, 610);
-        
+
         weekApt = new ArrayList<>();
-        weekApt = ado.getAppointBetween(LocalDate.now(), JavaUtil.getNextSaturday(LocalDate.now()));
-        
+        populateWeekCalendar();
         
         createCalendar();
-
     }
-    
-    public Appoint(Dashboard dashboard){
+
+    public Appoint(Dashboard dashboard) {
         this();
         this.dashboard = dashboard;
+    }
+
+    public void populateWeekCalendar() {
+        weekApt = ado.getAppointBetween(LocalDate.now(), JavaUtil.getNextSaturday(LocalDate.now()));
     }
 
     private void createCalendar() {
 
         cal = new WeekCalendar(events);
         cal.setSize(1080, 610);
-        
+
         JButton goToTodayBtn = new JButton("Today");
         goToTodayBtn.addActionListener(e -> {
             weekApt = ado.getAppointBetween(LocalDate.now(), JavaUtil.getNextSaturday(LocalDate.now()));
             cal.goToToday();
-            
+
         });
         JButton nextWeekBtn = new JButton(">");
         nextWeekBtn.addActionListener(e -> {
@@ -87,30 +89,30 @@ public class Appoint extends javax.swing.JPanel {
             weekApt = ado.getAppointBetween(cal.getWeek().getDay(DayOfWeek.MONDAY), cal.getWeek().getDay(DayOfWeek.SATURDAY));
             displayEvents();
         });
-        
+
         weekControls.setLayout(new BoxLayout(weekControls, BoxLayout.X_AXIS));
         weekControls.add(goToTodayBtn);
         weekControls.add(nextWeekBtn);
         weekControls.add(nextMonthBtn);
         weekControls.add(lastApt);
-        
+
         cal.addCalendarEmptyClickListener(e -> {
             LocalDateTime ldt = JavaUtil.regulateDateTime(e.getDateTime());
             if (ldt.isAfter(LocalDateTime.now())) {
-                new AppointmentForm(cal, ldt, dashboard);
+                new AppointmentForm(cal, ldt);
             } else {
                 new NotificationUtil("Selected Box Expired").show();
             }
         });
         cal.addCalendarEventClickListener(e -> {
             // get appoint
-            new AppointmentForm(cal, e.getCalendarEvent(),dashboard);
+            new AppointmentForm(cal, e.getCalendarEvent());
         });
-        
+
         displayEvents();
-        
+
         mainAppointements.add(cal, BorderLayout.CENTER);
-        
+
     }
 
     private void displayEvents() {
@@ -123,7 +125,7 @@ public class Appoint extends javax.swing.JPanel {
                     evt.getTest().getLabel()
             ));
         });
-        
+
     }
 
     /**

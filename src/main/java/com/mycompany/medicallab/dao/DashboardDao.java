@@ -4,6 +4,7 @@
  */
 package com.mycompany.medicallab.dao;
 
+import com.mycompany.medicallab.models.Appointment;
 import com.mycompany.medicallab.utils.HibernateUtil;
 import com.mycompany.medicallab.utils.JavaUtil;
 import java.util.List;
@@ -49,21 +50,17 @@ public class DashboardDao {
         }
     }
     
-    public void endAppointmentById(List<Object[]> appointments){
+    public void endAppointmentById(Long id){
         String sql = """
                     UPDATE appointments SET state = :state WHERE id = :id
                     """;
-
-        Object[] firstAppointmentArray = appointments.getFirst();
-        String appointmentId = firstAppointmentArray[0].toString();
-        System.out.println("appointmentId"+ appointmentId);
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
 
             Query query = session.createNativeQuery(sql)
                     .setParameter("state", "ended")
-                    .setParameter("id", appointmentId );
+                    .setParameter("id", id);
             int x = query.executeUpdate();
             
             System.out.println("UPdate SQL status : "+ x);

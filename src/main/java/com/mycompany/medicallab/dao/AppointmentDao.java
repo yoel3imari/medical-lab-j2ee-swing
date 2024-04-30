@@ -132,7 +132,7 @@ public class AppointmentDao {
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            Query<Appointment> query = session.createNativeQuery("select * from appointments where day between state=:state :from and :to order by day, hour", Appointment.class);
+            Query<Appointment> query = session.createNativeQuery("select * from appointments where state=:state and day between :from and :to order by day, hour", Appointment.class);
             query.setParameter("from", from);
             query.setParameter("state", AptState.PENDING);
             query.setParameter("to", to);
@@ -178,26 +178,18 @@ public class AppointmentDao {
             return null;
         }
     }
-    public List<Object[]> getTodaysAppointments() {
+    public List<Appointment> getTodaysAppointments() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            NativeQuery<Object[]> query = session.createNativeQuery(
+            Query<Appointment> query = session.createNativeQuery(
                     """
-                SELECT 
-                    a.id,
-                    CONCAT(p.fName, ' ', p.lName) AS full_name,
-                    p.cin,
-                    a.hour AS from_hour,
-                    ADDTIME(a.hour, SEC_TO_TIME(t.duration * 60)) AS to_hour,
-                    t.label
+                SELECT *
                 FROM appointments a
-                JOIN patients p ON a.patient_id = p.id
-                JOIN tests t ON a.test_id = t.id
                 WHERE a.day = CURRENT_DATE() AND a.state = :state
                 ORDER BY a.hour;
-            """);
+            """, Appointment.class);
             query.setParameter("state", AptState.PENDING);
-            List<Object[]> results = query.list();
+            List<Appointment> results = query.list();
             session.getTransaction().commit();
             return results;
         } catch (Exception e) {

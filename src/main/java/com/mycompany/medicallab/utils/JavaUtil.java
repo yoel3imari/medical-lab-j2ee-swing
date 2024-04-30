@@ -7,6 +7,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
@@ -82,7 +83,16 @@ public class JavaUtil {
     }
     
     public static void main(String[] args) {
-        System.err.println("20: " + regulateDuration(20));
+        
+        List<Integer> l = new ArrayList<>();
+        l.add(0);
+        l.add(15);
+        l.add(20);
+        
+        Integer x = l.get(0);
+        l.remove(0);
+        System.out.println(x);
+        System.out.println(l);
     }
     
 }

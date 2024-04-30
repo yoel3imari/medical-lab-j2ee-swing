@@ -64,7 +64,7 @@ public class AppointmentForm extends javax.swing.JFrame {
         setVisible(true);
     }
 
-    public AppointmentForm(WeekCalendar cal, LocalDateTime datetime, Dashboard dashboard) {
+    public AppointmentForm(WeekCalendar cal, LocalDateTime datetime) {
         this();
         date = datetime.toLocalDate();
         time = datetime.toLocalTime();
@@ -79,11 +79,11 @@ public class AppointmentForm extends javax.swing.JFrame {
         }
         
         
-        this.dashboard = dashboard;
+        this.dashboard = (Dashboard) NavManager.getTab("dashboard");
     }
 
     // for update
-    public AppointmentForm(WeekCalendar cal, CalendarEvent aptEvt, Dashboard dashboard) {
+    public AppointmentForm(WeekCalendar cal, CalendarEvent aptEvt) {
         this();
         this.aptEvt = aptEvt;
         aptToUpdate = aptEvt.getApt();
@@ -103,7 +103,7 @@ public class AppointmentForm extends javax.swing.JFrame {
         comboBoxModel.setSelectedItem(aptToUpdate.getTest());
         
         
-        this.dashboard = dashboard;
+        this.dashboard = (Dashboard) NavManager.getTab("dashboard");
     }
     
 
