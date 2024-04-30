@@ -4,6 +4,7 @@
  */
 package com.mycompany.medicallab.views.tabs;
 
+import com.mycompany.medicallab.dao.AppointmentDao;
 import com.mycompany.medicallab.dao.ResultDao;
 import com.mycompany.medicallab.models.Patient;
 import com.mycompany.medicallab.utils.HibernateUtil;
@@ -26,7 +27,9 @@ public class Dashboard extends javax.swing.JPanel {
      */
     public Dashboard() {
         initComponents();
+        populateAppointmantTable();
         populateResultTable();
+        
     }
 
     /**
@@ -45,16 +48,18 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
+        currCIN = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
+        currTest = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
+        currFullName = new javax.swing.JLabel();
+        currFrom = new javax.swing.JLabel();
+        currTo = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        appointmentTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -95,17 +100,21 @@ public class Dashboard extends javax.swing.JPanel {
 
         jLabel33.setText("CIN: ");
 
-        jLabel34.setText("JT85672");
+        currCIN.setText("JT85672");
 
         jLabel35.setText("Test:");
 
-        jLabel36.setText("diabetes");
+        currTest.setText("diabetes");
 
-        jLabel37.setText("From: 14:00");
+        jLabel37.setText("From: ");
 
-        jLabel38.setText("To: 14:00");
+        jLabel38.setText("To: ");
 
-        jLabel39.setText("Flen Ben Flan");
+        currFullName.setText("Flen Ben Flan");
+
+        currFrom.setText("14:00");
+
+        currTo.setText("14:00");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -116,23 +125,29 @@ public class Dashboard extends javax.swing.JPanel {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel37)
+                            .addGroup(jPanel12Layout.createSequentialGroup()
+                                .addComponent(jLabel37)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(currFrom))
                             .addGroup(jPanel12Layout.createSequentialGroup()
                                 .addComponent(jLabel32)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel39)))
+                                .addComponent(currFullName)))
                         .addGap(37, 37, 37)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel12Layout.createSequentialGroup()
                                 .addComponent(jLabel33)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel34))
-                            .addComponent(jLabel38)))
+                                .addComponent(currCIN))
+                            .addGroup(jPanel12Layout.createSequentialGroup()
+                                .addComponent(jLabel38)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(currTo))))
                     .addComponent(jLabel31)
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel35)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel36)))
+                        .addComponent(currTest)))
                 .addContainerGap(197, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
@@ -143,16 +158,18 @@ public class Dashboard extends javax.swing.JPanel {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel32)
                     .addComponent(jLabel33)
-                    .addComponent(jLabel34)
-                    .addComponent(jLabel39))
+                    .addComponent(currCIN)
+                    .addComponent(currFullName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel35)
-                    .addComponent(jLabel36))
+                    .addComponent(currTest))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel37)
+                    .addComponent(currFrom)
                     .addComponent(jLabel38)
-                    .addComponent(jLabel37))
+                    .addComponent(currTo))
                 .addContainerGap())
         );
 
@@ -178,7 +195,7 @@ public class Dashboard extends javax.swing.JPanel {
 
         jPanel15.add(jPanel5);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        appointmentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -186,7 +203,7 @@ public class Dashboard extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Fullname", "CIN", "From", "To"
+                "Full Name", "CIN", "From", "To"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -197,7 +214,7 @@ public class Dashboard extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(appointmentTable);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -314,7 +331,41 @@ public class Dashboard extends javax.swing.JPanel {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
-    
+    private void populateAppointmantTable(){
+        DefaultTableModel appointmentTableModel = (DefaultTableModel) appointmentTable.getModel(); // get the table model
+        appointmentTableModel.setRowCount(0); // Clear existing rows
+        // Get column names
+        String[] columnNames = {"Full Name", "CIN", "From","To"};
+        // Update with actual column names
+        appointmentTableModel.setColumnIdentifiers(columnNames);
+        
+        // to get results from data base and store in them a list named results 
+        List<Object[]> results = new ArrayList<>();
+        AppointmentDao  appointmentDao = new AppointmentDao();
+        results = appointmentDao.getTodaysAppointments();
+        
+        // printing to debug 
+        System.out.println("results :\n" + results);
+        for (Object[] itemArray : results) {
+            for (Object item : itemArray) {
+                System.out.print(item + " ");
+            }
+            System.out.println(); // Add a new line after each array
+        }
+        // Populate data rows
+        for (Object[] resultArray : results) {
+            String fullname = resultArray[0].toString();
+            String cin = resultArray[1].toString();
+            String from_hour = resultArray[2].toString();
+            String to_hour = resultArray[2].toString();
+            Object[] row = new Object[]{fullname, cin , from_hour, to_hour};
+            appointmentTableModel.addRow(row);
+        }
+
+        // Notify JTable to refresh its view
+        appointmentTableModel.fireTableDataChanged(); // or fireTableStructureChanged() if the structure of the table has changed
+        
+    }
     private void populateResultTable(){
         DefaultTableModel resultTableModel = (DefaultTableModel) resultTable.getModel(); // get the table model
         resultTableModel.setRowCount(0); // Clear existing rows
@@ -349,8 +400,15 @@ public class Dashboard extends javax.swing.JPanel {
         // Notify JTable to refresh its view
         resultTableModel.fireTableDataChanged(); // or fireTableStructureChanged() if the structure of the table has changed
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable appointmentTable;
+    private javax.swing.JLabel currCIN;
+    private javax.swing.JLabel currFrom;
+    private javax.swing.JLabel currFullName;
+    private javax.swing.JLabel currTest;
+    private javax.swing.JLabel currTo;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -358,12 +416,9 @@ public class Dashboard extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel15;
@@ -371,7 +426,6 @@ public class Dashboard extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JPanel mainAppointements;
     private javax.swing.JTable resultTable;
