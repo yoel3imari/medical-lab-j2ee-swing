@@ -21,7 +21,7 @@ import org.hibernate.query.Query;
  * @author yusef
  */
 public class Dashboard extends javax.swing.JPanel {
-    
+    List<Object[]> appointments = new ArrayList<>();
     /**
      * Creates new form Dashboard
      */
@@ -29,6 +29,7 @@ public class Dashboard extends javax.swing.JPanel {
         initComponents();
         populateAppointmantTable();
         populateResultTable();
+        populateCurrentAppointment();
         
     }
 
@@ -331,6 +332,22 @@ public class Dashboard extends javax.swing.JPanel {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+    private void populateCurrentAppointment(){
+        Object[] firstAppointmentArray = appointments.getFirst();
+
+        String fullName = firstAppointmentArray[0].toString();
+        String cin = firstAppointmentArray[1].toString();
+        String from = firstAppointmentArray[2].toString();
+        String to = firstAppointmentArray[3].toString();
+        String test = firstAppointmentArray[4].toString();
+
+        currFullName.setText(fullName);
+        currCIN.setText(cin);
+        currTest.setText(test);
+        currFrom.setText(from);
+        currTo.setText(to);
+    }
+    
     private void populateAppointmantTable(){
         DefaultTableModel appointmentTableModel = (DefaultTableModel) appointmentTable.getModel(); // get the table model
         appointmentTableModel.setRowCount(0); // Clear existing rows
@@ -340,24 +357,24 @@ public class Dashboard extends javax.swing.JPanel {
         appointmentTableModel.setColumnIdentifiers(columnNames);
         
         // to get results from data base and store in them a list named results 
-        List<Object[]> results = new ArrayList<>();
+        
         AppointmentDao  appointmentDao = new AppointmentDao();
-        results = appointmentDao.getTodaysAppointments();
+        appointments = appointmentDao.getTodaysAppointments();
         
         // printing to debug 
-        System.out.println("results :\n" + results);
-        for (Object[] itemArray : results) {
+        System.out.println("results :\n" + appointments);
+        for (Object[] itemArray : appointments) {
             for (Object item : itemArray) {
                 System.out.print(item + " ");
             }
             System.out.println(); // Add a new line after each array
         }
         // Populate data rows
-        for (Object[] resultArray : results) {
-            String fullname = resultArray[0].toString();
-            String cin = resultArray[1].toString();
-            String from_hour = resultArray[2].toString();
-            String to_hour = resultArray[2].toString();
+        for (Object[] appointmentArray : appointments) {
+            String fullname = appointmentArray[0].toString();
+            String cin = appointmentArray[1].toString();
+            String from_hour = appointmentArray[2].toString();
+            String to_hour = appointmentArray[3].toString();
             Object[] row = new Object[]{fullname, cin , from_hour, to_hour};
             appointmentTableModel.addRow(row);
         }

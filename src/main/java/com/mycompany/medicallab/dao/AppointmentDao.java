@@ -175,7 +175,8 @@ try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 SELECT CONCAT(p.fName, ' ', p.lName) AS full_name,
                     p.cin,
                     a.hour AS from_hour,
-                    ADDTIME(a.hour, SEC_TO_TIME(t.duration * 60)) AS to_hour
+                    ADDTIME(a.hour, SEC_TO_TIME(t.duration * 60)) AS to_hour,
+                    t.label
                 FROM appointments a
                 JOIN patients p ON a.patient_id = p.id
                 JOIN tests t ON a.test_id = t.id
