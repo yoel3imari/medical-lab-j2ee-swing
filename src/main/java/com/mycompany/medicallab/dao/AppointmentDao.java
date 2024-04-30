@@ -166,13 +166,14 @@ public class AppointmentDao {
             return null;
         }
     }
-    public List<Object[]> getTodaysAppointments(){
-        
-try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+    public List<Object[]> getTodaysAppointments() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             NativeQuery<Object[]> query = session.createNativeQuery(
                     """
-                SELECT CONCAT(p.fName, ' ', p.lName) AS full_name,
+                SELECT 
+                    a.id,
+                    CONCAT(p.fName, ' ', p.lName) AS full_name,
                     p.cin,
                     a.hour AS from_hour,
                     ADDTIME(a.hour, SEC_TO_TIME(t.duration * 60)) AS to_hour,
@@ -180,7 +181,7 @@ try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 FROM appointments a
                 JOIN patients p ON a.patient_id = p.id
                 JOIN tests t ON a.test_id = t.id
-                WHERE a.day = CURRENT_DATE()
+                WHERE a.day = CURRENT_DATE() AND a.state = 'pending'
                 ORDER BY a.hour;
             """);
             List<Object[]> results = query.list();

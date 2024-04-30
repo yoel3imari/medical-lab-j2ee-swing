@@ -5,7 +5,7 @@
 package com.mycompany.medicallab.views.tabs;
 
 import com.mycompany.medicallab.dao.AppointmentDao;
-import com.mycompany.medicallab.dao.ResultDao;
+import com.mycompany.medicallab.dao.DashboardDao;
 import com.mycompany.medicallab.models.Patient;
 import com.mycompany.medicallab.utils.HibernateUtil;
 import com.mycompany.medicallab.utils.JavaUtil;
@@ -58,7 +58,7 @@ public class Dashboard extends javax.swing.JPanel {
         currFrom = new javax.swing.JLabel();
         currTo = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
+        btnNextAppointment = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         appointmentTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -180,17 +180,17 @@ public class Dashboard extends javax.swing.JPanel {
         jPanel10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel10.setLayout(new java.awt.GridBagLayout());
 
-        jButton6.setBackground(new java.awt.Color(255, 204, 204));
-        jButton6.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(27, 60, 115));
-        jButton6.setText("Next");
-        jButton6.setPreferredSize(new java.awt.Dimension(300, 75));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnNextAppointment.setBackground(new java.awt.Color(255, 204, 204));
+        btnNextAppointment.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        btnNextAppointment.setForeground(new java.awt.Color(27, 60, 115));
+        btnNextAppointment.setText("Next");
+        btnNextAppointment.setPreferredSize(new java.awt.Dimension(300, 75));
+        btnNextAppointment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnNextAppointmentActionPerformed(evt);
             }
         });
-        jPanel10.add(jButton6, new java.awt.GridBagConstraints());
+        jPanel10.add(btnNextAppointment, new java.awt.GridBagConstraints());
 
         jPanel5.add(jPanel10, new java.awt.GridBagConstraints());
 
@@ -329,17 +329,25 @@ public class Dashboard extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnNextAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextAppointmentActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+        
+        DashboardDao dashboardDao = new DashboardDao();
+        dashboardDao.endAppointmentById(appointments);
+        
+        populateAppointmantTable();
+        populateCurrentAppointment();
+    }//GEN-LAST:event_btnNextAppointmentActionPerformed
+    
+    
     private void populateCurrentAppointment(){
         Object[] firstAppointmentArray = appointments.getFirst();
 
-        String fullName = firstAppointmentArray[0].toString();
-        String cin = firstAppointmentArray[1].toString();
-        String from = firstAppointmentArray[2].toString();
-        String to = firstAppointmentArray[3].toString();
-        String test = firstAppointmentArray[4].toString();
+        String fullName = firstAppointmentArray[1].toString();
+        String cin = firstAppointmentArray[2].toString();
+        String from = firstAppointmentArray[3].toString();
+        String to = firstAppointmentArray[4].toString();
+        String test = firstAppointmentArray[5].toString();
 
         currFullName.setText(fullName);
         currCIN.setText(cin);
@@ -356,8 +364,7 @@ public class Dashboard extends javax.swing.JPanel {
         // Update with actual column names
         appointmentTableModel.setColumnIdentifiers(columnNames);
         
-        // to get results from data base and store in them a list named results 
-        
+        // to get results from data base and store in them a list named appointments  
         AppointmentDao  appointmentDao = new AppointmentDao();
         appointments = appointmentDao.getTodaysAppointments();
         
@@ -369,14 +376,16 @@ public class Dashboard extends javax.swing.JPanel {
             }
             System.out.println(); // Add a new line after each array
         }
-        // Populate data rows
+        // Populate data rows but excluding first appoitment so it can show in current appointment jPanel
         for (Object[] appointmentArray : appointments) {
-            String fullname = appointmentArray[0].toString();
-            String cin = appointmentArray[1].toString();
-            String from_hour = appointmentArray[2].toString();
-            String to_hour = appointmentArray[3].toString();
-            Object[] row = new Object[]{fullname, cin , from_hour, to_hour};
-            appointmentTableModel.addRow(row);
+            if(appointments.indexOf(appointmentArray)!=0.){
+                String fullname = appointmentArray[1].toString();
+                String cin = appointmentArray[2].toString();
+                String from_hour = appointmentArray[3].toString();
+                String to_hour = appointmentArray[4].toString();
+                Object[] row = new Object[]{fullname, cin , from_hour, to_hour};
+                appointmentTableModel.addRow(row);
+            }
         }
 
         // Notify JTable to refresh its view
@@ -394,8 +403,8 @@ public class Dashboard extends javax.swing.JPanel {
         
         // to get results from data base and store in them a list named results 
         List<Object[]> results = new ArrayList<>();
-        ResultDao resultDao = new ResultDao();
-        results = resultDao.getTodaysResults();
+        DashboardDao dashboardDao = new DashboardDao();
+        results = dashboardDao.getTodaysResults();
         
         // printing to debug 
         System.out.println("results :\n" + results);
@@ -421,12 +430,12 @@ public class Dashboard extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable appointmentTable;
+    private javax.swing.JButton btnNextAppointment;
     private javax.swing.JLabel currCIN;
     private javax.swing.JLabel currFrom;
     private javax.swing.JLabel currFullName;
     private javax.swing.JLabel currTest;
     private javax.swing.JLabel currTo;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
