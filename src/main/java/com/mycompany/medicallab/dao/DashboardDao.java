@@ -48,6 +48,7 @@ public class DashboardDao {
             return null;
         }
     }
+    
     public void endAppointmentById(List<Object[]> appointments){
         String sql = """
                     UPDATE appointments SET state = :state WHERE id = :id

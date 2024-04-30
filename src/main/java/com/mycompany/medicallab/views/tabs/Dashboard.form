@@ -261,52 +261,67 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel32">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Liberation Sans" size="15" style="1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Fullname:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel33">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Liberation Sans" size="15" style="1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="CIN: "/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="currCIN">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="JT85672"/>
+                        <Property name="text" type="java.lang.String" value="_______"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel35">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Liberation Sans" size="15" style="1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Test:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="currTest">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="diabetes"/>
+                        <Property name="text" type="java.lang.String" value="_______"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel37">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Liberation Sans" size="15" style="1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="From: "/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel38">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Liberation Sans" size="15" style="1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="To: "/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="currFullName">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Flen Ben Flan"/>
+                        <Property name="text" type="java.lang.String" value="___________"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="currFrom">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="14:00"/>
+                        <Property name="text" type="java.lang.String" value="__:__"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="currTo">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="14:00"/>
+                        <Property name="text" type="java.lang.String" value="__:__"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -333,10 +348,10 @@
                     <Component class="javax.swing.JButton" name="btnNextAppointment">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="cc" green="cc" red="ff" type="rgb"/>
+                          <Color blue="99" green="ff" red="99" type="rgb"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Liberation Sans" size="18" style="1"/>
+                          <Font name="Liberation Sans" size="36" style="1"/>
                         </Property>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="73" green="3c" red="1b" type="rgb"/>

@@ -35,8 +35,7 @@ public class Dashboard extends javax.swing.JPanel {
         displayTodaysTests();
         populateAppointmantTable();
         populateResultTable();
-        populateCurrentAppointment();
-        
+        populateCurrentAppointment();   
     }
 
     /**
@@ -103,25 +102,30 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel31.setForeground(new java.awt.Color(0, 51, 153));
         jLabel31.setText("Current Appointement");
 
+        jLabel32.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jLabel32.setText("Fullname:");
 
+        jLabel33.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jLabel33.setText("CIN: ");
 
-        currCIN.setText("JT85672");
+        currCIN.setText("_______");
 
+        jLabel35.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jLabel35.setText("Test:");
 
-        currTest.setText("diabetes");
+        currTest.setText("_______");
 
+        jLabel37.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jLabel37.setText("From: ");
 
+        jLabel38.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jLabel38.setText("To: ");
 
-        currFullName.setText("Flen Ben Flan");
+        currFullName.setText("___________");
 
-        currFrom.setText("14:00");
+        currFrom.setText("__:__");
 
-        currTo.setText("14:00");
+        currTo.setText("__:__");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -186,8 +190,8 @@ public class Dashboard extends javax.swing.JPanel {
         jPanel10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel10.setLayout(new java.awt.GridBagLayout());
 
-        btnNextAppointment.setBackground(new java.awt.Color(255, 204, 204));
-        btnNextAppointment.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        btnNextAppointment.setBackground(new java.awt.Color(153, 255, 153));
+        btnNextAppointment.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
         btnNextAppointment.setForeground(new java.awt.Color(27, 60, 115));
         btnNextAppointment.setText("Next");
         btnNextAppointment.setPreferredSize(new java.awt.Dimension(300, 75));
@@ -393,11 +397,9 @@ public class Dashboard extends javax.swing.JPanel {
                     appointmentTableModel.addRow(row);
                 }
             }
-
             // Notify JTable to refresh its view
             appointmentTableModel.fireTableDataChanged(); // or fireTableStructureChanged() if the structure of the table has changed
-        }
-        
+        } 
     }
     
     public void populateCurrentAppointment(){
@@ -422,8 +424,7 @@ public class Dashboard extends javax.swing.JPanel {
             currTo.setText(to);
         }
     }
-    
-    
+
     private void populateResultTable(){
         DefaultTableModel resultTableModel = (DefaultTableModel) resultTable.getModel(); // get the table model
         resultTableModel.setRowCount(0); // Clear existing rows
@@ -459,7 +460,6 @@ public class Dashboard extends javax.swing.JPanel {
         resultTableModel.fireTableDataChanged(); // or fireTableStructureChanged() if the structure of the table has changed
     }
     
-
     // Variables declaration - do not modify                     
     private javax.swing.JTable appointmentTable;
     private javax.swing.JButton btnNextAppointment;
@@ -483,7 +483,13 @@ public class Dashboard extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton6;
+    private javax.swing.JTable appointmentTable;
+    private javax.swing.JButton btnNextAppointment;
+    private javax.swing.JLabel currCIN;
+    private javax.swing.JLabel currFrom;
+    private javax.swing.JLabel currFullName;
+    private javax.swing.JLabel currTest;
+    private javax.swing.JLabel currTo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
