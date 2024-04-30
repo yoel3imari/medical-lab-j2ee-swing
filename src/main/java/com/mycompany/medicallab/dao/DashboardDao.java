@@ -53,7 +53,7 @@ public class DashboardDao {
                     UPDATE appointments SET state = :state WHERE id = :id
                     """;
 
-        Object[] firstAppointmentArray = appointments.getFirst();
+        Object[] firstAppointmentArray = appointments.get(0);
         String appointmentId = firstAppointmentArray[0].toString();
         System.out.println("appointmentId"+ appointmentId);
 

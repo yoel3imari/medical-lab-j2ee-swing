@@ -407,7 +407,7 @@ public class Dashboard extends javax.swing.JPanel {
                 System.out.println(i.toString());
             }
 
-            Object[] firstAppointmentArray = appointments.getFirst();
+            Object[] firstAppointmentArray = appointments.get(0);
 
             String fullName = firstAppointmentArray[1].toString();
             String cin = firstAppointmentArray[2].toString();
