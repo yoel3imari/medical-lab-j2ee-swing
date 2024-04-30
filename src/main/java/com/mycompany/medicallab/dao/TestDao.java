@@ -151,10 +151,11 @@ public class TestDao {
             session.beginTransaction();
 
             String sqlQuery = "SELECT t.label AS test_label, COUNT(*) AS test_count " +
-                              "FROM tests t " +
-                              "JOIN appointments a ON t.id = a.test_id " +
-                              "WHERE DATE(a.day) = CURDATE() " +
-                              "GROUP BY t.label";
+                          "FROM tests t " +
+                          "JOIN appointments a ON t.id = a.test_id " +
+                          "WHERE DATE(a.day) = CURDATE() " +
+                          "AND a.state = 'pending' " + // added this one recently so test table wont show ended appoitments
+                          "GROUP BY t.label";
 
             NativeQuery<Object[]> query = session.createNativeQuery(sqlQuery);
             List<Object[]> results = query.getResultList();

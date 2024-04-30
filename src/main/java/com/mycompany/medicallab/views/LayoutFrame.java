@@ -4,6 +4,7 @@
  */
 package com.mycompany.medicallab.views;
 
+import com.mycompany.medicallab.models.Test;
 import com.mycompany.medicallab.utils.NavManager;
 import com.mycompany.medicallab.views.tabs.*;
 
@@ -17,9 +18,10 @@ import java.awt.BorderLayout;
 public class LayoutFrame extends javax.swing.JFrame {
 
     JPanel dashboard = new Dashboard();
-    JPanel appoint = new Appoint();
+    JPanel appoint = new Appoint((Dashboard) dashboard);
     JPanel patients = new Patients();
     JPanel tests = new Tests();
+    
 
     /**
      * Creates new form LayoutFrame

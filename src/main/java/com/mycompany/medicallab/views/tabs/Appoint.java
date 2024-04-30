@@ -8,6 +8,7 @@ import com.mycompany.medicallab.calendar.CalendarEvent;
 import com.mycompany.medicallab.calendar.WeekCalendar;
 import com.mycompany.medicallab.dao.AppointmentDao;
 import com.mycompany.medicallab.models.Appointment;
+import com.mycompany.medicallab.models.Test;
 import com.mycompany.medicallab.utils.JavaUtil;
 import com.mycompany.medicallab.utils.NotificationUtil;
 import com.mycompany.medicallab.views.forms.AppointmentForm;
@@ -32,7 +33,9 @@ public class Appoint extends javax.swing.JPanel {
     WeekCalendar cal;
     ArrayList<CalendarEvent> events = new ArrayList<>();
     List<Appointment> weekApt;
-
+    
+    Dashboard dashboard;
+    
     /**
      * Creates new form Patients
      */
@@ -45,8 +48,14 @@ public class Appoint extends javax.swing.JPanel {
         weekApt = new ArrayList<>();
         weekApt = ado.getAppointBetween(LocalDate.now(), JavaUtil.getNextSaturday(LocalDate.now()));
         
+        
         createCalendar();
 
+    }
+    
+    public Appoint(Dashboard dashboard){
+        this();
+        this.dashboard = dashboard;
     }
 
     private void createCalendar() {
@@ -88,19 +97,20 @@ public class Appoint extends javax.swing.JPanel {
         cal.addCalendarEmptyClickListener(e -> {
             LocalDateTime ldt = JavaUtil.regulateDateTime(e.getDateTime());
             if (ldt.isAfter(LocalDateTime.now())) {
-                new AppointmentForm(cal, ldt);
+                new AppointmentForm(cal, ldt, dashboard);
             } else {
                 new NotificationUtil("Selected Box Expired").show();
             }
         });
         cal.addCalendarEventClickListener(e -> {
             // get appoint
-            new AppointmentForm(cal, e.getCalendarEvent());
+            new AppointmentForm(cal, e.getCalendarEvent(),dashboard);
         });
         
         displayEvents();
         
         mainAppointements.add(cal, BorderLayout.CENTER);
+        
     }
 
     private void displayEvents() {
@@ -113,6 +123,7 @@ public class Appoint extends javax.swing.JPanel {
                     evt.getTest().getLabel()
             ));
         });
+        
     }
 
     /**

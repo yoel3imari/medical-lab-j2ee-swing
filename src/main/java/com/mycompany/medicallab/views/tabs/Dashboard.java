@@ -351,6 +351,7 @@ public class Dashboard extends javax.swing.JPanel {
         // but if it is empty then current Appointment should be also empty
         if(!appointments.isEmpty()){
             populateCurrentAppointment();
+            displayTodaysTests();
         }else {
             currFullName.setText("");
             currCIN.setText("");
@@ -360,31 +361,7 @@ public class Dashboard extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnNextAppointmentActionPerformed
     
-    
-    private void populateCurrentAppointment(){
-        if (!appointments.isEmpty()) {
-            System.out.println("appointments");
-            for (Object[] i : appointments) {
-                System.out.println(i.toString());
-            }
-
-            Object[] firstAppointmentArray = appointments.getFirst();
-
-            String fullName = firstAppointmentArray[1].toString();
-            String cin = firstAppointmentArray[2].toString();
-            String from = firstAppointmentArray[3].toString();
-            String to = firstAppointmentArray[4].toString();
-            String test = firstAppointmentArray[5].toString();
-
-            currFullName.setText(fullName);
-            currCIN.setText(cin);
-            currTest.setText(test);
-            currFrom.setText(from);
-            currTo.setText(to);
-        }
-    }
-    
-    private void populateAppointmantTable(){
+    public void populateAppointmantTable(){
         DefaultTableModel appointmentTableModel = (DefaultTableModel) appointmentTable.getModel(); // get the table model
         appointmentTableModel.setRowCount(0); // Clear existing rows
         // Get column names
@@ -422,6 +399,31 @@ public class Dashboard extends javax.swing.JPanel {
         }
         
     }
+    
+    public void populateCurrentAppointment(){
+        if (!appointments.isEmpty()) {
+            System.out.println("appointments");
+            for (Object[] i : appointments) {
+                System.out.println(i.toString());
+            }
+
+            Object[] firstAppointmentArray = appointments.getFirst();
+
+            String fullName = firstAppointmentArray[1].toString();
+            String cin = firstAppointmentArray[2].toString();
+            String from = firstAppointmentArray[3].toString();
+            String to = firstAppointmentArray[4].toString();
+            String test = firstAppointmentArray[5].toString();
+
+            currFullName.setText(fullName);
+            currCIN.setText(cin);
+            currTest.setText(test);
+            currFrom.setText(from);
+            currTo.setText(to);
+        }
+    }
+    
+    
     private void populateResultTable(){
         DefaultTableModel resultTableModel = (DefaultTableModel) resultTable.getModel(); // get the table model
         resultTableModel.setRowCount(0); // Clear existing rows
@@ -458,7 +460,7 @@ public class Dashboard extends javax.swing.JPanel {
     }
     
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JTable appointmentTable;
     private javax.swing.JButton btnNextAppointment;
     private javax.swing.JLabel currCIN;
@@ -467,7 +469,7 @@ public class Dashboard extends javax.swing.JPanel {
     private javax.swing.JLabel currTest;
     private javax.swing.JLabel currTo;
     
-    private void displayTodaysTests() {
+    public void displayTodaysTests() {
         // Fetch today's tests and counts from the database
         List<Object[]> data = testDao.getTodaysTestsAndCounts();
 

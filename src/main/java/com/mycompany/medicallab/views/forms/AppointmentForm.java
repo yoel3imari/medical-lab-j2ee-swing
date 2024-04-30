@@ -22,6 +22,8 @@ import com.mycompany.medicallab.models.Test;
 import com.mycompany.medicallab.models.Patient;
 import com.mycompany.medicallab.utils.JavaUtil;
 import com.mycompany.medicallab.utils.NotificationUtil;
+import com.mycompany.medicallab.views.tabs.Dashboard;
+import com.mycompany.medicallab.views.tabs.Tests;
 import java.util.HashMap;
 
 /**
@@ -48,6 +50,9 @@ public class AppointmentForm extends javax.swing.JFrame {
     private LocalTime time;
 
     private List<Test> testList;
+    
+    private Dashboard dashboard;
+    
     //private HashMap<Integer, String> testIdLabel = new HashMap();
     DefaultComboBoxModel<Test> comboBoxModel = new DefaultComboBoxModel<>();
 
@@ -59,7 +64,7 @@ public class AppointmentForm extends javax.swing.JFrame {
         setVisible(true);
     }
 
-    public AppointmentForm(WeekCalendar cal, LocalDateTime datetime) {
+    public AppointmentForm(WeekCalendar cal, LocalDateTime datetime, Dashboard dashboard) {
         this();
         date = datetime.toLocalDate();
         time = datetime.toLocalTime();
@@ -72,10 +77,13 @@ public class AppointmentForm extends javax.swing.JFrame {
         if (!testList.isEmpty()) {
             comboBoxModel.addAll(testList);
         }
+        
+        
+        this.dashboard = dashboard;
     }
 
     // for update
-    public AppointmentForm(WeekCalendar cal, CalendarEvent aptEvt) {
+    public AppointmentForm(WeekCalendar cal, CalendarEvent aptEvt, Dashboard dashboard) {
         this();
         this.aptEvt = aptEvt;
         aptToUpdate = aptEvt.getApt();
@@ -93,7 +101,11 @@ public class AppointmentForm extends javax.swing.JFrame {
             comboBoxModel.addAll(testList);
         }
         comboBoxModel.setSelectedItem(aptToUpdate.getTest());
+        
+        
+        this.dashboard = dashboard;
     }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -263,6 +275,9 @@ public class AppointmentForm extends javax.swing.JFrame {
                 new NotificationUtil("Appointent Canceled!").show();
             }
         }
+        dashboard.populateAppointmantTable();
+        dashboard.populateCurrentAppointment();
+        dashboard.displayTodaysTests();
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -304,6 +319,7 @@ public class AppointmentForm extends javax.swing.JFrame {
         newApt.setHour(time);
         newApt.setPatient(p);
         newApt.setTest(selectedTest);
+        newApt.setState("pending");
 
         if (ado.saveAppoint(newApt)) {
             NotificationUtil notification = new NotificationUtil("Appointment Saved!");
@@ -316,7 +332,9 @@ public class AppointmentForm extends javax.swing.JFrame {
                             newApt.getHour().plusMinutes(JavaUtil.regulateDuration(newApt.getTest().getDuration())),
                             selectedTest.getLabel()
                     ));
-
+            dashboard.populateAppointmantTable();
+            dashboard.populateCurrentAppointment();
+            dashboard.displayTodaysTests();
             dispose();
         }
     }
