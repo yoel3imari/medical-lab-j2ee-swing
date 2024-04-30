@@ -159,6 +159,11 @@ public class AppointmentDao {
             """, Appointment.class);
             List<Appointment> apt = query.getResultList();
             session.getTransaction().commit();
+            
+            if( apt == null ) {
+                return LocalDate.now();
+            }
+            
             return apt.get(0).getDay();
         } catch (Exception e) {
             JavaUtil.fireError(e);
