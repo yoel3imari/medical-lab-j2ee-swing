@@ -107,21 +107,11 @@ public class Dashboard extends javax.swing.JPanel {
 
         jLabel33.setText("CIN: ");
 
-        currCIN.setText("JT85672");
-
         jLabel35.setText("Test:");
-
-        currTest.setText("diabetes");
 
         jLabel37.setText("From: ");
 
         jLabel38.setText("To: ");
-
-        currFullName.setText("Flen Ben Flan");
-
-        currFrom.setText("14:00");
-
-        currTo.setText("14:00");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -460,14 +450,15 @@ public class Dashboard extends javax.swing.JPanel {
     }
     
 
-    // Variables declaration - do not modify                     
-    private javax.swing.JTable appointmentTable;
-    private javax.swing.JButton btnNextAppointment;
-    private javax.swing.JLabel currCIN;
-    private javax.swing.JLabel currFrom;
-    private javax.swing.JLabel currFullName;
-    private javax.swing.JLabel currTest;
-    private javax.swing.JLabel currTo;
+    // Variables declaration - do not modify           
+    
+    //private javax.swing.JTable appointmentTable;
+    //private javax.swing.JButton btnNextAppointment;
+//    private javax.swing.JLabel currCIN;
+//    private javax.swing.JLabel currFrom;
+//    private javax.swing.JLabel currFullName;
+//    private javax.swing.JLabel currTest;
+//    private javax.swing.JLabel currTo;
     
     public void displayTodaysTests() {
         // Fetch today's tests and counts from the database
@@ -483,7 +474,13 @@ public class Dashboard extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton6;
+    private javax.swing.JTable appointmentTable;
+    private javax.swing.JButton btnNextAppointment;
+    private javax.swing.JLabel currCIN;
+    private javax.swing.JLabel currFrom;
+    private javax.swing.JLabel currFullName;
+    private javax.swing.JLabel currTest;
+    private javax.swing.JLabel currTo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

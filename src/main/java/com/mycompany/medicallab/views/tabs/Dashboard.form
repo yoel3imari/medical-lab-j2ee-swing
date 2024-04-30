@@ -270,9 +270,6 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="currCIN">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="JT85672"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel35">
                       <Properties>
@@ -280,9 +277,6 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="currTest">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="diabetes"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel37">
                       <Properties>
@@ -295,19 +289,10 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="currFullName">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Flen Ben Flan"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="currFrom">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="14:00"/>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="currTo">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="14:00"/>
-                      </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
