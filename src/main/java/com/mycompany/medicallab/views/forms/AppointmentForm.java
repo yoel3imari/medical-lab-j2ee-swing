@@ -304,7 +304,6 @@ public class AppointmentForm extends javax.swing.JFrame {
         newApt.setHour(time);
         newApt.setPatient(p);
         newApt.setTest(selectedTest);
-        newApt.setState("pending");
 
         if (ado.saveAppoint(newApt)) {
             NotificationUtil notification = new NotificationUtil("Appointment Saved!");
