@@ -6,9 +6,11 @@ package com.mycompany.medicallab.dao;
 
 import com.mycompany.medicallab.models.Test;
 import com.mycompany.medicallab.utils.HibernateUtil;
+import com.mycompany.medicallab.utils.JavaUtil;
 import java.util.Collections;
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
 /**
@@ -139,6 +141,30 @@ public class TestDao {
             return tests;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
+        }
+    }
+    
+    
+    public List<Object[]> getTodaysTestsAndCounts() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.beginTransaction();
+
+            String sqlQuery = "SELECT t.label AS test_label, COUNT(*) AS test_count " +
+                          "FROM tests t " +
+                          "JOIN appointments a ON t.id = a.test_id " +
+                          "WHERE DATE(a.day) = CURDATE() " +
+                          "AND a.state = 'pending' " + // added this one recently so test table wont show ended appoitments
+                          "GROUP BY t.label";
+
+            NativeQuery<Object[]> query = session.createNativeQuery(sqlQuery);
+            List<Object[]> results = query.getResultList();
+
+            session.getTransaction().commit();
+
+            return results;
+        } catch (Exception e) {
+            JavaUtil.fireError(e);
             return null;
         }
     }

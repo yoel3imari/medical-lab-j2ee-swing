@@ -122,12 +122,12 @@ public class PatientDao {
     }
 
     public List<Patient> getAllPatients() {
-        String hql = "FROM Patient";
+        String sql = "SELECT * FROM patients order by created_at";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
 
-            Query<Patient> query = session.createQuery(hql, Patient.class);
+            Query query = session.createNativeQuery(sql, Patient.class);
             List<Patient> patients = query.list();
 
             session.getTransaction().commit();

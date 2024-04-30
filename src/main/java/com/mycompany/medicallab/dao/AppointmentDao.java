@@ -1,6 +1,7 @@
 package com.mycompany.medicallab.dao;
 
 import com.mycompany.medicallab.models.Appointment;
+import com.mycompany.medicallab.utils.AptState;
 import com.mycompany.medicallab.utils.HibernateUtil;
 import com.mycompany.medicallab.utils.JavaUtil;
 import com.mycompany.medicallab.utils.NotificationUtil;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.query.NativeQuery;
 
 public class AppointmentDao {
 
@@ -69,7 +71,8 @@ public class AppointmentDao {
     public boolean deleteAppoint(Appointment apt) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            Query query = session.createNativeQuery("delete from appointments where id=:id", Appointment.class);
+            Query query = session.createNativeQuery("UPDATE appointments SET state = :state WHERE id = :id", Appointment.class);
+            query.setParameter("state", AptState.CANCELED);
             query.setParameter("id", apt.getId());
             int rowCount = query.executeUpdate();
             session.getTransaction().commit();
@@ -97,9 +100,10 @@ public class AppointmentDao {
     public Appointment getAppointByDateHour(LocalDate date, LocalTime hour) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            Query query = session.createNativeQuery("from appointments where day=:day and hour=:hour", Appointment.class);
+            Query query = session.createNativeQuery("from appointments where day=:day and hour=:hour and state=:state", Appointment.class);
             query.setParameter("day", date);
             query.setParameter("hour", hour);
+            query.setParameter("state", AptState.PENDING);
             Appointment apt = (Appointment) query.uniqueResult();
             session.getTransaction().commit();
             return apt;
@@ -112,8 +116,9 @@ public class AppointmentDao {
     public List<Appointment> getAppointByDate(LocalDate date) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            Query query = session.createNativeQuery("from appointments where day=:day", Appointment.class);
+            Query query = session.createNativeQuery("from appointments where day=:day and state = :state", Appointment.class);
             query.setParameter("day", date);
+            query.setParameter("state", AptState.PENDING);
             List<Appointment> apt = query.getResultList();
             session.getTransaction().commit();
             return apt;
@@ -127,8 +132,9 @@ public class AppointmentDao {
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            Query<Appointment> query = session.createNativeQuery("select * from appointments where day between :from and :to order by day, hour", Appointment.class);
+            Query<Appointment> query = session.createNativeQuery("select * from appointments where day between state=:state :from and :to order by day, hour", Appointment.class);
             query.setParameter("from", from);
+            query.setParameter("state", AptState.PENDING);
             query.setParameter("to", to);
             List<Appointment> apt = query.getResultList();
             session.getTransaction().commit();
@@ -153,10 +159,12 @@ public class AppointmentDao {
                     WHERE day = (
                         SELECT MAX(day)
                         FROM appointments
+                        WHERE state=:state
                     )
                     GROUP BY day
                 );
             """, Appointment.class);
+            query.setParameter("state", AptState.PENDING);
             List<Appointment> apt = query.getResultList();
             session.getTransaction().commit();
             
@@ -165,6 +173,33 @@ public class AppointmentDao {
             }
             
             return apt.get(0).getDay();
+        } catch (Exception e) {
+            JavaUtil.fireError(e);
+            return null;
+        }
+    }
+    public List<Object[]> getTodaysAppointments() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            NativeQuery<Object[]> query = session.createNativeQuery(
+                    """
+                SELECT 
+                    a.id,
+                    CONCAT(p.fName, ' ', p.lName) AS full_name,
+                    p.cin,
+                    a.hour AS from_hour,
+                    ADDTIME(a.hour, SEC_TO_TIME(t.duration * 60)) AS to_hour,
+                    t.label
+                FROM appointments a
+                JOIN patients p ON a.patient_id = p.id
+                JOIN tests t ON a.test_id = t.id
+                WHERE a.day = CURRENT_DATE() AND a.state = :state
+                ORDER BY a.hour;
+            """);
+            query.setParameter("state", AptState.PENDING);
+            List<Object[]> results = query.list();
+            session.getTransaction().commit();
+            return results;
         } catch (Exception e) {
             JavaUtil.fireError(e);
             return null;
