@@ -153,22 +153,17 @@ public class AppointmentDao {
                     """
                 SELECT *
                 FROM appointments
-                WHERE (day, hour) = (
-                    SELECT day, MAX(hour)
+                WHERE day = (
+                    SELECT MAX(day)
                     FROM appointments
-                    WHERE day = (
-                        SELECT MAX(day)
-                        FROM appointments
-                        WHERE state=:state
-                    )
-                    GROUP BY day
+                    WHERE state=:state
                 );
             """, Appointment.class);
             query.setParameter("state", AptState.PENDING);
             List<Appointment> apt = query.getResultList();
             session.getTransaction().commit();
             
-            if( apt == null ) {
+            if( apt == null || apt.isEmpty() ) {
                 return LocalDate.now();
             }
             
