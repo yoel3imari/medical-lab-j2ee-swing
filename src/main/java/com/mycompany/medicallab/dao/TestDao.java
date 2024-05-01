@@ -128,7 +128,7 @@ public class TestDao {
     }
 
     public List<Test> searchTests(String keyword) {
-        String sql = "FROM Test t WHERE t.label LIKE :keyword OR t.description LIKE :keyword OR CAST(t.price AS string) LIKE :keyword";
+        String sql = "FROM Test t WHERE CAST(t.id AS string) LIKE :keyword OR t.description LIKE :keyword OR CAST(t.price AS string) LIKE :keyword";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             beginTransaction(session);
