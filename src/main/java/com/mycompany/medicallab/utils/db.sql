@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS appointments (
 );
 
 
-INSERT INTO admins (username, password) VALUES ('admin', 'admin@lab');
+INSERT INTO admins (username, password) VALUES ('admin', '123');
 
 INSERT INTO `tests` (`id`, `label`, `price`, `duration`, `days_to_get_result`, `description`, `created_at`, `updated_at`) VALUES
 (1, 'Blood Test', 888.00, 60, 3, 'A standard blood test to check various parameters. ', '2024-04-24 23:21:50', '2024-04-27 20:57:29'),
