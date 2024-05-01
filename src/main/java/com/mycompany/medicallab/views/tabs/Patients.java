@@ -171,9 +171,6 @@ public class Patients extends javax.swing.JPanel {
             String email = (String) jTable1.getValueAt(selectedRowIndex, 4);
             String phone = (String) jTable1.getValueAt(selectedRowIndex, 5);
             String gender = (String) jTable1.getValueAt(selectedRowIndex, 6);
-            //Patient.Gender gender = (Patient.Gender) jTable1.getValueAt(selectedRowIndex, 6); // Retrieve gender as enum
-            // Convert gender enum to string
-            //String genderString = gender.toString();        
 
             Date birthDate = (Date) jTable1.getValueAt(selectedRowIndex, 7);
 

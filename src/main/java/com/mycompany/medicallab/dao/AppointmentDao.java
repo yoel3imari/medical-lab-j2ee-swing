@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.query.NativeQuery;
 
 public class AppointmentDao {
 
@@ -165,5 +166,30 @@ public class AppointmentDao {
             return null;
         }
     }
-
+    public List<Object[]> getTodaysAppointments() {
+    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        session.beginTransaction();
+        NativeQuery<Object[]> query = session.createNativeQuery(
+                """
+            SELECT 
+                a.id,
+                CONCAT(p.fName, ' ', p.lName) AS full_name,
+                p.cin,
+                a.hour AS from_hour,
+                TIME_FORMAT(SEC_TO_TIME(TIME_TO_SEC(a.hour) + t.duration * 60), '%H:%i:%s') AS to_hour,
+                t.label
+            FROM appointments a
+            JOIN patients p ON a.patient_id = p.id
+            JOIN tests t ON a.test_id = t.id
+            WHERE a.day = CURRENT_DATE() AND a.state = 'pending'
+            ORDER BY a.hour;
+        """);
+        List<Object[]> results = query.list();
+        session.getTransaction().commit();
+        return results;
+    } catch (Exception e) {
+        JavaUtil.fireError(e);
+        return null;
+    }
+}
 }
