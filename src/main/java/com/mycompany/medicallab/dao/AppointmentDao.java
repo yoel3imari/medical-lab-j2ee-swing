@@ -116,7 +116,7 @@ public class AppointmentDao {
     public List<Appointment> getAppointByDate(LocalDate date) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            Query query = session.createNativeQuery("from appointments where day=:day and state = :state", Appointment.class);
+            Query query = session.createNativeQuery("select * from appointments where day=:day and state = :state", Appointment.class);
             query.setParameter("day", date);
             query.setParameter("state", AptState.PENDING);
             List<Appointment> apt = query.getResultList();
@@ -132,7 +132,7 @@ public class AppointmentDao {
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            Query<Appointment> query = session.createNativeQuery("select * from appointments where state=:state and day between :from and :to order by day, hour", Appointment.class);
+            Query<Appointment> query = session.createNativeQuery("select * from appointments where state = :state and day between :from and :to order by day, hour", Appointment.class);
             query.setParameter("from", from);
             query.setParameter("state", AptState.PENDING);
             query.setParameter("to", to);
@@ -178,20 +178,22 @@ public class AppointmentDao {
             return null;
         }
     }
+    
     public List<Appointment> getTodaysAppointments() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            Query<Appointment> query = session.createNativeQuery(
-                    """
+            Query query = session.createNativeQuery("""
                 SELECT *
-                FROM appointments a
-                WHERE a.day = CURRENT_DATE() AND a.state = :state
-                ORDER BY a.hour;
+                FROM appointments
+                WHERE `day` = CURDATE()
+                  AND `state` = :state
+                  AND (HOUR(`hour`) > HOUR(CURTIME()) OR (HOUR(`hour`) = HOUR(CURTIME()) AND MINUTE(`hour`) >= MINUTE(CURTIME())))
+                ORDER BY HOUR(`hour`), MINUTE(`hour`);
             """, Appointment.class);
             query.setParameter("state", AptState.PENDING);
-            List<Appointment> results = query.list();
+            List<Appointment> apt = query.getResultList();
             session.getTransaction().commit();
-            return results;
+            return apt;
         } catch (Exception e) {
             JavaUtil.fireError(e);
             return null;

@@ -18,10 +18,9 @@ import java.awt.BorderLayout;
 public class LayoutFrame extends javax.swing.JFrame {
 
     JPanel dashboard = new Dashboard();
-    JPanel appoint = new Appoint((Dashboard) dashboard);
+    JPanel appoint = new Appoint();
     JPanel patients = new Patients();
     JPanel tests = new Tests();
-    
 
     /**
      * Creates new form LayoutFrame
@@ -33,9 +32,9 @@ public class LayoutFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // init navigation
-        String[] tabs = {"dashboard", "appointements", "patients", "tests"};
+        String[] tabs = {"dashboard", "appointments", "patients", "tests"};
         JPanel[] cmp = {dashboard, appoint, patients, tests};
-        JPanel[] navCmp = {dashboardNavItem, appointementsNavItem, patientsNavItem, testsNavItem};
+        JPanel[] navCmp = {dashboardNavItem, appointmentsNavItem, patientsNavItem, testsNavItem};
 
         for (int i = 0; i < tabs.length; i++) {
             cmp[i].setVisible(false);
@@ -45,6 +44,12 @@ public class LayoutFrame extends javax.swing.JFrame {
 
         NavManager.setActive(tabs[0]);
         tabContainer.add(cmp[0], BorderLayout.CENTER);
+        
+        // link appointments panel to dashboard panel
+        Dashboard dtmp = (Dashboard) NavManager.getTab("dashboard");
+        Appoint atmp = (Appoint) NavManager.getTab("appointments");
+        dtmp.setAptPanel((Appoint) appoint);
+        atmp.setDashboard((Dashboard) dashboard);
     }
 
     /**
@@ -63,8 +68,8 @@ public class LayoutFrame extends javax.swing.JFrame {
         sidebarMenu = new javax.swing.JPanel();
         dashboardNavItem = new javax.swing.JPanel();
         dashboardLabel = new javax.swing.JLabel();
-        appointementsNavItem = new javax.swing.JPanel();
-        appointementsLabel = new javax.swing.JLabel();
+        appointmentsNavItem = new javax.swing.JPanel();
+        appointmentsLabel = new javax.swing.JLabel();
         patientsNavItem = new javax.swing.JPanel();
         patientsLabel = new javax.swing.JLabel();
         testsNavItem = new javax.swing.JPanel();
@@ -150,39 +155,39 @@ public class LayoutFrame extends javax.swing.JFrame {
 
         sidebarMenu.add(dashboardNavItem);
 
-        appointementsNavItem.setBackground(new java.awt.Color(204, 255, 204));
-        appointementsNavItem.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 10));
-        appointementsNavItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        appointementsNavItem.setMaximumSize(new java.awt.Dimension(129, 70));
-        appointementsNavItem.addFocusListener(new java.awt.event.FocusAdapter() {
+        appointmentsNavItem.setBackground(new java.awt.Color(204, 255, 204));
+        appointmentsNavItem.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        appointmentsNavItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        appointmentsNavItem.setMaximumSize(new java.awt.Dimension(129, 70));
+        appointmentsNavItem.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 sidebarItemHover(evt);
             }
         });
-        appointementsNavItem.addMouseListener(new java.awt.event.MouseAdapter() {
+        appointmentsNavItem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                appointementsNavItemMouseClicked(evt);
+                appointmentsNavItemMouseClicked(evt);
             }
         });
-        appointementsNavItem.setLayout(new javax.swing.BoxLayout(appointementsNavItem, javax.swing.BoxLayout.LINE_AXIS));
+        appointmentsNavItem.setLayout(new javax.swing.BoxLayout(appointmentsNavItem, javax.swing.BoxLayout.LINE_AXIS));
 
-        appointementsLabel.setBackground(new java.awt.Color(254, 253, 237));
-        appointementsLabel.setFont(new java.awt.Font("Liberation Sans", 1, 20)); // NOI18N
-        appointementsLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/appointement.png"))); // NOI18N
-        appointementsLabel.setText("Appointments");
-        appointementsLabel.setToolTipText("");
-        appointementsLabel.setIconTextGap(10);
-        appointementsLabel.setMaximumSize(new java.awt.Dimension(200, 70));
-        appointementsLabel.setMinimumSize(new java.awt.Dimension(200, 70));
-        appointementsLabel.setPreferredSize(new java.awt.Dimension(129, 70));
-        appointementsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+        appointmentsLabel.setBackground(new java.awt.Color(254, 253, 237));
+        appointmentsLabel.setFont(new java.awt.Font("Liberation Sans", 1, 20)); // NOI18N
+        appointmentsLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/appointement.png"))); // NOI18N
+        appointmentsLabel.setText("Appointments");
+        appointmentsLabel.setToolTipText("");
+        appointmentsLabel.setIconTextGap(10);
+        appointmentsLabel.setMaximumSize(new java.awt.Dimension(200, 70));
+        appointmentsLabel.setMinimumSize(new java.awt.Dimension(200, 70));
+        appointmentsLabel.setPreferredSize(new java.awt.Dimension(129, 70));
+        appointmentsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                appointementsLabelMouseClicked(evt);
+                appointmentsLabelMouseClicked(evt);
             }
         });
-        appointementsNavItem.add(appointementsLabel);
+        appointmentsNavItem.add(appointmentsLabel);
 
-        sidebarMenu.add(appointementsNavItem);
+        sidebarMenu.add(appointmentsNavItem);
 
         patientsNavItem.setBackground(new java.awt.Color(204, 255, 204));
         patientsNavItem.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 10));
@@ -330,9 +335,9 @@ public class LayoutFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_dashboardNavItemMouseClicked
 
-    private void appointementsNavItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_appointementsNavItemMouseClicked
+    private void appointmentsNavItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_appointmentsNavItemMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_appointementsNavItemMouseClicked
+    }//GEN-LAST:event_appointmentsNavItemMouseClicked
 
     private void patientsNavItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_patientsNavItemMouseClicked
         // TODO add your handling code here:
@@ -350,13 +355,13 @@ public class LayoutFrame extends javax.swing.JFrame {
         tabContainer.add(dashboard, BorderLayout.CENTER);
     }//GEN-LAST:event_dashboardLabelMouseClicked
 
-    private void appointementsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_appointementsLabelMouseClicked
+    private void appointmentsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_appointmentsLabelMouseClicked
         // TODO add your handling code here:
-        NavManager.setActive("appointements");
+        NavManager.setActive("appointments");
         tabTitle.setText("Appointments");
         tabContainer.removeAll();
         tabContainer.add(appoint, BorderLayout.CENTER);
-    }//GEN-LAST:event_appointementsLabelMouseClicked
+    }//GEN-LAST:event_appointmentsLabelMouseClicked
 
     private void dashboardNavItemAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dashboardNavItemAncestorRemoved
         // TODO add your handling code here:
@@ -422,8 +427,8 @@ public class LayoutFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel appointementsLabel;
-    private javax.swing.JPanel appointementsNavItem;
+    private javax.swing.JLabel appointmentsLabel;
+    private javax.swing.JPanel appointmentsNavItem;
     private javax.swing.JLabel dashboardLabel;
     private javax.swing.JPanel dashboardNavItem;
     private javax.swing.JLabel jLabel3;

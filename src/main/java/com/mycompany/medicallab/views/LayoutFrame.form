@@ -228,7 +228,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="appointementsNavItem">
+            <Container class="javax.swing.JPanel" name="appointmentsNavItem">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cc" green="ff" red="cc" type="rgb"/>
@@ -247,12 +247,12 @@
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="sidebarItemHover"/>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="appointementsNavItemMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="appointmentsNavItemMouseClicked"/>
               </Events>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="appointementsLabel">
+                <Component class="javax.swing.JLabel" name="appointmentsLabel">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ed" green="fd" red="fe" type="rgb"/>
@@ -277,7 +277,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="appointementsLabelMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="appointmentsLabelMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>

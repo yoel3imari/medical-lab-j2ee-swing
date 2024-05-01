@@ -18,6 +18,7 @@ import org.hibernate.query.Query;
 import com.mycompany.medicallab.dao.TestDao;
 import com.mycompany.medicallab.models.Appointment;
 import com.mycompany.medicallab.utils.NavManager;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +28,8 @@ import javax.swing.table.DefaultTableModel;
  * @author yusef
  */
 public class Dashboard extends javax.swing.JPanel {
+
+    private Appoint aptPanel;
 
     List<Appointment> appointments = new ArrayList<>();
     Appointment currentApt = null;
@@ -124,7 +127,7 @@ public class Dashboard extends javax.swing.JPanel {
 
         jLabel31.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(0, 51, 153));
-        jLabel31.setText("Current Appointement");
+        jLabel31.setText("Next Appointment");
 
         jLabel32.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jLabel32.setText("Fullname:");
@@ -366,31 +369,19 @@ public class Dashboard extends javax.swing.JPanel {
     private void btnNextAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextAppointmentActionPerformed
         // TODO add your handling code here:
 
-        if (currentApt == null) {
-            return;
-        }
+        currFullName.setText("___________");
+        currCIN.setText("___________");
+        currTest.setText("______________________");
+        currFrom.setText("__:__");
+        currTo.setText("__:__");
 
         dashboardDao.endAppointmentById(currentApt.getId());
-
+        currentApt = null;
         // you can populateAppointmant Table  only if appointments list is not empty 
         populateAppointmantTable();
+        displayTodaysTests();
 
-        // you can populateCurrentAppointment table only if appointments list is not empty 
-        // but if it is empty then current Appointment should be also empty
-        if (!appointments.isEmpty()) {
-            populateCurrentAppointment();
-            displayTodaysTests();
-        } else {
-            currFullName.setText("");
-            currCIN.setText("");
-            currTest.setText("");
-            currFrom.setText("");
-            currTo.setText("");
-        }
-
-        Appoint aptPanel = (Appoint) NavManager.getTab("appointements");
         aptPanel.populateWeekCalendar();
-        
     }//GEN-LAST:event_btnNextAppointmentActionPerformed
 
     public void populateAppointmantTable() {
@@ -400,12 +391,11 @@ public class Dashboard extends javax.swing.JPanel {
 
         if (!appointments.isEmpty()) {
             currentApt = appointments.get(0);
+            populateCurrentAppointment();
             appointments.remove(0);
 
-            JavaUtil.DumpPeek(currentApt);
-
-            if (appointments.isEmpty()) {
-                return;
+            for (int i = appointmentTableModel.getRowCount() - 1; i >= 0; i--) {
+                appointmentTableModel.removeRow(i);
             }
 
             // Populate data rows but excluding first appoitment so it can show in current appointment jPanel
@@ -419,6 +409,12 @@ public class Dashboard extends javax.swing.JPanel {
             }
             // Notify JTable to refresh its view
             appointmentTableModel.fireTableDataChanged(); // or fireTableStructureChanged() if the structure of the table has changed
+        } else {
+            currFullName.setText("___________");
+            currCIN.setText("___________");
+            currTest.setText("______________________");
+            currFrom.setText("__:__");
+            currTo.setText("__:__");
         }
     }
 
@@ -491,6 +487,14 @@ public class Dashboard extends javax.swing.JPanel {
         for (Object[] row : data) {
             model.addRow(row);
         }
+    }
+
+    public Appoint getAptPanel() {
+        return aptPanel;
+    }
+
+    public void setAptPanel(Appoint aptPanel) {
+        this.aptPanel = aptPanel;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

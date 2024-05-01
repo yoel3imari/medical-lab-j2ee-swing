@@ -10,6 +10,7 @@ import com.mycompany.medicallab.dao.AppointmentDao;
 import com.mycompany.medicallab.models.Appointment;
 import com.mycompany.medicallab.models.Test;
 import com.mycompany.medicallab.utils.JavaUtil;
+import com.mycompany.medicallab.utils.NavManager;
 import com.mycompany.medicallab.utils.NotificationUtil;
 import com.mycompany.medicallab.views.forms.AppointmentForm;
 
@@ -46,18 +47,16 @@ public class Appoint extends javax.swing.JPanel {
         mainAppointements.setSize(1080, 610);
 
         weekApt = new ArrayList<>();
-        populateWeekCalendar();
-        
         createCalendar();
-    }
-
-    public Appoint(Dashboard dashboard) {
-        this();
-        this.dashboard = dashboard;
+        populateWeekCalendar();
     }
 
     public void populateWeekCalendar() {
-        weekApt = ado.getAppointBetween(LocalDate.now(), JavaUtil.getNextSaturday(LocalDate.now()));
+        weekApt = ado.getAppointBetween(
+                LocalDate.now(), 
+                JavaUtil.getNextSaturday(LocalDate.now())
+        );
+        displayEvents();
     }
 
     private void createCalendar() {
@@ -115,7 +114,7 @@ public class Appoint extends javax.swing.JPanel {
 
     }
 
-    private void displayEvents() {
+    public void displayEvents() {
         weekApt.forEach(evt -> {
             cal.addEvent(new CalendarEvent(
                     evt,
@@ -128,6 +127,14 @@ public class Appoint extends javax.swing.JPanel {
 
     }
 
+    public Dashboard getDashboard() {
+        return dashboard;
+    }
+
+    public void setDashboard(Dashboard dashboard) {
+        this.dashboard = dashboard;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
