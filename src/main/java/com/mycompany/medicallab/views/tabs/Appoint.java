@@ -53,7 +53,7 @@ public class Appoint extends javax.swing.JPanel {
 
     public void populateWeekCalendar() {
         weekApt = ado.getAppointBetween(
-                LocalDate.now(), 
+                LocalDate.now(),
                 JavaUtil.getNextSaturday(LocalDate.now())
         );
         displayEvents();
@@ -84,7 +84,11 @@ public class Appoint extends javax.swing.JPanel {
         });
         JButton lastApt = new JButton("Last");
         lastApt.addActionListener(e -> {
-            cal.goToLast(ado.getLastAppointDate());
+            LocalDate lastAptDate = ado.getLastAppointDate();
+            if (lastAptDate == null) {
+                return;
+            }
+            cal.goToLast(lastAptDate);
             weekApt = ado.getAppointBetween(cal.getWeek().getDay(DayOfWeek.MONDAY), cal.getWeek().getDay(DayOfWeek.SATURDAY));
             displayEvents();
         });
@@ -115,6 +119,9 @@ public class Appoint extends javax.swing.JPanel {
     }
 
     public void displayEvents() {
+        if (weekApt.isEmpty()) {
+            return;
+        }
         weekApt.forEach(evt -> {
             cal.addEvent(new CalendarEvent(
                     evt,
@@ -134,7 +141,7 @@ public class Appoint extends javax.swing.JPanel {
     public void setDashboard(Dashboard dashboard) {
         this.dashboard = dashboard;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
