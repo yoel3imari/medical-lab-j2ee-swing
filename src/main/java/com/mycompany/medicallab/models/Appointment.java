@@ -29,14 +29,6 @@ public class Appointment {
     @ManyToOne
     private Test test;
 
-    public void setTest(Test test) {
-        this.test = test;
-    }
-
-    public Test getTest() {
-        return test;
-    }
-
     @Column(name = "day", nullable = false)
     @Temporal(TemporalType.DATE)
     private LocalDate day;
@@ -110,6 +102,14 @@ public class Appointment {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+    
+    public void setTest(Test test) {
+        this.test = test;
+    }
+
+    public Test getTest() {
+        return test;
     }
 
     @Override

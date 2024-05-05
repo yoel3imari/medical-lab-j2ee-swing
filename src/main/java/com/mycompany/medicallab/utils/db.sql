@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS appointments (
 );
 
 
-INSERT INTO admins (username, password) VALUES ('admin', '123');
+INSERT INTO admins (username, password) VALUES ('admin', 'lab@admin');
 
 INSERT INTO `tests` (`id`, `label`, `price`, `duration`, `days_to_get_result`, `description`, `created_at`, `updated_at`) VALUES
 (1, 'Blood Test', 888.00, 60, 3, 'A standard blood test to check various parameters. ', '2024-04-24 23:21:50', '2024-04-27 20:57:29'),
@@ -70,23 +70,6 @@ INSERT INTO `tests` (`id`, `label`, `price`, `duration`, `days_to_get_result`, `
 (19, 'Food Allergy Panel', 400.00, 50, 8, ' Blood test to identify allergies to specific foods by measuring IgE antibodies against common food allergens.', '2024-04-27 21:15:57', '2024-04-27 21:15:57'),
 (20, 'Environmental Allergy Panel', 500.00, 60, 2, 'Blood test to identify allergies to environmental allergens such as pollen, dust mites, and pet dander', '2024-04-27 21:16:39', '2024-04-27 22:04:03'),
 (21, 'blood test', 500.00, 20, 1, 'blood test', '2024-04-28 02:41:29', '2024-04-28 16:18:20');
-
-INSERT INTO patients (fName, lName, cin, email, phone, gender, birthdate)
-VALUES 
-    ('Ahmed', 'Benbrahim', 'AB123456', 'ahmed@example.com', '0612345678', 'Male', '1990-05-15'),
-    ('Fatima', 'El Kadi', 'FK987654', 'fatima@example.com', '0612345679', 'Female', '1985-10-20'),
-    ('Youssef', 'Hassani', 'YH456789', NULL, '0612345680', 'Male', '1982-07-08'),
-    ('Amina', 'Ouahbi', 'AO789012', 'amina@example.com', '0612345681', 'Female', '1995-02-28');
-
-
-INSERT INTO `appointments` (`id`, `patient_id`, `test_id`, `day`, `hour`, `state`, `created_at`, `updated_at`) VALUES
-(1, 1, 17, '2024-07-24', '11:30:00', 'pending', '2024-04-29 17:00:07', '2024-04-29 17:00:07'),
-(2, 1, 21, '2024-06-26', '08:30:00', 'pending', '2024-04-29 17:02:15', '2024-04-29 17:02:15'),
-(3, 1, 21, '2024-07-24', '09:00:00', 'pending', '2024-04-29 17:06:49', '2024-04-29 17:06:49'),
-(4, 1, 21, '2024-08-22', '09:30:00', 'pending', '2024-04-29 17:09:35', '2024-04-29 17:09:35'),
-(5, 1, 21, '2024-08-21', '10:00:00', 'pending', '2024-04-29 17:20:05', '2024-04-29 17:20:05'),
-(6, 1, 14, '2024-04-30', '09:00:00', 'pending', '2024-04-29 17:26:24', '2024-04-29 17:26:24'),
-(7, 1, 14, '2024-04-30', '10:30:00', 'pending', '2024-04-29 17:26:36', '2024-04-29 17:26:36');
 
 INSERT INTO `patients` (`id`, `fName`, `lName`, `cin`, `email`, `phone`, `gender`, `birthdate`, `created_at`, `updated_at`) VALUES
 (1, 'Ahmed', 'Hassan', 'AB123456', 'ahmed.hassan@gmail.com', '+212601234', 'Male', '1985-07-15', '2024-04-29 07:00:00', '2024-04-29 07:00:00'),
