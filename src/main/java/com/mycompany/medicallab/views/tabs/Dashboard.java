@@ -276,7 +276,7 @@ public class Dashboard extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jTable2);
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jLabel1.setText("Next Appointments");
+        jLabel1.setText("Today's Appointment");
 
         jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jLabel2.setText("Today's Tests");
