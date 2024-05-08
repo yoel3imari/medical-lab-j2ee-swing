@@ -5,7 +5,9 @@
 package com.mycompany.medicallab.views;
 
 import com.mycompany.medicallab.dao.AdminDao;
+import com.mycompany.medicallab.utils.HibernateUtil;
 import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,7 +22,7 @@ public class LoginFrame extends javax.swing.JFrame {
     public LoginFrame() {
         initComponents();
         this.setVisible(true);
-        //setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("images/logo.png")));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     /**

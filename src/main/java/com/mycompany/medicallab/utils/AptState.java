@@ -5,7 +5,7 @@
 package com.mycompany.medicallab.utils;
 
 /**
- *
+ *  Organize Appointments State to avoid confusion and typing errors
  * @author yusef
  */
 public class AptState {

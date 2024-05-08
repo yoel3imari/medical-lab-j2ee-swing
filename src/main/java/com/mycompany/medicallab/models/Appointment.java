@@ -47,6 +47,11 @@ public class Appointment {
     @Column(name = "updated_at", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp updatedAt;
+    
+    /**
+     * Getters & Setter
+     * 
+     */
 
     public Long getId() {
         return id;
@@ -111,7 +116,13 @@ public class Appointment {
     public Test getTest() {
         return test;
     }
-
+    
+    
+    /**
+     * toString
+     * Display appointments details
+     * @return 
+     */
     @Override
     public String toString() {
         return "Appointment{" + "id=" + id + ", patient=" + patient + ", test=" + test + ", day=" + day + ", hour=" + hour + ", state=" + state + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';

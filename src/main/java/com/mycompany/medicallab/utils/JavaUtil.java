@@ -41,24 +41,37 @@ public class JavaUtil {
 
     }
 
+    /**
+     * round time to 00 or 30 minutes
+     * @param datetime time to be rounded
+     * @return 
+     */
     public static LocalDateTime regulateDateTime(LocalDateTime datetime) {
-        // get minutes
-        // divide by 30
-        // add till rest is 
+        
         int minutes = datetime.getMinute();
         System.out.println("minutes => " + minutes);
         if (minutes == 0) {
             return datetime;
         }
         return datetime.minusMinutes(minutes % 30);
-
     }
 
+    /**
+     * if test duration is less or more than 30mins
+     * @param minutes if < 30 => 30 ; if > 30 => 00
+     * @return 
+     */
     public static int regulateDuration(int minutes) {
         //int rest = minutes % 30;
         return minutes + (30 - (minutes % 30));
     }
 
+    /**
+     * return the exact date of the next saturday
+     * useful to get appointments between monday and saturday
+     * @param today
+     * @return 
+     */
     public static LocalDate getNextSaturday(LocalDate today) {
         LocalDate nextSaturday = today;
         while (nextSaturday.getDayOfWeek() != DayOfWeek.SATURDAY) {
@@ -68,6 +81,10 @@ public class JavaUtil {
         return nextSaturday;
     }
 
+    /**
+     * debug code
+     * @param obj 
+     */
     public static void DumpPeek(Object obj) {
 
         if (obj instanceof List) {

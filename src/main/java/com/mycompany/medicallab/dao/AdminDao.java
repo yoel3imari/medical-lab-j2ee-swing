@@ -8,8 +8,12 @@ import org.hibernate.query.Query;
 
 public class AdminDao {
 
+    /**
+     * Validate user password
+     * @param enteredPassword
+     * @return 
+     */
     public boolean validateAdminPassword(String enteredPassword) {
-        System.out.println("password: " + enteredPassword);
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             

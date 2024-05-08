@@ -7,6 +7,10 @@ public class HibernateUtil {
 
     private static final SessionFactory sessionFactory = buildSessionFactory();
 
+    /**
+     * Create a new session
+     * @return 
+     */
     private static SessionFactory buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
@@ -17,7 +21,12 @@ public class HibernateUtil {
             return null;
         }
     }
-
+    
+    
+    /**
+     *  return the current Session
+     * @return 
+     */
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
