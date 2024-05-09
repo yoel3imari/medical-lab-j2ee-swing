@@ -21,6 +21,11 @@ import org.hibernate.query.NativeQuery;
 
 public class AppointmentDao {
 
+    /**
+     *  Save a new appointment to databse
+     * @param appoint
+     * @return 
+     */
     public boolean saveAppoint(Appointment appoint) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
@@ -45,6 +50,11 @@ public class AppointmentDao {
         }
     }
 
+    /**
+     * update existing appointment
+     * @param appoint
+     * @return 
+     */
     public boolean updateAppoint(Appointment appoint) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
@@ -68,6 +78,11 @@ public class AppointmentDao {
         }
     }
 
+    /**
+     * mark an appointment as AptState.CANCELED
+     * @param apt
+     * @return 
+     */
     public boolean deleteAppoint(Appointment apt) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
@@ -83,6 +98,11 @@ public class AppointmentDao {
         }
     }
 
+    /**
+     * retrieve appointment by ID
+     * @param id
+     * @return 
+     */
     public Appointment getAppointById(int id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
@@ -97,6 +117,12 @@ public class AppointmentDao {
         }
     }
 
+    /**
+     * retrieve an appointementby Date and Hour
+     * @param date
+     * @param hour
+     * @return 
+     */
     public Appointment getAppointByDateHour(LocalDate date, LocalTime hour) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
@@ -113,6 +139,11 @@ public class AppointmentDao {
         }
     }
 
+    /**
+     * retrieve appointments of a certain day
+     * @param date
+     * @return 
+     */
     public List<Appointment> getAppointByDate(LocalDate date) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
@@ -128,6 +159,12 @@ public class AppointmentDao {
         }
     }
 
+    /**
+     * retrieve appointments between two dates
+     * @param from
+     * @param to
+     * @return 
+     */
     public List<Appointment> getAppointBetween(LocalDate from, LocalDate to) {
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -146,6 +183,10 @@ public class AppointmentDao {
         }
     }
 
+    /**
+     * get the date of the last appointment chronologically
+     * @return 
+     */
     public LocalDate getLastAppointDate() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
@@ -174,6 +215,10 @@ public class AppointmentDao {
         }
     }
     
+    /**
+     * get today's appointments
+     * @return 
+     */
     public List<Appointment> getTodaysAppointments() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
