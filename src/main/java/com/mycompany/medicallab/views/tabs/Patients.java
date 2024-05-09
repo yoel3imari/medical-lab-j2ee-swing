@@ -42,7 +42,7 @@ public class Patients extends javax.swing.JPanel {
 
         mainAppointements = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        searchBar = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         btnDeletePatient = new javax.swing.JButton();
         btnUpdatePatient = new javax.swing.JButton();
@@ -62,16 +62,16 @@ public class Patients extends javax.swing.JPanel {
         mainAppointements.setMinimumSize(new java.awt.Dimension(900, 100));
         mainAppointements.setPreferredSize(new java.awt.Dimension(900, 638));
 
-        jTextArea1.setColumns(18);
-        jTextArea1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        jTextArea1.setRows(1);
-        jTextArea1.setToolTipText("");
-        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+        searchBar.setColumns(18);
+        searchBar.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        searchBar.setRows(1);
+        searchBar.setToolTipText("");
+        searchBar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextArea1KeyReleased(evt);
+                searchBarKeyReleased(evt);
             }
         });
-        jScrollPane2.setViewportView(jTextArea1);
+        jScrollPane2.setViewportView(searchBar);
 
         jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
@@ -153,11 +153,17 @@ public class Patients extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPatientActionPerformed
+        // i open patient form to fill out patient information 
+        // i give its constructor the reference of this Patients Jpanel so i can use it inside the PatientForm to call methods of Patients Jpanel
+        // i also give its constructor the type of action it should take "add" to add new patient while "update" to just update already existing patient
         PatientForm patientForm = new PatientForm(this, "add");
         patientForm.setVisible(true);
     }//GEN-LAST:event_btnAddPatientActionPerformed
 
     private void btnUpdatePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePatientActionPerformed
+        // here the first thing i do is get the current selected patient info so it can be sent through the constructor of Patient Form 
+        // so when Patient Form is openeng it shows the current selected patient info so we can update it 
+        
         // Get the selected row index
         int selectedRowIndex = jTable1.getSelectedRow();
 
@@ -184,6 +190,7 @@ public class Patients extends javax.swing.JPanel {
             System.out.println("Gender: " + gender);
 
             // Open the PatientForm with the selected patient's details pre-filled
+            // so when we can see which patient info we want to update 
             PatientForm patientForm = new PatientForm(this, "update", id, firstName, lastName, cin, email, phone, gender, birthDate);
             patientForm.setVisible(true);
 
@@ -196,6 +203,7 @@ public class Patients extends javax.swing.JPanel {
 
     private void btnDeletePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePatientActionPerformed
         // TODO add your handling code here:
+        // we get the selected row that needs to be deleted
         int selectedRowIndex = jTable1.getSelectedRow();
 
         if (selectedRowIndex != -1) { // Ensure a row is selected
@@ -206,15 +214,15 @@ public class Patients extends javax.swing.JPanel {
             Patient patient = PatientDao.getPatientById(patientID);
 
             if (patient != null) {
-                // Delete the patient record from the database
+                // we delete the patient record from the database
                 boolean deletionSuccessful = PatientDao.deletePatient(patient);
-                //PatientDao.deletePatient(patient);
 
+                // we verify the deletion 
                 if (deletionSuccessful) {
                     // Remove the selected row from the table model
                     DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
                     tableModel.removeRow(selectedRowIndex);
-                    //JOptionPane.showMessageDialog(null, "Patient is deleted.");
+                    // we display the notification 
                     NotificationUtil notification = new NotificationUtil("Patient is deleted.");
                     notification.show();
                 } else {
@@ -232,15 +240,17 @@ public class Patients extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeletePatientActionPerformed
 
     //search bar with no button 
-    private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased
+    private void searchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyReleased
         // TODO add your handling code here:
+        // here we do the search logic using regex so we dont have to use the button and it is done automatically
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-        String search = jTextArea1.getText().toLowerCase();
+        String search = searchBar.getText().toLowerCase();
         TableRowSorter tr = new TableRowSorter(tableModel);
         jTable1.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(search));
-    }//GEN-LAST:event_jTextArea1KeyReleased
+    }//GEN-LAST:event_searchBarKeyReleased
 
+    // this is to fill/populate/update the table each time a patient is added or updated ...etc
     public void populateTableModel() {
         
         //getAllPatients()
@@ -269,9 +279,10 @@ public class Patients extends javax.swing.JPanel {
         }
 
         // Notify JTable to refresh its view
-        tableModel.fireTableDataChanged(); // or fireTableStructureChanged() if the structure of the table has changed
+        tableModel.fireTableDataChanged(); // or fireTableStructureChanged() // this is for if the structure of the table has changed
     }
 
+    // this is for testing, so i can run only this interface to test it, instead of login interface => dashboard => ...
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Patients Management");
@@ -291,7 +302,7 @@ public class Patients extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel mainAppointements;
+    private javax.swing.JTextArea searchBar;
     // End of variables declaration//GEN-END:variables
 }

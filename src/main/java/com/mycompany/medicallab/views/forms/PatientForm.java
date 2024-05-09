@@ -24,6 +24,10 @@ import javax.swing.JTextField;
  */
 public class PatientForm extends javax.swing.JFrame {
     private Patients patientsPanel;
+    private String saveActionType;
+    private int id; // to store the id of the patient 
+    
+    // this constructor is for when we want to add patient
     public PatientForm(JPanel patientsPanel, String saveActionType) {
         initComponents();
         setLocationRelativeTo(null);
@@ -32,8 +36,8 @@ public class PatientForm extends javax.swing.JFrame {
         this.patientsPanel = (Patients) patientsPanel;
         this.saveActionType = saveActionType;
     }
-    private int id;
-    private String saveActionType;
+    
+    
     
     
     /**
@@ -46,8 +50,8 @@ public class PatientForm extends javax.swing.JFrame {
         setVisible(true);
     }
   
-    
-//int id,String firstName, String lastName, String cin, String email, String phone, String genderString, Date birthDate
+    // this constructor is for when we want to update the patient 
+    // so we pass through it the information of the selected patient so these patient details can show in PatientForm interface 
     public PatientForm(Patients patientsPanel, String saveActionType ,int id, String firstName, String lastName, String cin, String email, String phone, String genderString, Date birthDate) {
         initComponents();
         this.patientsPanel = patientsPanel;
@@ -60,7 +64,7 @@ public class PatientForm extends javax.swing.JFrame {
         this.textCin.setText(cin);
         this.textEmail.setText(email);
         this.textPhone.setText(phone);
-        this.jComboBox1.setSelectedItem(genderString); // Assuming jComboBox1 contains gender options
+        this.jComboBox1.setSelectedItem(genderString);  
         this.jDateChooser1.setDate(birthDate);
 }
  
@@ -296,6 +300,9 @@ public class PatientForm extends javax.swing.JFrame {
     
     private void btnSavePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSavePatientActionPerformed
 
+        // here we use the information passed through PatientForm constructor from Patients Jpanel 
+        // so if it is "add" then we call addPatient()
+        // but if it is "update" then we call updatePatient()
         switch(saveActionType){
             case "add":
                 addPatient();
@@ -307,6 +314,7 @@ public class PatientForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSavePatientActionPerformed
     
     private void addPatient(){
+        // get all the information inputed in the Patient Form 
         String fName = textFName.getText();
         String lName = textLName.getText();
         String gender = jComboBox1.getSelectedItem().toString();
@@ -315,20 +323,23 @@ public class PatientForm extends javax.swing.JFrame {
         String phone = textPhone.getText();
         String email = textEmail.getText();
         
+        // create the patient model to save the data in it 
         Patient patient = new Patient();
         patient.setfName(fName);
         patient.setlName(lName);
-        //patient.setGender(Gender.valueOf(gender));
         patient.setGender(gender);
         patient.setBirthdate(birthdate);
         patient.setCin(cin);
         patient.setPhone(phone);
         patient.setEmail(email);
         
+        // adding the patient to database
         PatientDao patientDao = new PatientDao();
         boolean isPatientAdded = patientDao.savePatient(patient);
         
+        //verifying if patient is added to database
         if (isPatientAdded) {
+            // showing notification that user was added to database
             NotificationUtil notification = new NotificationUtil("Patient is added.");
             notification.show();
         } else {
@@ -336,7 +347,7 @@ public class PatientForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Failed to add patient.");
         }
         
-        //populate table
+        //populate table (we update the table inside Patients Jpanel so it shows new added patient)
         if (patientsPanel != null) {
             patientsPanel.populateTableModel();
             this.dispose();
@@ -344,22 +355,16 @@ public class PatientForm extends javax.swing.JFrame {
     }
     
     private void updatePatient(){
+        // get all the information inputed in the Patient Form 
         String fName = textFName.getText();
         String lName = textLName.getText();
-//        String genderString = jComboBox1.getSelectedItem().toString();
-//        Gender gender;
-//        if (genderString.equals("Male")) {
-//            gender = Gender.Male;
-//        } else {
-//            gender = Gender.Female;
-//        }
         String genderString = jComboBox1.getSelectedItem().toString();
         Date birthdate = jDateChooser1.getDate();
         String cin = textCin.getText();
         String phone = textPhone.getText();
         String email = textEmail.getText();
         
-        
+        // create the patient model to save the data in it 
         Patient patient = new Patient();
         patient.setId(id);
         patient.setfName(fName);
@@ -370,10 +375,13 @@ public class PatientForm extends javax.swing.JFrame {
         patient.setPhone(phone);
         patient.setEmail(email);
         
+        // we update patient info
         PatientDao patientDao = new PatientDao();
         boolean isPatientUpdated = patientDao.updatePatient(patient);
         
+        // we verify if patient was updated succefully
         if (isPatientUpdated) {
+            // we show notification about the update
             NotificationUtil notification = new NotificationUtil("Patient is updated.");
             notification.show();
         } else {
@@ -381,7 +389,7 @@ public class PatientForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Failed to update patient.");
         }
         
-         //populate table
+         //populate table (we update the table inside Patients Jpanel so it shows new update information of the patient)
         if (patientsPanel != null) {
             patientsPanel.populateTableModel();
             this.dispose();
@@ -392,6 +400,7 @@ public class PatientForm extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    // this is for testing, so i can run only this interface to test it, instead of login interface => dashboard => ...
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

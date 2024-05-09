@@ -12,7 +12,8 @@ import java.util.List;
 public class PatientDao {
 
     public boolean savePatient(Patient patient) {
-        // here notice that i did not enter the correct bale name which is patients but the model name Patient 
+        // here notice that i did not enter the correct table name which is patients but the model name Patient 
+        // because of hibernate
         String hql
                 = "INSERT INTO Patient (fName, lName, cin, email, phone, gender, birthdate) "
                 + "VALUES (:fName, :lName, :cin, :email, :phone, :gender, :birthdate)";
@@ -28,7 +29,6 @@ public class PatientDao {
                     .setParameter("phone", patient.getPhone())
                     .setParameter("gender", patient.getGender())
                     .setParameter("birthdate", patient.getBirthdate());
-            //.setParameter("gender", patient.getGender().name())
             query.executeUpdate();
 
             // another easy way of adding Patient without all the code above.
@@ -58,7 +58,6 @@ public class PatientDao {
                     .setParameter("gender", patient.getGender())
                     .setParameter("birthdate", patient.getBirthdate())
                     .setParameter("id", patient.getId());
-            //.setParameter("gender", patient.getGender().name())
             query.executeUpdate();
 
             session.getTransaction().commit();
@@ -80,7 +79,7 @@ public class PatientDao {
             int rowCount = query.executeUpdate();
 
             session.getTransaction().commit();
-            // Check if any rows were affected (deleted)
+            // if patient is deleted then rowCount should be >0 so this function returns true
             return rowCount > 0;
         } catch (Exception e) {
             JavaUtil.fireError(e);
@@ -120,7 +119,7 @@ public class PatientDao {
             return null;
         }
     }
-
+    
     public List<Patient> getAllPatients() {
         String sql = "SELECT * FROM patients order by created_at";
 
@@ -137,9 +136,10 @@ public class PatientDao {
             return null;
         }
     }
-
+    
     public boolean patientExists(String cin) {
         Patient p = getPatientByCIN(cin);
+        //if patient is not null so it exists then this returns true
         return p != null;
     }
 

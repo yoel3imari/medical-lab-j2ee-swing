@@ -24,6 +24,9 @@ import java.awt.Toolkit;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
 
+
+// this is a notification bar that we call to notify about successful operations 
+// it is non blocking compared to using JOption
 public class NotificationUtil {
 
     private static final int TOAST_WIDTH = 300;
@@ -120,6 +123,8 @@ public class NotificationUtil {
         }).start();
     }
 
+    // the code here was for testing 
+    // so we can run this notification on its own to test it without needing the run the whole application ....
     public static void main(String[] args) {
 //        JFrame frame = new JFrame("Modern Toast Demo");
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

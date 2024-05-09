@@ -38,6 +38,7 @@ public class Patient {
     @Temporal(TemporalType.DATE)
     private Date birthdate;
 
+    // linking appointments to patient with hibernate so one patient with many appointments 
     @OneToMany(mappedBy = "patient")
     private Set<Appointment> appointments = new HashSet<>();
 
@@ -49,12 +50,13 @@ public class Patient {
         this.appointments = appointments;
     }
 
-    // Getters and setters
+    // toString method for debugging reasons
     @Override
     public String toString() {
         return "Patient{" + "id=" + id + ", fName=" + fName + ", lName=" + lName + ", cin=" + cin + ", email=" + email + ", phone=" + phone + ", gender=" + gender + ", birthdate=" + birthdate + '}';
     }
 
+    // Getters and setters
     public int getId() {
         return id;
     }
