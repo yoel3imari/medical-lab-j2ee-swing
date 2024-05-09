@@ -17,16 +17,23 @@ import org.hibernate.query.Query;
  *
  * @author ELyazid
  */
-public class TestDao {
 
+/**
+ * Data Access Object (DAO) for Test entity.
+ * Handles database operations related to Test entity.
+ */
+public class TestDao {
+    //Private helper method to begin a transaction
     private void beginTransaction(Session session) {
         session.beginTransaction();
     }
 
+    // Private helper method to commit a transaction
     private void commitTransaction(Session session) {
         session.getTransaction().commit();
     }
 
+    // Saves a new test to the database
     public void saveTest(Test test) {
         String sql = "INSERT INTO tests (label, price,duration, days_to_get_result, description) "
                 + "VALUES (:label, :price, :duration, :daysToGetResult, :description)";
@@ -50,6 +57,7 @@ public class TestDao {
         }
     }
 
+   // Updates an existing test in the database
     public void updateTest(Test test) {
         String sql = "UPDATE tests SET label = :label, price = :price, duration = :duration, "
                 + "days_to_get_result = :daysToGetResult, description = :description "
@@ -73,7 +81,9 @@ public class TestDao {
             e.printStackTrace();
         }
     }
+    
 
+    // Deletes a test from the database
     public void deleteTest(Test test) {
         String sql = "DELETE FROM tests WHERE id = :id";
 
@@ -90,7 +100,7 @@ public class TestDao {
             e.printStackTrace();
         }
     }
-
+// Retrieves a test by its ID from the database
     public Test getTestById(int id) {
         String sql = "SELECT * FROM tests WHERE id = :id";
 
@@ -109,7 +119,8 @@ public class TestDao {
             return null;
         }
     }
-
+    
+    // Retrieves all tests from the database
     public List<Test> getAllTests() {
         String sql = "SELECT * FROM tests order by created_at DESC";
 
@@ -126,7 +137,7 @@ public class TestDao {
             return null;
         }
     }
-
+// Searches for tests based on a keyword
     public List<Test> searchTests(String keyword) {
         String sql = "FROM Test t WHERE CAST(t.id AS string) LIKE :keyword OR t.description LIKE :keyword OR CAST(t.price AS string) LIKE :keyword";
 
@@ -145,7 +156,7 @@ public class TestDao {
         }
     }
     
-    
+    // Retrieves today's tests along with their counts
     public List<Object[]> getTodaysTestsAndCounts() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
