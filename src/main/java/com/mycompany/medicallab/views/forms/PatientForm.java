@@ -48,6 +48,7 @@ public class PatientForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
+        setResizable(false);
     }
   
     // this constructor is for when we want to update the patient 

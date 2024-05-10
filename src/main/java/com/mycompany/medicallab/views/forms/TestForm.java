@@ -23,6 +23,7 @@ public class TestForm extends javax.swing.JFrame {
     public TestForm(Tests parent) {
         initComponents();
         setVisible(true);
+        setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         parentPanel = parent;

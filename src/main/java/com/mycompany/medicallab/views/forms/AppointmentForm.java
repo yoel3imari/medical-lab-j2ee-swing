@@ -60,6 +60,7 @@ public class AppointmentForm extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         //setResizable(false);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
